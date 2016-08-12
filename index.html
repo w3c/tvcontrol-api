@@ -60,12 +60,26 @@
 
 <!-- - - - - - - - - - - - - - - Abstract  - - - - - - - - - - - - - - - - - -->
   <section id="abstract">
-    The W3C TV control API is based on the technical requirements developed by
-    W3C TV Control Working Group.
+    This specification defines an API for sourcing audio and video media, such
+    as TV and radio from broadcast, IPTV, or other sources, with associated
+    channel and program metadata, and allows presentation of the media using
+    the <code>&lt;video&gt;</code> and <code>&lt;audio&gt;</code> HTML elements.
+    The API is agnostic of any underlying audio or video sourcing technologies.
   </section>
 
 <!-- - - - - - - - - - - - - - - Status of this document - - - - - - - - - - -->
   <section id="sotd">
+    <p>
+      This document is <strong>work in progress</strong> and is subject to
+      change. The API is being developed based on requirements from the TV
+      Control Working Group, and previously the TV Control Community Group.
+    </p>
+    <p>
+      An important issue for the Working Group to address is which
+      functions are appropriate to be accessed from general web applications,
+      and the mechanisms that may be needed to address any security and user
+      privacy concerns.
+    </p>
     <p>
       <strong>Changes to this document may be tracked at
       <a href="https://github.com/w3c/tvcontrol-api">https://github.com/w3c/tvcontrol-api</a>.</strong>
@@ -76,11 +90,39 @@
   <section class="informative">
     <h2>Introduction</h2>
     <p>
-      Note: To be constructed.
+      This specification defines the TV Control API, which aims to enable web
+      applications to present audio and video media from broadcast TV and radio,
+      IPTV, or other sources, using the <code>&lt;audio&gt;</code> and
+      <code>&lt;video&gt;</code> HTML elements. The API provides access to
+      programme and service information and allows media recordings to be
+      scheduled and replayed.
     </p>
     <p>
-      This specification may not only focus on video channels but also include
-      pure audio ones.
+      TV functionality is accessed through the <a>TVManager</a> object which,
+      via the <a>TVTuner</a> and <a>TVSource</a> objects, allows applications
+      to select and present a TV or radio channel. Presentation is achieved by
+      obtaining a <a>TVMediaStream</a> object from the <a>TVTuner</a> and
+      assigning this to the <code>srcObject</code> attribute of an
+      <code><a>HTMLMediaElement</a></code>. The <a>TVMediaStream</a> interface
+      extends <code><a>MediaStream</a></code> to allow buffering of the received
+      media, to enable pause/resume and timeshifted playback.
+    </p>
+    <p class="ednote">
+      The purpose and distinction between the <a>TVTuner</a> and <a>TVSource</a>
+      objects requires clarification.
+      See <a href="https://github.com/w3c/tvcontrol-api/issues/4">this issue</a>
+      for details.
+    </p>
+    <p>
+      <a>TVManager</a> also allows recordings to be scheduled and replayed,
+      and application control of the parental lock, to prevent unwanted viewing
+      of particular channels or programs.
+    </p>
+    <p>
+      <a>TVSource</a> gives access to lists of available channels and programs,
+      and allows applications to set the current channel to be presented.
+      <a>TVChannel<a> contains TV and radio channel attributes, and program
+      schedule information, as a collection of <a>TVProgram</a> objects.
     </p>
   </section>
 

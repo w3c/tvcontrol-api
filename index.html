@@ -131,7 +131,7 @@
       <h2>Terminology</h2>
       <p>
         The <dfn><a
-        href="http://dev.w3.org/html5/spec/webappapis.html#eventhandler">
+        href="http://www.w3.org/TR/html5/webappapis.html#eventhandler">
         EventHandler</a></dfn> interface represents a callback used for event
         handlers as defined in [[!HTML5]].
       </p>
@@ -144,29 +144,29 @@
 
       <p>
         The concepts <dfn><a
-        href="http://dev.w3.org/html5/spec/webappapis.html#queue-a-task"> queue
+        href="http://www.w3.org/TR/html5/webappapis.html#queue-a-task"> queue
         a task</a></dfn> and <dfn><a
-        href="http://dev.w3.org/html5/spec/webappapis.html#fire-a-simple-event">
+        href="http://www.w3.org/TR/html5/webappapis.html#fire-a-simple-event">
         fire an event</a></dfn> are defined in [[!HTML5]].
       </p>
 
       <p>
         The terms <a
-        href="http://dev.w3.org/html5/spec/webappapis.html#event-handlers"><dfn
+        href="http://www.w3.org/TR/html5/webappapis.html#event-handlers"><dfn
         id="dfn-eventhandler">event handler</dfn></a> and <a
-        href="http://dev.w3.org/html5/spec/webappapis.html#event-handler-event-type">
+        href="http://www.w3.org/TR/html5/webappapis.html#event-handler-event-type">
         <dfn id="dfn-eventtypes"> event handler event types</dfn></a> are
         defined in [[!HTML5]].
       </p>
 
       <p>
-        The <dfn><a href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-promise-objects">Promise</a></dfn>
+        The <dfn><a href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></dfn>
         interface, the concepts of a <a href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-promise-resolve-functions"><dfn>resolver</dfn></a>, a
+        "https://tc39.github.io/ecma262/#sec-promise-resolve-functions"><dfn>resolver</dfn></a>, a
         <dfn id="dfn-fulfill-algorithm"><a
-        href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-fulfillpromise"> resolver's
+        href="https://tc39.github.io/ecma262/#sec-fulfillpromise"> resolver's
         fulfill algorithm</a></dfn> and a <dfn id="dfn-reject-algorithm"><a
-        href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-rejectpromise"> resolver's
+        href="https://tc39.github.io/ecma262/#sec-rejectpromise"> resolver's
         reject algorithm</a></dfn> are defined in [[ECMAScript]].
       </p>
 
@@ -176,22 +176,22 @@
       </p>
 
       <p>
-        The <dfn><a href="http://www.w3.org/TR/mediastream-recording/#idl-def-MediaRecorder">MediaRecorder</a></dfn>
+        The <dfn><a href="http://www.w3.org/TR/mediastream-recording/#dom-mediarecorder">MediaRecorder</a></dfn>
         interface is defined in [[MediaStream-Recording]].
       </p>
 
       <p>
-        The <dfn><a href="http://www.w3.org/TR/html5/semantics.html#the-video-element">video</a></dfn>
+        The <dfn><a href="http://www.w3.org/TR/html5/embedded-content-0.html#the-video-element">video</a></dfn>
         element, and
-        <dfn><a href="http://www.w3.org/TR/html5/semantics.html#htmlmediaelement">HTMLMediaElement</a></dfn>,
-        <dfn><a href="http://www.w3.org/TR/html5/semantics.html#timeranges">TimeRanges</a></dfn>
+        <dfn><a href="http://www.w3.org/TR/html5/embedded-content-0.html#htmlmediaelement">HTMLMediaElement</a></dfn>,
+        <dfn><a href="http://www.w3.org/TR/html5/embedded-content-0.html#timeranges">TimeRanges</a></dfn>
         interfaces are defined in [[!HTML5]].
       </p>
 
       <p>
-        The <dfn><a href="http://www.w3.org/TR/html5/semantics.html#texttrack">TextTrack</a></dfn>,
-        <dfn><a href="http://www.w3.org/TR/html5/semantics.html#texttrackcue">TextTrackCue</a></dfn>,
-        and <dfn><a href="http://www.w3.org/TR/html5/semantics.html#trackevent">TrackEvent</a></dfn>
+        The <dfn><a href="http://www.w3.org/TR/html5/embedded-content-0.html#texttrack">TextTrack</a></dfn>,
+        <dfn><a href="http://www.w3.org/TR/html5/embedded-content-0.html#texttrackcue">TextTrackCue</a></dfn>,
+        and <dfn><a href="http://www.w3.org/TR/html5/embedded-content-0.html#trackevent">TrackEvent</a></dfn>
         interfaces are defined in [[!HTML5]]
       </p>
     </section>
@@ -646,7 +646,7 @@
           <tbody>
             <tr>
               <td><strong><code>ontunerchanged</code></strong></td>
-              <td><code><dfn id="dfn-change-event">tunerchanged</dfn></code></td>
+              <td><code><dfn id="dfn-tunerchanged-event">tunerchanged</dfn></code></td>
               <td><a><code>TVTunerChangedEvent</code></a></td>
               <td>
                 Handles the information of the TV tuner that is added/removed
@@ -655,7 +655,7 @@
             </tr>
             <tr>
               <td><strong><code>onrecordingchanged</code></strong></td>
-              <td><code><dfn id="dfn-change-event">recordingchanged</dfn></code></td>
+              <td><code><dfn id="dfn-recordingchanged-event">recordingchanged</dfn></code></td>
               <td><a><code>TVRecordingChangedEvent</code></a></td>
               <td>
                 Handles the information of the updates for TV recordings.
@@ -663,14 +663,14 @@
             </tr>
             <tr>
               <td><strong><code>onparentalcontrolchanged</code></strong></td>
-              <td><code><dfn id="dfn-change-event">parentalcontrolchanged</dfn></code></td>
+              <td><code><dfn id="dfn-parentalcontrolchanged-event">parentalcontrolchanged</dfn></code></td>
               <td><a><code>Event</code></a></td>
               <td>
                 Handles the information of the status changes for parental control.
               </td>
             <tr>
               <td><strong><code>oncicardchanged</code></strong></td>
-              <td><code><dfn id="dfn-change-event">cicardchanged</dfn></code></td>
+              <td><code><dfn id="dfn-cicardchanged-event">cicardchanged</dfn></code></td>
               <td><a><code>TVCICardChangedEvent</code></a></td>
               <td>
                 Handles the information of the status changes of the TV CI (Common Interface) card in the TV device.
@@ -738,7 +738,7 @@
             MUST return a <code><a>TVMediaStream</a></code> object extended from
             <code><a>MediaStream</a></code> and currently streamed by the TV tuner,
             which can be played by the <code><a>video</a></code> element by
-            <a href="http://www.w3.org/TR/mediacapture-streams/#direct-assignment-to-media-elements">assigning</a>
+            assigning
             the <code><a>TVMediaStream</a></code> (<code><a>MediaStream</a></code>)
             to the <code><a>HTMLMediaElement</a></code>'s <code>srcObject</code>
             attribute and can be recorded by the <code><a>MediaRecorder</a></code>.<br/>
@@ -863,7 +863,7 @@
           <tbody>
             <tr>
               <td><strong><code>oncurrentsourcechanged</code></strong></td>
-              <td><code><dfn id="dfn-change-event">currentsourcechanged</dfn></code></td>
+              <td><code><dfn id="dfn-currentsourcechanged-event">currentsourcechanged</dfn></code></td>
               <td><a><code>TVCurrentSourceChangedEvent</code></a></td>
               <td>
                 Handles the information of the current TV source that is
@@ -1179,7 +1179,7 @@
           <tbody>
             <tr>
               <td><strong><code>oncurrentchannelchanged</code></strong></td>
-              <td><code><dfn id="dfn-change-event">currentchannelchanged</dfn></code></td>
+              <td><code><dfn id="dfn-currentchannelchanged-event">currentchannelchanged</dfn></code></td>
               <td><a><code>TVCurrentChannelChangedEvent</code></a></td>
               <td>
                 Handles the information of the currently streamed TV channel
@@ -1190,7 +1190,7 @@
 
             <tr>
               <td><strong><code>oneitbroadcasted</code></strong></td>
-              <td><code><dfn id="dfn-change-event">eitbroadcasted</dfn></code></td>
+              <td><code><dfn id="dfn-eitbroadcasted-event">eitbroadcasted</dfn></code></td>
               <td><a><code>TVEITBroadcastedEvent</code></a></td>
               <td>
                 Handles the information of the available TV programs in the EIT
@@ -1200,7 +1200,7 @@
 
             <tr>
               <td><strong><code>onemergencyalerted</code></strong></td>
-              <td><code><dfn id="dfn-change-event">emergencyalerted</dfn></code></td>
+              <td><code><dfn id="dfn-emergencyalerted-event">emergencyalerted</dfn></code></td>
               <td><a><code>TVEmergencyAlertedEvent</code></a></td>
               <td>
                 Handles the information of the emergency alert when an emergency,
@@ -1211,7 +1211,7 @@
 
             <tr>
               <td><strong><code>onscanningstatechanged</code></strong></td>
-              <td><code><dfn id="dfn-change-event">scanningstatechanged</dfn></code></td>
+              <td><code><dfn id="dfn-scanningstatechanged-event">scanningstatechanged</dfn></code></td>
               <td><a><code>TVScanningStateChangedEvent</code></a></td>
               <td>
                 Handles the information of the state of scanning the TV
@@ -1486,7 +1486,7 @@
           <tbody>
             <tr>
               <td><strong><code>onparentallockchanged</code></strong></td>
-              <td><code><dfn id="dfn-change-event">parentallockchanged</dfn></code></td>
+              <td><code><dfn id="dfn-parentallockchanged-event">parentallockchanged</dfn></code></td>
               <td><a><code>Event</code></a></td>
               <td>
                 Handles the information of the parental control status change
@@ -1595,7 +1595,7 @@
         <code><a>TextTrackCue</a></code> to the <code><a>TextTrack</a></code>
         associated with the <code><a>HTMLMediaElement</a></code>. Besides, the
         <code><a>TextTrack</a></code> can rely on its
-        <code><a href="http://www.w3.org/TR/html51/semantics.html#handler-texttrack-oncuechange">oncuechange</a></code>
+        <code><a href="http://www.w3.org/TR/html5/embedded-content-0.html#handler-texttrack-oncuechange">oncuechange</a></code>
         event to realize a TV trigger becomes active or dismissed.
       </p>
       <dl title="interface TVTriggerCue : TextTrackCue" class="idl">
@@ -1650,7 +1650,7 @@
             <a>TVMediaStream</a> object, which is extended from
             <code><a>MediaStream</a></code> and can be played by the
             <code><a>video</a></code> element by
-            <a href="http://www.w3.org/TR/mediacapture-streams/#direct-assignment-to-media-elements">assigning</a>
+            assigning
             the <a>TVMediaStream</a> to the <code><a>HTMLMediaElement</a></code>'s
             <code>srcObject</code> attribute.
             MUST return <em>null</em> if the TV recording hasn't actually
@@ -1841,7 +1841,7 @@
         <code><a>MediaStream</a></code> with a buffering mechanism to support
         basic seekability. It can be played by the <code><a>video</a></code>
         element by
-        <a href="http://www.w3.org/TR/mediacapture-streams/#direct-assignment-to-media-elements">assigning</a>
+        assigning
         the <a>TVMediaStream</a> to the <code><a>HTMLMediaElement</a></code>'s
         <code>srcObject</code> attribute.
 
@@ -1879,7 +1879,7 @@
         <p>
           The nature of no buffering of the <code><a>MediaStream</a></code>
           places certain
-          <a href="http://www.w3.org/TR/mediacapture-streams/#media-element-attributes-when-playing-a-mediastream">restrictions</a>
+          restrictions
           on the behavior and attribute values of the associated
           <code><a>HTMLMediaElement</a></code> and on the operations that can be
           performed on it. Yet since <a>TVMediaStream</a> is with a

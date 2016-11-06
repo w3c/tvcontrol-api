@@ -98,31 +98,31 @@
       scheduled and replayed.
     </p>
     <p>
-      TV functionality is accessed through the <a>Manager</a> object which,
-      via the <a>Tuner</a> and <a>Source</a> objects allows applications
+      TV functionality is accessed through the <a>TVManager</a> object which,
+      via the <a>TVTuner</a> and <a>TVSource</a> objects allows applications
       to select and present a TV or Radio channel. Presentation is achieved by
-      obtaining a <a>TVMediaStream</a> object from the <a>Tuner</a> and
+      obtaining a <a>TVMediaStream</a> object from the <a>TVTuner</a> and
       assigning this to the <code>srcObject</code> attribute of an
       <code><a>HTMLMediaElement</a></code>. The <a>TVMediaStream</a> interface
       extends <code><a>MediaStream</a></code> to allow buffering of the received
       media, to enable pause/resume and timeshifted playback.
     </p>
     <p class="ednote">
-      The purpose and distinction between the <a>Tuner</a> and <a>Source</a>
+      The purpose and distinction between the <a>TVTuner</a> and <a>TVSource</a>
       objects requires clarification.
       See <a href="https://github.com/w3c/tvcontrol-api/issues/4">this issue</a>
       for details.
     </p>
     <p>
-      <a>Manager</a> also allows recordings to be scheduled and replayed,
+      <a>TVManager</a> also allows recordings to be scheduled and replayed,
       and application control of the parental lock, to prevent unwanted viewing
       of particular channels or programs.
     </p>
     <p>
-      <a>Source</a> gives access to lists of available channels and programs,
+      <a>TVSource</a> gives access to lists of available channels and programs,
       and allows applications to set the current channel to be presented.
-      <a>Channel</a> contains TV and Radio channel attributes, and program
-      schedule information, as a collection of <a>Program</a> objects.
+      <a>TVChannel</a> contains TV and Radio channel attributes, and program
+      schedule information, as a collection of <a>TVProgram</a> objects.
     </p>
   </section>
 
@@ -201,38 +201,38 @@
     <section>
       <h2><a>Navigator</a> Interface</h2>
       <dl title="partial interface Navigator" class="idl">
-        <dt>[SameObject] readonly attribute Manager manager</dt>
+        <dt>[SameObject] readonly attribute TVManager tv</dt>
         <dd>
           MUST return the object that exposes the interface to the TV service. 
         </dd>
       </dl>
     </section>
 
-<!-- - - - - - - - - - - - - Interface Manager  - - - - - - - - - - - - - -->
+<!-- - - - - - - - - - - - - Interface TVManager  - - - - - - - - - - - - - -->
     <section>
-      <h2><a>Manager</a> Interface</h2>
+      <h2><a>TVManager</a> Interface</h2>
       <p>
-        The <a>Manager</a> interface represents a bunch of properties and
+        The <a>TVManager</a> interface represents a bunch of properties and
         a set of operations that can be used to manage the TV/Radio device.
       </p>
 
-      <dl title="interface Manager : EventTarget" class="idl">
-        <dt>Promise&lt;sequence&lt;Tuner&gt;&gt; getTuners ()</dt>
+      <dl title="interface TVManager : EventTarget" class="idl">
+        <dt>Promise&lt;sequence&lt;TVTuner&gt;&gt; getTuners ()</dt>
           <dd>
             This method makes a request to retrieve all the TV/Radio tuners that are
             available in the device. It returns a new <code><a>Promise</a></code>
             that will be used to notify the caller about the result of the
-            operation, which is an array of <a>Tuner</a> elements.
+            operation, which is an array of <a>TVTuner</a> elements.
           </dd>
 
-        <dt>Promise&lt;Recording&gt; addRecording ()</dt>
+        <dt>Promise&lt;TVRecording&gt; addRecording ()</dt>
           <dd>
             This method adds a recording request for a given channel with
             explicitly specified start time and end time, or instead an
-            associated <a>Program</a> object. It returns a new
+            associated <a>TVProgram</a> object. It returns a new
             <code><a>Promise</a></code> that will be used to notify the caller
             about the result of the operation, which is a newly-created
-            <a>Recording</a> object.<br/>
+            <a>TVRecording</a> object.<br/>
             Please note the user agent should have a recording scheduler which
             handles time conflicts between recording requests. If this method
             tries to add a new request with a time frame overlapped with some
@@ -244,7 +244,7 @@
             their own strategy, such as explicitly removing the conflicts and
             re-adding the one to conserve.
             <dl class='parameters'>
-              <dt>AddRecordingOptions option</dt>
+              <dt>TVAddRecordingOptions option</dt>
                 <dd>
                   Specifies the options for adding recording.
                 </dd>
@@ -264,14 +264,14 @@
             </dl>
           </dd>
 
-        <dt>Promise&lt;sequence&lt;Recording&gt;&gt; getRecordings ()</dt>
+        <dt>Promise&lt;sequence&lt;TVRecording&gt;&gt; getRecordings ()</dt>
           <dd>
             This method makes a request to retrieve the available TV/Radio recordings
             according to the given criteria. It returns a new
             <code><a>Promise</a></code> that will be used to notify the caller
             about the result of the operation.
             <dl class='parameters'>
-              <dt>optional GetRecordingsOptions options</dt>
+              <dt>optional TVGetRecordingsOptions options</dt>
                 <dd>
                   Specifies the options for getting recordings.
                 </dd>
@@ -348,7 +348,7 @@
         </dt>
           <dd>
             Handles the <code>tunerchanged</code> event of type
-            <a>TunerChangedEvent</a>, fired when the TV/Radio device detects a
+            <a>TVTunerChangedEvent</a>, fired when the TV/Radio device detects a
             tuner is added/removed.
           </dd>
 
@@ -357,7 +357,7 @@
         </dt>
           <dd>
             Handles the <code>recordingchanged</code> event of type
-            <a>RecordingChangedEvent</a>, fired when the recording time frame
+            <a>TVRecordingChangedEvent</a>, fired when the recording time frame
             or the state of the TV/Radio recording has been changed.
           </dd>
 
@@ -407,7 +407,7 @@
           </li>
           <ol>
             <li>
-              Let <var>tuners</var> be the array of the retrieved <a>Tuner</a>
+              Let <var>tuners</var> be the array of the retrieved <a>TVTuner</a>
               elements.
             </li>
             <li>
@@ -444,7 +444,7 @@
           </li>
           <ol>
             <li>
-              Let <var>recording</var> be the newly-created <a>Recording</a>
+              Let <var>recording</var> be the newly-created <a>TVRecording</a>
               object.
             </li>
             <li>
@@ -513,7 +513,7 @@
           </li>
           <ol>
             <li>
-              Let <var>recordings</var> be the array of the retrieved <a>Recording</a>
+              Let <var>recordings</var> be the array of the retrieved <a>TVRecording</a>
               elements.
             </li>
             <li>
@@ -633,7 +633,7 @@
         <p>The following are the <a class="internalDFN"
         href="#dfn-eventhandler">event handlers</a> (and their corresponding <a
         class="internalDFN" href="#dfn-eventtypes">event types</a>) that MUST be
-        supported as attributes by the <a>Manager</a> object.
+        supported as attributes by the <a>TVManager</a> object.
 
         <table class="simple">
           <thead>
@@ -648,7 +648,7 @@
             <tr>
               <td><strong><code>ontunerchanged</code></strong></td>
               <td><code><dfn id="dfn-tunerchanged-event">tunerchanged</dfn></code></td>
-              <td><a><code>TunerChangedEvent</code></a></td>
+              <td><a><code>TVTunerChangedEvent</code></a></td>
               <td>
                 Handles the information of the TV/Radio tuner that is added/removed
                 by the device.
@@ -657,7 +657,7 @@
             <tr>
               <td><strong><code>onrecordingchanged</code></strong></td>
               <td><code><dfn id="dfn-recordingchanged-event">recordingchanged</dfn></code></td>
-              <td><a><code>RecordingChangedEvent</code></a></td>
+              <td><a><code>TVRecordingChangedEvent</code></a></td>
               <td>
                 Handles the information of the updates for TV/Radio recordings.
               </td>
@@ -683,28 +683,28 @@
 
     </section>
 
-<!-- - - - - - - - - - - - Interface Tuner  - - - - - - - - - - - - -->
+<!-- - - - - - - - - - - - Interface TVTuner  - - - - - - - - - - - - -->
     <section>
-      <h2><a>Tuner</a> Interface</h2>
+      <h2><a>TVTuner</a> Interface</h2>
       <p>
-        The <a>Tuner</a> interface represents a bunch of properties and
+        The <a>TVTuner</a> interface represents a bunch of properties and
         a set of operations related to TV/Radio tuner devices.
       </p>
-      <dl title="interface Tuner : EventTarget" class="idl">
+      <dl title="interface TVTuner : EventTarget" class="idl">
 
-        <dt>sequence&lt;SourceType&gt; getSupportedSourceTypes ()</dt>
+        <dt>sequence&lt;TVSourceType&gt; getSupportedSourceTypes ()</dt>
           <dd>
             This method makes a request to retrieve all the types of the
             supported TV/Radio sources for the tuner. It returns the types of the
             supported TV/Radio sources.
           </dd>
 
-        <dt>Promise&lt;sequence&lt;Source&gt;&gt; getSources ()</dt>
+        <dt>Promise&lt;sequence&lt;TVSource&gt;&gt; getSources ()</dt>
           <dd>
             This method makes a request to retrieve all the TV/Radio sources that are
             available in the tuner. It returns a new <code><a>Promise</a></code>
             that will be used to notify the caller about the result of the
-            operation, which is an array of <a>Source</a> elements that belong
+            operation, which is an array of <a>TVSource</a> elements that belong
             to the TV/Radio tuner.
           </dd>
 
@@ -715,7 +715,7 @@
             new <code><a>Promise</a></code> that will be used to notify the caller
             about the result of the operation.
             <dl class='parameters'>
-              <dt>SourceType sourceType</dt>
+              <dt>TVSourceType sourceType</dt>
                 <dd>
                   Specifies the TV/Radio source type for configuring the current
                   source.
@@ -728,7 +728,7 @@
             MUST return the ID of the tuner.
           </dd>
 
-        <dt>readonly attribute Source? currentSource</dt>
+        <dt>readonly attribute TVSource? currentSource</dt>
           <dd>
             MUST return the currently configured TV/Radio source.<br/>
             MUST return <em>null</em> if the TV/Radio source is not configured.
@@ -767,7 +767,7 @@
         </dt>
           <dd>
             Handles the <code>currentsourcechanged</code> event of type
-            <a>CurrentSourceChangedEvent</a>, fired when the method
+            <a>TVCurrentSourceChangedEvent</a>, fired when the method
             <a><code>setCurrentSource</code></a> is invoked to configure the
             current TV/Radio source.
           </dd>
@@ -801,7 +801,7 @@
             When the request has been successfully completed:
             <ol>
               <li>
-                Let <var>sources</var> be the array of the retrieved <code>Source</code> elements.
+                Let <var>sources</var> be the array of the retrieved <code>TVSource</code> elements.
               </li>
               <li>
                 Invoke <em>resolver</em>'s <a class="internalDFN" href="#dfn-fulfill-algorithm"> fulfill algorithm</a>
@@ -850,7 +850,7 @@
         <p>The following are the <a class="internalDFN"
         href="#dfn-eventhandler">event handlers</a> (and their corresponding <a
         class="internalDFN" href="#dfn-eventtypes">event types</a>) that MUST be
-        supported as attributes by the <a>Tuner</a> object.
+        supported as attributes by the <a>TVTuner</a> object.
 
         <table class="simple">
           <thead>
@@ -865,7 +865,7 @@
             <tr>
               <td><strong><code>oncurrentsourcechanged</code></strong></td>
               <td><code><dfn id="dfn-currentsourcechanged-event">currentsourcechanged</dfn></code></td>
-              <td><a><code>CurrentSourceChangedEvent</code></a></td>
+              <td><a><code>TVCurrentSourceChangedEvent</code></a></td>
               <td>
                 Handles the information of the current TV/Radio source that is
                 configured by the method <a><code>setCurrentSource</code></a>.
@@ -877,23 +877,23 @@
 
     </section>
 
-<!-- - - - - - - - - - - - Interface Source  - - - - - - - - - - - - -->
+<!-- - - - - - - - - - - - Interface TVSource  - - - - - - - - - - - - -->
     <section>
-      <h2><a>Source</a> Interface</h2>
+      <h2><a>TVSource</a> Interface</h2>
       <p>
-        The <a>Source</a> interface represents a bunch of properties and a set
+        The <a>TVSource</a> interface represents a bunch of properties and a set
         of operations related to a TV/Radio source.
       </p>
-      <dl title="interface Source : EventTarget" class="idl">
+      <dl title="interface TVSource : EventTarget" class="idl">
 
-        <dt>Promise&lt;sequence&lt;Channel&gt;&gt; getChannels ()</dt>
+        <dt>Promise&lt;sequence&lt;TVChannel&gt;&gt; getChannels ()</dt>
           <dd>
             This method makes a request to retrieve all the TV/Radio channels that are
             available in the source. It returns a new <code><a>Promise</a></code>
             that will be used to notify the caller about the result of the
-            operation, which is an array of <a>Channel</a> elements that
+            operation, which is an array of <a>TVChannel</a> elements that
             belong to the source. And if parental control is enabled, the
-            array of <a>Channel</a> elements should exclude the locked channels.
+            array of <a>TVChannel</a> elements should exclude the locked channels.
             Note that the <code><a>Promise</a></code> may be rejected with an
             <code>InvalidStateError</code> if this method gets called during
             channel scanning.
@@ -930,7 +930,7 @@
             to some constraints of tuner modules, scanning and streaming are not
             encouraged to run at the same time.
             <dl class='parameters'>
-              <dt>optional StartScanningOptions options</dt>
+              <dt>optional TVStartScanningOptions options</dt>
                 <dd>
                   Specifies the options for scanning the TV/Radio channels. The
                   <code>isRescanned</code> option in the <code>options</code>
@@ -949,12 +949,12 @@
             to notify the caller about the result of the operation.
           </dd>
 
-        <dt>readonly attribute Tuner tuner</dt>
+        <dt>readonly attribute TVTuner tuner</dt>
           <dd>
             MUST return the tuner which the TV/Radio source belongs to.
           </dd>
 
-        <dt>readonly attribute SourceType type</dt>
+        <dt>readonly attribute TVSourceType type</dt>
           <dd>
             MUST return the type of the TV/Radio source.
           </dd>
@@ -965,7 +965,7 @@
             not.
           </dd>
 
-        <dt>readonly attribute Channel? currentChannel</dt>
+        <dt>readonly attribute TVChannel? currentChannel</dt>
           <dd>
             MUST return the channel that is currently streamed by the TV/Radio
             tuner which owns the source. MUST return <em>null</em> if the TV/Radio
@@ -977,7 +977,7 @@
         </dt>
           <dd>
             Handles the <code>currentchannelchanged</code> event of type
-            <a>CurrentChannelChangedEvent</a>, fired when the method
+            <a>TVCurrentChannelChangedEvent</a>, fired when the method
             <a><code>setCurrentChannel</code></a> is invoked to tune the
             currently streamed TV/Radio channel.
           </dd>
@@ -996,7 +996,7 @@
         </dt>
           <dd>
             Handles the <code>emergencyalerted</code> event of type
-            <a>EmergencyAlertedEvent</a>, fired when an emergency, such as
+            <a>TVEmergencyAlertedEvent</a>, fired when an emergency, such as
             earthquake or tsunami, occurs and is broadcasted by the TV/Radio source.
           </dd>
 
@@ -1005,7 +1005,7 @@
         </dt>
           <dd>
             Handles the <code>scanningstatechanged</code> event of type
-            <a>ScanningStateChangedEvent</a>, fired when the state of scanning
+            <a>TVScanningStateChangedEvent</a>, fired when the state of scanning
             the TV/Radio channels is changed by the source. E.g., it can be fired
             when the method <a><code>startScanning</code></a> or the method
             <a><code>stopScanning</code></a> starts or stops scanning the TV/Radio
@@ -1043,7 +1043,7 @@
           <ol>
             <li>
               Let <var>channels</var> be the array of the retrieved
-              <a>Channel</a> elements.
+              <a>TVChannel</a> elements.
             </li>
             <li>
               Invoke <em>resolver</em>'s <a
@@ -1166,7 +1166,7 @@
         <p>The following are the <a class="internalDFN"
         href="#dfn-eventhandler">event handlers</a> (and their corresponding <a
         class="internalDFN" href="#dfn-eventtypes">event types</a>) that MUST be
-        supported as attributes by the <a>Source</a> object.
+        supported as attributes by the <a>TVSource</a> object.
 
         <table class="simple">
           <thead>
@@ -1181,7 +1181,7 @@
             <tr>
               <td><strong><code>oncurrentchannelchanged</code></strong></td>
               <td><code><dfn id="dfn-currentchannelchanged-event">currentchannelchanged</dfn></code></td>
-              <td><a><code>CurrentChannelChangedEvent</code></a></td>
+              <td><a><code>TVCurrentChannelChangedEvent</code></a></td>
               <td>
                 Handles the information of the currently streamed TV/Radio channel
                 that is tuned by the method
@@ -1202,7 +1202,7 @@
             <tr>
               <td><strong><code>onemergencyalerted</code></strong></td>
               <td><code><dfn id="dfn-emergencyalerted-event">emergencyalerted</dfn></code></td>
-              <td><a><code>EmergencyAlertedEvent</code></a></td>
+              <td><a><code>TVEmergencyAlertedEvent</code></a></td>
               <td>
                 Handles the information of the emergency alert when an emergency,
                 such as earthquake or tsunami, occurs and is broadcasted by the
@@ -1213,7 +1213,7 @@
             <tr>
               <td><strong><code>onscanningstatechanged</code></strong></td>
               <td><code><dfn id="dfn-scanningstatechanged-event">scanningstatechanged</dfn></code></td>
-              <td><a><code>ScanningStateChangedEvent</code></a></td>
+              <td><a><code>TVScanningStateChangedEvent</code></a></td>
               <td>
                 Handles the information of the state of scanning the TV/Radio
                 channels, which is changed by the source.
@@ -1226,24 +1226,24 @@
 
     </section>
 
-<!-- - - - - - - - - - - - Interface Channel  - - - - - - - - - - - - -->
+<!-- - - - - - - - - - - - Interface TVChannel  - - - - - - - - - - - - -->
     <section>
-      <h2><a>Channel</a> Interface</h2>
+      <h2><a>TVChannel</a> Interface</h2>
       <p>
-        The <a>Channel</a> interface represents a bunch of properties and
+        The <a>TVChannel</a> interface represents a bunch of properties and
         a set of operations related to the TV/Radio channel.
       </p>
-      <dl title="interface Channel : EventTarget" class="idl">
+      <dl title="interface TVChannel : EventTarget" class="idl">
 
-        <dt>Promise&lt;sequence&lt;Program&gt;&gt; getPrograms ()</dt>
+        <dt>Promise&lt;sequence&lt;TVProgram&gt;&gt; getPrograms ()</dt>
           <dd>
             This method makes a request to retrieve all the TV/Radio programs that are
             available in the channel by the <code>options</code> parameter.
             It returns a new <code><a>Promise</a></code> that will be used to notify
             the caller about the result of the operation, which is an array of
-            <a>Program</a> elements that belong to the TV/Radio channel.
+            <a>TVProgram</a> elements that belong to the TV/Radio channel.
             <dl class='parameters'>
-              <dt>optional GetProgramsOptions options</dt>
+              <dt>optional TVGetProgramsOptions options</dt>
                 <dd>
                   Specifies the options for retrieving the TV/Radio programs. If this
                   parameter is not passed, this method will return all the
@@ -1252,22 +1252,22 @@
             </dl>
           </dd>
 
-        <dt>Promise&lt;Program&gt; getCurrentProgram ()</dt>
+        <dt>Promise&lt;TVProgram&gt; getCurrentProgram ()</dt>
           <dd>
             This method makes a request to retrieve the current TV/Radio program
             available in the channel. It returns a new <code><a>Promise</a></code>
             that will be used to notify the caller about the result of the
-            operation, which is a <a>Program</a> element that belongs to the
+            operation, which is a <a>TVProgram</a> element that belongs to the
             channel.
           </dd>
 
-        <dt>Promise&lt;sequence&lt;Application&gt;&gt; getApplications ()</dt>
+        <dt>Promise&lt;sequence&lt;TVApplication&gt;&gt; getApplications ()</dt>
           <dd>
             This method makes a request to retrieve all the TV/Radio applications that are
             available in the channel.
             It returns a new <code><a>Promise</a></code> that will be used to notify
             the caller about the result of the operation, which is an array of
-            <a>Application</a> elements that belong to the TV/Radio channel.
+            <a>TVApplication</a> elements that belong to the TV/Radio channel.
           </dd>
 
         <dt>Promise&lt;void&gt; setParentalLock ()</dt>
@@ -1286,19 +1286,19 @@
                 </dd>
             </dl>
           </dd>
-        <dt>readonly attribute Source source</dt>
+        <dt>readonly attribute TVSource source</dt>
           <dd>
             MUST return the source which the TV/Radio channel belongs to.
           </dd>
 
-        <dt>readonly attribute ChannelType type</dt>
+        <dt>readonly attribute TVChannelType type</dt>
           <dd>
             MUST return the type of the channel.
           </dd>
 
-          <dt>readonly attribute ChannelAttributes name</dt>
+          <dt>readonly attribute TVChannelAttributes name</dt>
           <dd>
-            MUST return ChannelAttributes belonging to this TV/Radio channel.
+            MUST return TVChannelAttributes belonging to this TV/Radio channel.
             <code>"NHK"</code>, etc.
           </dd>
 
@@ -1376,7 +1376,7 @@
           <ol>
             <li>
               Let <var>programs</var> be the array of the retrieved
-              <a>Program</a> elements.
+              <a>TVProgram</a> elements.
             </li>
             <li>
               Invoke <em>resolver</em>'s <a
@@ -1412,7 +1412,7 @@
           </li>
           <ol>
             <li>
-              Let <var>program</var> be the retrieved <a>Program</a> element.
+              Let <var>program</var> be the retrieved <a>TVProgram</a> element.
             </li>
             <li>
               Invoke <em>resolver</em>'s <a
@@ -1463,7 +1463,7 @@
         <p>The following are the <a class="internalDFN"
         href="#dfn-eventhandler">event handlers</a> (and their corresponding <a
         class="internalDFN" href="#dfn-eventtypes">event types</a>) that MUST be
-        supported as attributes by the <a>Channel</a> object.
+        supported as attributes by the <a>TVChannel</a> object.
 
         <table class="simple">
           <thead>
@@ -1492,22 +1492,22 @@
     </section>
 
     <p class="ednote">
-      In general the current API design is agnostic towards the supported underlying transmission and systems technology. Just the<a>SourceType</a> enumeration
-        referes to specific technology. However IMHO there must be a mechanism when it comes to returning technology specific data. The idea here is 
-    to introduce a general ChannelAttributes structure which acts as a base interface, from which technology dependend sub interfaces (in this proposal for DVB and DAB) are 
-    derived. 
+      In general the current API design is agnostic towards the supported underlying transmission and systems technology. Just the <a>TVSourceType</a> enumeration
+        refers to specific technology. However IMHO there must be a mechanism when it comes to returning technology specific data. The idea here is
+    to introduce a general TVChannelAttributes structure which acts as a base interface, from which technology dependant sub interfaces (in this proposal for DVB and DAB) are
+    derived.
     </p>
-<!-- - - - - - - - - - - - Interface ChannelAttributes  - - - - - - - - - - - - -->
+<!-- - - - - - - - - - - - Interface TVChannelAttributes  - - - - - - - - - - - - -->
     <section>
-      <h2><a>ChannelAttributes</a> Interface</h2>
+      <h2><a>TVChannelAttributes</a> Interface</h2>
       <p>
-        The <a>ChannelAttributes</a> interface represents a bunch of properties and
+        The <a>TVChannelAttributes</a> interface represents a bunch of properties and
         a set of operations related to technology related functions of different TV/Radio 
-        transmission and system specifications. The <a>ChannelAttributes</a> interface is the 
-        parent interface for a hierarchy of technology specific subinterfaces determined by <a>Source</a> 
-        and it's <a>SourceType</a> properties.
+        transmission and system specifications. The <a>TVChannelAttributes</a> interface is the 
+        parent interface for a hierarchy of technology specific subinterfaces determined by <a>TVSource</a> 
+        and its <a>TVSourceType</a> properties.
       </p>
-      <dl title="interface ChannelAttributes" class="idl">
+      <dl title="interface TVChannelAttributes : EventTarget" class="idl">
         <dt class="no-docs">
           attribute EventHandler onattributeschanged
         </dt>
@@ -1518,14 +1518,14 @@
       </dl>
     </section>
 
-    <!-- - - - - - - - - - - - Interface DVBChannelAttributes  - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - Interface TVDVBChannelAttributes  - - - - - - - - - - - - -->
     <section>
-      <h2><a>DVBChannelAttributes</a> Interface</h2>
+      <h2><a>TVDVBChannelAttributes</a> Interface</h2>
       <p>
-        The <a>DVBChannelAttributes</a> interface represents DVB channel 
+        The <a>TVDVBChannelAttributes</a> interface represents DVB channel 
         attributes 
       </p>
-      <dl title="interface DVBChannelAttributes : ChannelAttributes" class="idl">
+      <dl title="interface TVDVBChannelAttributes : TVChannelAttributes" class="idl">
         <dt>readonly attribute DOMString networkId</dt>
           <dd>
             MUST return the identification of a broadcast transmission network.
@@ -1553,14 +1553,14 @@
       </dl>
     </section>
 
-        <!-- - - - - - - - - - - - Interface DABChannelAttributes  - - - - - - - - - - - - -->
+        <!-- - - - - - - - - - - - Interface TVDABChannelAttributes  - - - - - - - - - - - - -->
     <section>
-      <h2><a>DABChannelAttributes</a> Interface</h2>
+      <h2><a>TVDABChannelAttributes</a> Interface</h2>
       <p>
-        The <a>DABChannelAttributes</a> interface represents DVB channel 
+        The <a>TVDABChannelAttributes</a> interface represents DVB channel 
         attributes 
       </p>
-      <dl title="interface DABChannelAttributes : ChannelAttributes" class="idl">
+      <dl title="interface TVDABChannelAttributes : TVChannelAttributes" class="idl">
         <dt>readonly attribute DOMString ensembleId</dt>
           <dd>
             MUST return the identification of a time-domain multiplex of several
@@ -1577,22 +1577,22 @@
     </section>
 
     
-<!-- - - - - - - - - - - - Interface Application  - - - - - - - - - - - - -->
+<!-- - - - - - - - - - - - Interface TVApplication  - - - - - - - - - - - - -->
     <p class="ednote">
       Should we introduce more specific application type interfaces here. e.g. for the DAB/DVB User applications (Slideshow, DL, Journaline, HbbTV, MHEG)?
         Or are we happy with just delivering the applicationData to the developers. 
     </p>
 
     <section>
-      <h2><a>Application</a> Interface</h2>
+      <h2><a>TVApplication</a> Interface</h2>
       <p>
-        The <a>Application</a> interface represents a bunch of properties and
-        a set of operations related to technology related functions of different TV/Radio 
-        applications. The <a>Application</a> interface can be the 
-        parent interface for a hierarchy of technology specific subinterfaces <a>ApplicationType</a> 
+        The <a>TVApplication</a> interface represents a bunch of properties and
+        a set of operations related to technology related functions of different TV/Radio
+        applications. The <a>TVApplication</a> interface can be the
+        parent interface for a hierarchy of technology specific subinterfaces <a>TVApplicationType</a>
       </p>
-      <dl title="interface Application" class="idl">
-        <dt>readonly attribute ApplicationType type</dt>
+      <dl title="interface TVApplication : EventTarget" class="idl">
+        <dt>readonly attribute TVApplicationType type</dt>
           <dd>
             MUST return the type of associated application.
           </dd>
@@ -1614,14 +1614,14 @@
     </section>
 
     
-<!-- - - - - - - - - - - - Interface Program  - - - - - - - - - - - - -->
+<!-- - - - - - - - - - - - Interface TVProgram  - - - - - - - - - - - - -->
     <section>
-      <h2><a>Program</a> Interface</h2>
+      <h2><a>TVProgram</a> Interface</h2>
       <p>
-        The <a>Program</a> interface represents a bunch of properties and
+        The <a>TVProgram</a> interface represents a bunch of properties and
         a set of operations related to the TV/Radio program.
       </p>
-      <dl title="interface Program" class="idl">
+      <dl title="interface TVProgram" class="idl">
         <dt>sequence&lt;DOMString&gt; getAudioLanguages ()</dt>
           <dd>
             MUST return the audio languages of the TV/Radio program in 3-digit
@@ -1646,7 +1646,7 @@
             within a TV/Radio channel.
           </dd>
 
-        <dt>readonly attribute Channel channel</dt>
+        <dt>readonly attribute TVChannel channel</dt>
           <dd>
             MUST return the TV/Radio channel which the program belongs to.
           </dd>
@@ -1695,11 +1695,11 @@
       </dl>
     </section>
 
-<!-- - - - - - - - - - - - Interface TriggerCue - - - - - - - - - - - - -->
+<!-- - - - - - - - - - - - Interface TVTriggerCue - - - - - - - - - - - - -->
     <section>
-      <h2><a>TriggerCue</a> Interface</h2>
+      <h2><a>TVTriggerCue</a> Interface</h2>
       <p>
-        The <a>TriggerCue</a> interface represents a bunch of properties and
+        The <a>TVTriggerCue</a> interface represents a bunch of properties and
         a set of operations related to the TV/Radio trigger, which may be used to
         carry some information via in-band or out-of-band mechanism based on the
         current playing content. It's inherited from the
@@ -1712,8 +1712,8 @@
         <code><a href="http://www.w3.org/TR/html5/embedded-content-0.html#handler-texttrack-oncuechange">oncuechange</a></code>
         event to realize a TV/Radio trigger becomes active or dismissed.
       </p>
-      <dl title="interface TriggerCue : TextTrackCue" class="idl">
-        <dt>readonly attribute TriggerType type</dt>
+      <dl title="interface TVTriggerCue : TextTrackCue" class="idl">
+        <dt>readonly attribute TVTriggerType type</dt>
           <dd>
             MUST return the type of the TV/Radio trigger.
           </dd>
@@ -1725,7 +1725,7 @@
           <dd>
             MUST return the URL for the TV/Radio trigger.
           </dd>
-        <dt>readonly attribute Channel? channel</dt>
+        <dt>readonly attribute TVChannel? channel</dt>
           <dd>
             MUST return the channel associated with the TV/Radio trigger.
           </dd>
@@ -1744,11 +1744,11 @@
       </dl>
     </section>
 
-<!-- - - - - - - - - - - - Interface Recording  - - - - - - - - - - - - -->
+<!-- - - - - - - - - - - - Interface TVRecording  - - - - - - - - - - - - -->
     <section>
-      <h2><a>Recording</a> Interface</h2>
+      <h2><a>TVRecording</a> Interface</h2>
       <p>
-        The <a>Recording</a> interface represents a bunch of properties and
+        The <a>TVRecording</a> interface represents a bunch of properties and
         a set of operations related to the TV/Radio recording. The recording should
         automatically start recording at the specified start time. And it may
         stop either at the specified end time, by an explicit <code>stop()</code>
@@ -1757,7 +1757,7 @@
         recording channel belongs to since watching takes priority over
         recording), or an error.
       </p>
-      <dl title="interface Recording" class="idl">
+      <dl title="interface TVRecording" class="idl">
         <dt>Promise&lt;TVMediaStream&gt; getStream ()</dt>
           <dd>
             This method makes a request to retrieve the recorded content as a
@@ -1783,18 +1783,18 @@
             MUST return the ID of the TV/Radio recording.
           </dd>
 
-        <dt>readonly attribute Channel channel</dt>
+        <dt>readonly attribute TVChannel channel</dt>
           <dd>
             MUST return the associated channel of the TV/Radio recording.
           </dd>
 
-        <dt>readonly attribute Program? program</dt>
+        <dt>readonly attribute TVProgram? program</dt>
           <dd>
             MUST return the associated  program of the TV/Radio recording if applicable.
             Please note the recording should keep track of the relevant updates
-            in Event Information Table (EIT) inthe case of DVB or ProgramInfo (in the case of DAB) while <a>Program</a> is specified,
+            in Event Information Table (EIT) in the case of DVB or ProgramInfo in the case of DAB while <a>TVProgram</a> is specified,
             and then update correspondent attributes and fire a
-            <a>RecordingChangedEvent</a> accordingly. Furthermore, if the
+            <a>TVRecordingChangedEvent</a> accordingly. Furthermore, if the
             updated time frame conflicts with some existent ones, and there's no
             sufficient resource (i.e. tuner) to meet this, then the recording
             should change its state to <code>stopped</code>.
@@ -1810,7 +1810,7 @@
             MUST return the end time (in milliseconds) of the TV/Radio recording.
           </dd>
 
-        <dt>readonly attribute RecordingState state</dt>
+        <dt>readonly attribute TVRecordingState state</dt>
           <dd>
             MUST return the current state of the TV/Radio recording.
           </dd>
@@ -1837,7 +1837,7 @@
         <dt>attribute EventHandler onrecordingchanged</dt>
           <dd>
             Handles the <code>recordingchanged</code> event of type
-            <a>RecordingChangedEvent</a>, fired when the recording time frame
+            <a>TVRecordingChangedEvent</a>, fired when the recording time frame
             or the state of the TV/Radio recording has been changed.
           </dd>
       </dl>
@@ -1921,7 +1921,7 @@
         <p>The following are the <a class="internalDFN"
         href="#dfn-eventhandler">event handlers</a> (and their corresponding <a
         class="internalDFN" href="#dfn-eventtypes">event types</a>) that MUST be
-        supported as attributes by the <a>Recording</a> object.
+        supported as attributes by the <a>TVRecording</a> object.
 
         <table class="simple">
           <thead>
@@ -1936,7 +1936,7 @@
             <tr>
               <td><strong><code>onrecordingchanged</code></strong></td>
               <td><code>recordingchanged</code></td>
-              <td><a><code>RecordingChangedEvent</code></a></td>
+              <td><a><code>TVRecordingChangedEvent</code></a></td>
               <td>
                 Handles the information of the updates for TV/Radio recordings.
               </td>
@@ -2116,7 +2116,7 @@
         <h3>Time-shifting</h3>
 
         <p>
-          Applications may utilize <a>Recording</a> and <a>TVMediaStream</a>
+          Applications may utilize <a>TVRecording</a> and <a>TVMediaStream</a>
           to fulfill time-shifting scenarios. When time-shifting is enabled, it
           may add a TV/Radio recording for the current playing channel without specifying
           start time, which makes the recording starts from now on, or instead by
@@ -2163,14 +2163,14 @@
       </dl>
     </section>
 
-<!-- - - - - - - - - - - - Dictionary StartScanningOptions   - - - - - - - -->
+<!-- - - - - - - - - - - - Dictionary TVStartScanningOptions   - - - - - - - -->
     <section>
-      <h2><a>StartScanningOptions</a> Dictionary</h2>
+      <h2><a>TVStartScanningOptions</a> Dictionary</h2>
       <p>
-        The <a>StartScanningOptions</a> dictionary contains the information
+        The <a>TVStartScanningOptions</a> dictionary contains the information
         for scanning the TV/Radio channels.
       </p>
-      <dl title="dictionary StartScanningOptions" class="idl">
+      <dl title="dictionary TVStartScanningOptions" class="idl">
         <dt>boolean isRescanned</dt>
           <dd>
             Specifies whether or not the process of scanning the TV/Radio channels has
@@ -2179,14 +2179,14 @@
       </dl>
     </section>
 
-<!-- - - - - - - - - - Dictionary GetProgramsOptions   - - - - - - - - - -->
+<!-- - - - - - - - - - Dictionary TVGetProgramsOptions   - - - - - - - - - -->
     <section>
-      <h2><a>GetProgramsOptions</a> Dictionary</h2>
+      <h2><a>TVGetProgramsOptions</a> Dictionary</h2>
       <p>
-        The <a>GetProgramsOptions</a> dictionary contains the information for
+        The <a>TVGetProgramsOptions</a> dictionary contains the information for
         retrieving the TV/Radio programs.
       </p>
-      <dl title="dictionary GetProgramsOptions" class="idl">
+      <dl title="dictionary TVGetProgramsOptions" class="idl">
         <dt>unsigned long long startTime</dt>
           <dd>
             Specifies the start time of a time period which bounds the time
@@ -2204,23 +2204,23 @@
       </dl>
     </section>
 
-<!-- - - - - - - - - - Dictionary AddRecordingOptions   - - - - - - - - - -->
+<!-- - - - - - - - - - Dictionary TVAddRecordingOptions   - - - - - - - - - -->
     <section>
-      <h2><a>AddRecordingOptions</a> Dictionary</h2>
+      <h2><a>TVAddRecordingOptions</a> Dictionary</h2>
       <p>
-        The <a>AddRecordingOptions</a> dictionary contains the information for
+        The <a>TVAddRecordingOptions</a> dictionary contains the information for
         adding a TV/Radio recording.
       </p>
-      <dl title="dictionary AddRecordingOptions" class="idl">
+      <dl title="dictionary TVAddRecordingOptions" class="idl">
         <dt>required DOMString description</dt>
           <dd>
             Specifies the description of the TV/Radio recording.
           </dd>
-        <dt>required Channel channel</dt>
+        <dt>required TVChannel channel</dt>
           <dd>
             Specifies the channel to be recorded.
           </dd>
-        <dt>Program? program</dt>
+        <dt>TVProgram? program</dt>
           <dd>
             Specifies the program to be recorded. Please note this could be
             omitted if the recording time frame can be determined by
@@ -2244,14 +2244,14 @@
       </dl>
     </section>
 
-<!-- - - - - - - - - - Dictionary GetRecordingsOptions   - - - - - - - - - -->
+<!-- - - - - - - - - - Dictionary TVGetRecordingsOptions   - - - - - - - - - -->
     <section>
-      <h2><a>GetRecordingsOptions</a> Dictionary</h2>
+      <h2><a>TVGetRecordingsOptions</a> Dictionary</h2>
       <p>
-        The <a>GetRecordingsOptions</a> dictionary contains the information for
+        The <a>TVGetRecordingsOptions</a> dictionary contains the information for
         retrieving the TV/Radio recordings.
       </p>
-      <dl title="dictionary GetRecordingsOptions" class="idl">
+      <dl title="dictionary TVGetRecordingsOptions" class="idl">
         <dt>TVRecordingState? state</dt>
           <dd>
             Specifies the state of the TV/Radio recordings to be retrieved.
@@ -2263,15 +2263,15 @@
       </dl>
     </section>
 
-<!-- - - - - - - - - - Interface TunerChangedEvent - - - - - - - - - - -->
+<!-- - - - - - - - - - Interface TVTunerChangedEvent - - - - - - - - - - -->
     <section>
-      <h2><a>TunerChangedEvent</a> Interface</h2>
+      <h2><a>TVTunerChangedEvent</a> Interface</h2>
       <p>
-        The <a>TunerChangedEvent</a> interface represents the event related
+        The <a>TVTunerChangedEvent</a> interface represents the event related
         to the TV/Radio tuner that is added/removed by the  device.
       </p>
-      <dl title="interface TunerChangedEvent : Event" class="idl">
-        <dt>readonly attribute TunerChangedEventOperation operation</dt>
+      <dl title="interface TVTunerChangedEvent : Event" class="idl">
+        <dt>readonly attribute TVTunerChangedEventOperation operation</dt>
           <dd>
             MUST return the type of operation that changes the TV/Radio tuner.
           </dd>
@@ -2283,16 +2283,16 @@
       </dl>
     </section>
 
-<!-- - - - - - - - Interface CurrentSourceChangedEvent - - - - - - - - - -->
+<!-- - - - - - - - Interface TVCurrentSourceChangedEvent - - - - - - - - - -->
     <section>
-      <h2><a>CurrentSourceChangedEvent</a> Interface</h2>
+      <h2><a>TVCurrentSourceChangedEvent</a> Interface</h2>
       <p>
-        The <a>CurrentSourceChangedEvent</a> interface represents the event
+        The <a>TVCurrentSourceChangedEvent</a> interface represents the event
         related to the current TV/Radio source that is configured by the method
         <a><code>setCurrentSource</code></a>.
       </p>
-      <dl title="interface CurrentSourceChangedEvent : Event" class="idl">
-        <dt>readonly attribute Source? source</dt>
+      <dl title="interface TVCurrentSourceChangedEvent : Event" class="idl">
+        <dt>readonly attribute TVSource? source</dt>
           <dd>
             MUST return the  source that is currently configured by the TV/Radio
             tuner. MUST return <em>null</em> if the TV/Radio source is not configured.
@@ -2321,14 +2321,14 @@
       </dl>
     </section>
 
-<!-- - - - - - - - - - - - Interface EmergencyAlertedEvent - - - - - - - - -->
+<!-- - - - - - - - - - - - Interface TVEmergencyAlertedEvent - - - - - - - - -->
     <section>
-      <h2><a>EmergencyAlertedEvent</a> Interface</h2>
+      <h2><a>TVEmergencyAlertedEvent</a> Interface</h2>
       <p>
-        The <a>EmergencyAlertedEvent</a> interface represents the event
+        The <a>TVEmergencyAlertedEvent</a> interface represents the event
         related to the emergency alert that is broadcasted by the TV/Radio source.
       </p>
-      <dl title="interface EmergencyAlertedEvent : Event" class="idl">
+      <dl title="interface TVEmergencyAlertedEvent : Event" class="idl">
         <dt>readonly attribute DOMString? type</dt>
           <dd>
             MUST return the the nature of the emergency, i.e. “Earthquake”,
@@ -2346,7 +2346,7 @@
           <dd>
             MUST return the human readable description of the emergency alert.
           </dd>
-        <dt>readonly attribute Channel? channel</dt>
+        <dt>readonly attribute TVChannel? channel</dt>
           <dd>
             MUST return the emergency channel which might be switched to for
             more information about the emergency.
@@ -2365,22 +2365,22 @@
       </dl>
     </section>
 
-<!-- - - - - - - - - - Interface ScanningStateChangedEvent - - - - - - - - -->
+<!-- - - - - - - - - - Interface TVScanningStateChangedEvent - - - - - - - - -->
     <section>
-      <h2><a>ScanningStateChangedEvent</a> Interface</h2>
+      <h2><a>TVScanningStateChangedEvent</a> Interface</h2>
       <p>
-        The <a>ScanningStateChangedEvent</a> interface represents the event
+        The <a>TVScanningStateChangedEvent</a> interface represents the event
         related to the state of channel scanning, which is changed by the TV/Radio
         source.
       </p>
-      <dl title="interface ScanningStateChangedEvent : Event" class="idl">
-        <dt>readonly attribute ScanningState state</dt>
+      <dl title="interface TVScanningStateChangedEvent : Event" class="idl">
+        <dt>readonly attribute TVScanningState state</dt>
           <dd>
             MUST return the state of channel scanning, which is changed by the
             TV/Radio source.
           </dd>
 
-        <dt>readonly attribute Channel? channel</dt>
+        <dt>readonly attribute TVChannel? channel</dt>
            <dd>
             MUST return the TV/Radio channel that is scanned by the TV/Radio source. MUST
             return <em>null</em> if the <code>state</code> is not
@@ -2389,16 +2389,16 @@
       </dl>
     </section>
 
-<!-- - - - - - - - Interface CurrentChannelChangedEvent - - - - - - - - - -->
+<!-- - - - - - - - Interface TVCurrentChannelChangedEvent - - - - - - - - - -->
     <section>
-      <h2><a>CurrentChannelChangedEvent</a> Interface</h2>
+      <h2><a>TVCurrentChannelChangedEvent</a> Interface</h2>
       <p>
-        The <a>CurrentChannelChangedEvent</a> interface represents the event
+        The <a>TVCurrentChannelChangedEvent</a> interface represents the event
         related to the currently streamed TV/Radio channel that is tuned by the method
         <a><code>setCurrentChannel</code></a>.
       </p>
-      <dl title="interface CurrentChannelChangedEvent : Event" class="idl">
-        <dt>readonly attribute Channel? channel</dt>
+      <dl title="interface TVCurrentChannelChangedEvent : Event" class="idl">
+        <dt>readonly attribute TVChannel? channel</dt>
           <dd>
             MUST return the TV/Radio channel that is currently streamed by the TV/Radio
             tuner. MUST return <em>null</em> if the TV/Radio tuner is not streaming
@@ -2407,14 +2407,14 @@
       </dl>
     </section>
 
-<!-- - - - - - - - Interface RecordingChangedEvent - - - - - - - - - - - - -->
+<!-- - - - - - - - Interface TVRecordingChangedEvent - - - - - - - - - - - - -->
     <section>
-      <h2><a>RecordingChangedEvent</a> Interface</h2>
+      <h2><a>TVRecordingChangedEvent</a> Interface</h2>
       <p>
-        The <a>RecordingChangedEvent</a> interface represents the event related
+        The <a>TVRecordingChangedEvent</a> interface represents the event related
         to the update of a TV/Radio recording.
       </p>
-      <dl title="interface RecordingChangedEvent : Event" class="idl">
+      <dl title="interface TVRecordingChangedEvent : Event" class="idl">
         <dt>readonly attribute DOMString id</dt>
           <dd>
             MUST return the ID of the updated TV/Radio recording.
@@ -2463,10 +2463,10 @@
     <section>
       <h2>Enumerations</h2>
       <p>
-        The attribute <code>type</code> in the <a>Source</a> can have the
+        The attribute <code>type</code> in the <a>TVSource</a> can have the
         following values:
       </p>
-      <dl title="enum SourceType" class="idl">
+      <dl title="enum TVSourceType" class="idl">
         <dt>dvb-t</dt>
           <dd>
             The source works for DVB-T (terrestrial).
@@ -2585,10 +2585,10 @@
       </dl>
 
       <p>
-        The attribute <code>type</code> in a <a>Channel</a> can have the
+        The attribute <code>type</code> in a <a>TVChannel</a> can have the
         following values:
       </p>
-      <dl title="enum ChannelType" class="idl">
+      <dl title="enum TVChannelType" class="idl">
         <dt>tv</dt>
           <dd>
             The channel is broadcasted as a regular TV type.
@@ -2606,10 +2606,10 @@
       </dl>
 
       <p>
-        The attribute <code>ApplicationType</code> in a <a>Application</a> can have the
+        The attribute <code>TVApplicationType</code> in a <a>TVApplication</a> can have the
         following values:
       </p>
-      <dl title="enum ApplicationType" class="idl">
+      <dl title="enum TVApplicationType" class="idl">
         <dt>hbbtv</dt>
           <dd>
             The application is a tv hbbtv application
@@ -2634,10 +2634,10 @@
         </dl>
         
       <p>
-        The attribute <code>operation</code> in the <a>TunerChangedEvent</a>
+        The attribute <code>operation</code> in the <a>TVTunerChangedEvent</a>
         can have the following values:
       </p>
-      <dl title="enum TunerChangedEventOperation" class="idl">
+      <dl title="enum TVTunerChangedEventOperation" class="idl">
         <dt>added</dt>
           <dd>
             A tuner is added.
@@ -2651,9 +2651,9 @@
 
       <p>
         The attribute <code>state</code> in the
-        <a>ScanningStateChangedEvent</a> can have the following values:
+        <a>TVScanningStateChangedEvent</a> can have the following values:
       </p>
-      <dl title="enum ScanningState" class="idl">
+      <dl title="enum TVScanningState" class="idl">
         <dt>cleared</dt>
           <dd>
             The currently scanned TV/Radio channels have been cleared. This event
@@ -2664,7 +2664,7 @@
           <dd>
             A TV/Radio channel has been found by the  source during the channel
             scan. The <code>channel</code> attribute in the
-            <code>ScanningStateChangedEvent</code> object references the
+            <code>TVScanningStateChangedEvent</code> object references the
             channel found.
           </dd>
 
@@ -2680,10 +2680,10 @@
       </dl>
 
       <p>
-        The attribute <code>type</code> in the <a>TriggerCue</a> can have the
+        The attribute <code>type</code> in the <a>TVTriggerCue</a> can have the
         following values:
       </p>
-      <dl title="enum TriggerType" class="idl">
+      <dl title="enum TVTriggerType" class="idl">
         <dt>channel-change</dt>
           <dd>
             Triggers when channel is switched.
@@ -2720,10 +2720,10 @@
     </section>
 
       <p>
-        The attribute <code>state</code> in <a>Recording</a> can have the
+        The attribute <code>state</code> in <a>TVRecording</a> can have the
         following values:
       </p>
-      <dl title="enum RecordingState" class="idl">
+      <dl title="enum TVRecordingState" class="idl">
         <dt>scheduled</dt>
           <dd>
             The state of recording is scheduled.

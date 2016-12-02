@@ -1013,7 +1013,7 @@
           </dd>
           <dt>
             <dfn><code>currentSource</code></dfn> of type <span class=
-            "idlAttrType"><a>TVSource</a></span>, readonly , nullable
+            "idlAttrType"><a>TVSource</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the currently configured TV/Radio source.<br>
@@ -1021,7 +1021,7 @@
           </dd>
           <dt>
             <dfn><code>stream</code></dfn> of type <span class=
-            "idlAttrType"><a>TVMediaStream</a></span>, readonly , nullable
+            "idlAttrType"><a>TVMediaStream</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return a <code><a>TVMediaStream</a></code> object extended
@@ -1320,7 +1320,7 @@
           </dd>
           <dt>
             <dfn><code>currentChannel</code></dfn> of type <span class=
-            "idlAttrType"><a>TVChannel</a></span>, readonly , nullable
+            "idlAttrType"><a>TVChannel</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the channel that is currently streamed by the TV/Radio
@@ -1846,7 +1846,7 @@
           </dd>
           <dt>
             <dfn><code>casSystemId</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the system ID if it requires to use a specific CAS
@@ -2351,7 +2351,7 @@
           </dd>
           <dt>
             <dfn><code>applicationData</code></dfn> of type <span class=
-            "idlAttrType"><a>object</a></span>, readonly , nullable
+            "idlAttrType"><a>object</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return application specific data. Please note that the
@@ -2382,16 +2382,16 @@
     sequence&lt;DOMString&gt; getAudioLanguages ();
     sequence&lt;DOMString&gt; getSubtitleLanguages ();
     sequence&lt;DOMString&gt; getGenres ();
-    readonly        attribute DOMString          eventId;
-    readonly        attribute TVChannel          channel;
-    readonly        attribute DOMString          title;
-    readonly        attribute unsigned long long startTime;
-    readonly        attribute unsigned long long duration;
-    readonly        attribute DOMString?         shortDescription;
-    readonly        attribute DOMString?         longDescription;
-    readonly        attribute DOMString?         rating;
-    readonly        attribute boolean            isFree;
-    readonly        attribute DOMString?         seriesId;
+    readonly        attribute DOMString    eventId;
+    readonly        attribute TVChannel    channel;
+    readonly        attribute DOMString    title;
+    readonly        attribute DOMTimeStamp startTime;
+    readonly        attribute DOMTimeStamp duration;
+    readonly        attribute DOMString?   shortDescription;
+    readonly        attribute DOMString?   longDescription;
+    readonly        attribute DOMString?   rating;
+    readonly        attribute boolean      isFree;
+    readonly        attribute DOMString?   seriesId;
 };</pre>
       <section>
         <h2>
@@ -2423,36 +2423,37 @@
           </dd>
           <dt>
             <dfn><code>startTime</code></dfn> of type <span class=
-            "idlAttrType"><a>unsigned long long</a></span>, readonly
+            "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
-            MUST return the start time (in milliseconds) of the TV/Radio
-            program.
+            MUST return the start time of the TV/Radio program, in milliseconds
+            relative to 1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>duration</code></dfn> of type <span class=
-            "idlAttrType"><a>unsigned long long</a></span>, readonly
+            "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
-            MUST return the duration (in milliseconds) of the TV/Radio program.
+            MUST return the duration of the TV/Radio program, in milliseconds
+            relative to 1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>shortDescription</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the short description of the TV/Radio program.
           </dd>
           <dt>
             <dfn><code>longDescription</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the long description of the TV/Radio program.
           </dd>
           <dt>
             <dfn><code>rating</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the rating of the TV/Radio program.
@@ -2466,7 +2467,7 @@
           </dd>
           <dt>
             <dfn><code>seriesId</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the ID of the series (if applicable) which the TV/Radio
@@ -2566,28 +2567,28 @@
           </dd>
           <dt>
             <dfn><code>title</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the human readable title for the TV/Radio trigger.
           </dd>
           <dt>
             <dfn><code>url</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the URL for the TV/Radio trigger.
           </dd>
           <dt>
             <dfn><code>channel</code></dfn> of type <span class=
-            "idlAttrType"><a>TVChannel</a></span>, readonly , nullable
+            "idlAttrType"><a>TVChannel</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the channel associated with the TV/Radio trigger.
           </dd>
           <dt>
             <dfn><code>stream</code></dfn> of type <span class=
-            "idlAttrType"><a>TVMediaStream</a></span>, readonly , nullable
+            "idlAttrType"><a>TVMediaStream</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the TVMediaStream object that could be played for the
@@ -2595,7 +2596,7 @@
           </dd>
           <dt>
             <dfn><code>additionalData</code></dfn> of type <span class=
-            "idlAttrType"><a>object</a></span>, readonly , nullable
+            "idlAttrType"><a>object</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the content source information or other supplemental
@@ -2627,11 +2628,11 @@
     readonly        attribute DOMString          id;
     readonly        attribute TVChannel          channel;
     readonly        attribute TVProgram?         program;
-    readonly        attribute unsigned long long startTime;
-    readonly        attribute unsigned long long endTime;
+    readonly        attribute DOMTimeStamp       startTime;
+    readonly        attribute DOMTimeStamp       endTime;
     readonly        attribute TVRecordingState   state;
     readonly        attribute unsigned long long size;
-    readonly        attribute unsigned long long duration;
+    readonly        attribute DOMTimeStamp       duration;
                     attribute DOMString          description;
                     attribute EventHandler       onrecordingchanged;
 };</pre>
@@ -2657,7 +2658,7 @@
           </dd>
           <dt>
             <dfn><code>program</code></dfn> of type <span class=
-            "idlAttrType"><a>TVProgram</a></span>, readonly , nullable
+            "idlAttrType"><a>TVProgram</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the associated program of the TV/Radio recording if
@@ -2672,19 +2673,19 @@
           </dd>
           <dt>
             <dfn><code>startTime</code></dfn> of type <span class=
-            "idlAttrType"><a>unsigned long long</a></span>, readonly
+            "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
-            MUST return the start time (in milliseconds) of the TV/Radio
-            recording.
+            MUST return the start time of the TV/Radio recording, in
+            milliseconds relative to 1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>endTime</code></dfn> of type <span class=
-            "idlAttrType"><a>unsigned long long</a></span>, readonly
+            "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
-            MUST return the end time (in milliseconds) of the TV/Radio
-            recording.
+            MUST return the end time of the TV/Radio recording, in
+            milliseconds relative to 1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>state</code></dfn> of type <span class=
@@ -2704,12 +2705,12 @@
           </dd>
           <dt>
             <dfn><code>duration</code></dfn> of type <span class=
-            "idlAttrType"><a>unsigned long long</a></span>, readonly
+            "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
-            MUST return the actual duration (in milliseconds) of the TV/Radio
-            recording. Please note the value should be zero if the TV recording
-            hasn't actually recorded anything.
+            MUST return the actual duration of the TV/Radio recording, in
+            milliseconds. Please note the value should be zero if the TV
+            recording hasn't actually recorded anything.
           </dd>
           <dt>
             <dfn><code>description</code></dfn> of type <span class=
@@ -3387,9 +3388,9 @@
         retrieving the TV/Radio programs.
       </p>
       <pre class="idl">dictionary TVGetProgramsOptions {
-             unsigned long long startTime;
-             unsigned long long endTime;
-             DOMString          genre;
+             DOMTimeStamp startTime;
+             DOMTimeStamp endTime;
+             DOMString    genre;
 };</pre>
       <section>
         <h2>
@@ -3399,19 +3400,21 @@
         data-link-for="TVGetProgramsOptions">
           <dt>
             <dfn><code>startTime</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long long</a></span>
+            "idlMemberType"><a>DOMTimeStamp</a></span>
           </dt>
           <dd>
             Specifies the start time of a time period which bounds the time
-            slots of TV/Radio programs to be retrieved.
+            slots of TV/Radio programs to be retrieved, in milliseconds
+            relative to 1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>endTime</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long long</a></span>
+            "idlMemberType"><a>DOMTimeStam</a></span>
           </dt>
           <dd>
             Specifies the end time of a time period which bounds the time slots
-            of TV/Radio programs to be retrieved.
+            of TV/Radio programs to be retrieved, in milliseconds relative to
+            1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>genre</code></dfn> of type <span class=
@@ -3433,11 +3436,11 @@
         for adding a TV/Radio recording.
       </p>
       <pre class="idl">dictionary TVAddRecordingOptions {
-    required DOMString           description;
-    required TVChannel           channel;
-             TVProgram?          program;
-             unsigned long long? startTime;
-             unsigned long long? endTime;
+    required DOMString     description;
+    required TVChannel     channel;
+             TVProgram?    program;
+             DOMTimeStamp? startTime;
+             DOMTimeStamp? endTime;
 };</pre>
       <section>
         <h2>
@@ -3470,25 +3473,25 @@
           </dd>
           <dt>
             <dfn><code>startTime</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long long</a></span>, nullable
+            "idlMemberType"><a>DOMTimeStamp</a></span>, nullable
           </dt>
           <dd>
-            Specifies the start time of a recording time frame. When not
-            specified, it implies the recording should start from now on.
-            Please note this could also be ommited and auto determined if
-            <code>program</code> is specified.
+            Specifies the start time of a recording time frame, in milliseconds
+            relative to 1970-01-01T00:00:00Z. When not specified, it implies the
+            recording should start from now on. Please note this could also be
+            omitted and auto determined if <code>program</code> is specified.
           </dd>
           <dt>
             <dfn><code>endTime</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long long</a></span>, nullable
+            "idlMemberType"><a>DOMTimeStamp</a></span>, nullable
           </dt>
           <dd>
-            Specifies the end time of a recording time frame. When not
-            specified, it implies the recording should continue until a
-            <code>stop()</code> call of <a>TVRecording</a> or the user agent
-            forces it to stop due to resource control. Please note this could
-            also be ommited and auto determined if <code>program</code> is
-            specified.
+            Specifies the end time of a recording time frame, in milliseconds
+            relative to 1970-01-01T00:00:00Z. When not specified, it implies the
+            recording should continue until a <code>stop()</code> call of
+            <a>TVRecording</a> or the user agent forces it to stop due to
+            resource control. Please note this could also be omitted and auto
+            determined if <code>program</code> is specified.
           </dd>
         </dl>
       </section>
@@ -3586,7 +3589,7 @@
         data-link-for="TVCurrentSourceChangedEvent">
           <dt>
             <dfn><code>source</code></dfn> of type <span class=
-            "idlAttrType"><a>TVSource</a></span>, readonly , nullable
+            "idlAttrType"><a>TVSource</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the source that is currently configured by the TV/Radio
@@ -3656,7 +3659,7 @@
         data-link-for="TVEmergencyAlertedEvent">
           <dt>
             <dfn><code>type</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the the nature of the emergency, i.e. “Earthquake”,
@@ -3665,7 +3668,7 @@
           </dd>
           <dt>
             <dfn><code>severityLevel</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the severity level of the emergency alert. Please note
@@ -3675,14 +3678,14 @@
           </dd>
           <dt>
             <dfn><code>description</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the human readable description of the emergency alert.
           </dd>
           <dt>
             <dfn><code>channel</code></dfn> of type <span class=
-            "idlAttrType"><a>TVChannel</a></span>, readonly , nullable
+            "idlAttrType"><a>TVChannel</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the emergency channel which might be switched to for
@@ -3690,7 +3693,7 @@
           </dd>
           <dt>
             <dfn><code>url</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the URL where more information might be available.
@@ -3751,7 +3754,7 @@
           </dd>
           <dt>
             <dfn><code>channel</code></dfn> of type <span class=
-            "idlAttrType"><a>TVChannel</a></span>, readonly , nullable
+            "idlAttrType"><a>TVChannel</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the TV/Radio channel that is scanned by the TV/Radio
@@ -3782,7 +3785,7 @@
         data-link-for="TVCurrentChannelChangedEvent">
           <dt>
             <dfn><code>channel</code></dfn> of type <span class=
-            "idlAttrType"><a>TVChannel</a></span>, readonly , nullable
+            "idlAttrType"><a>TVChannel</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the TV/Radio channel that is currently streamed by the
@@ -3838,7 +3841,7 @@
           </dd>
           <dt>
             <dfn><code>errorName</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the name of the DOMException, i.e. "AbortError", if

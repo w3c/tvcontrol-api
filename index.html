@@ -111,9 +111,9 @@
       </p>
       <p>
         TV functionality is accessed through the <a>TVManager</a> object which,
-        via the <a>TVTuner</a> and <a>TVSource</a> objects allows applications
+        via the <a>TVSource</a> object allows applications
         to select and present a TV or Radio channel. Presentation is achieved
-        by obtaining a <a>TVMediaStream</a> object from the <a>TVTuner</a> and
+        by obtaining a <a>TVMediaStream</a> object from the <a>TVSource</a> and
         assigning this to the <code>srcObject</code> attribute of an
         <code><a>HTMLMediaElement</a></code>. The <a>TVMediaStream</a>
         interface extends <code><a>MediaStream</a></code> to allow buffering of
@@ -217,9 +217,9 @@
       <h2>
         <a>Navigator</a> Interface
       </h2>
-      <pre class="idl">partial interface Navigator {
+      <pre class="idl">partial interface <dfn>Navigator</dfn> {
     [SameObject]
-    readonly        attribute TVManager tv;
+    readonly        attribute TVControl tv;
 };</pre>
       <section>
         <h2>
@@ -229,26 +229,82 @@
         "Navigator">
           <dt>
             <dfn><code>tv</code></dfn> of type <span class=
-            "idlAttrType"><a>TVManager</a></span>, readonly
+            "idlAttrType"><a>TVControl</a></span>, readonly
           </dt>
           <dd>
-            MUST return the object that exposes the interface to the TV
+            MUST return the object that exposes the interface to the TV control
             service.
           </dd>
         </dl>
       </section>
     </section>
+    <!-- - - - - - - - - - - - - Interface TVControl  - - - - - - - - - -->
+    <section>
+      <h2>
+        <a>TVControl</a> Interface
+      </h2>
+	        <p>
+        The <a>TVControl</a> interface represents the entry point in to the TV Control API for applications.
+      </p>
+      <pre class="idl">interface <dfn>TVControl</dfn> {
+		Promise&lt;TVManager&gt; getTVManager();
+		Promise&lt;TVManager&gt; getRadioManager(); 
+};</pre>
+      <section>
+        <h2>
+          Methods
+        </h2>
+        <dl class="attributes" data-dfn-for="TVControl" data-link-for=
+        "TVControl">
+          <dt>
+            <dfn><code>getTVManager</code></dfn>
+          </dt>
+          <dd>
+            This method makes a request to retrieve a manager for TV services. It returns a new
+            <code><a>TVManager</a></code> that can be used for interacting with TV services available through the device. Note that these services may include radio services delivered via a digital TV system.
+            <div>
+              <em>No parameters.</em>
+            </div>
+            <div>
+              <em>Return type:</em>
+              <code>Promise&lt;TVManager&gt;</code>
+            </div>
+          </dd>
+         <dt>
+            <dfn><code>getRadioManager</code></dfn>
+          </dt>
+          <dd>
+            This method makes a request to retrieve a manager for radio services. It returns a new
+            <code><a>TVManager</a></code> that can be used for interacting with radio services (e.g. delivered via AM, FM or DAB) available through the device.
+            <div>
+              <em>No parameters.</em>
+            </div>
+            <div>
+              <em>Return type:</em>
+              <code>Promise&lt;TVManager&gt;</code>
+            </div>
+          </dd>
+		</dl>
+      </section>
+    </section>
+
     <!-- - - - - - - - - - - - - Interface TVManager  - - - - - - - - - - - - - -->
+
     <section>
       <h2>
         <a>TVManager</a> Interface
       </h2>
       <p>
-        The <a>TVManager</a> interface represents a bunch of properties and a
-        set of operations that can be used to manage the TV/Radio device.
+        The <a>TVManager</a> interface represents the set of operations that can be used to manage the TV/Radio device.
       </p>
-      <pre class="idl">interface TVManager : EventTarget {
-    Promise&lt;sequence&lt;TVTuner&gt;&gt;     getTuners ();
+      <pre class="idl">interface <dfn>TVManager</dfn> : EventTarget {
+    TVSourceCapabilities getCapabilities();
+    Promise&lt;TVSource&gt; getSource(TVSourceConstraints constraints);
+    boolean isSourceAvailable(TVSourceConstraints constraints);
+
+	// A single channel list is managed by the User Agent
+	Promise&lt;sequence&lt;TVChannel&gt;&gt; getChannelList(TVSourceConstraints constraints);
+    
     Promise&lt;TVRecording&gt;           addRecording (TVAddRecordingOptions option);
     Promise&lt;void&gt;                  removeRecording (DOMString id);
     Promise&lt;sequence&lt;TVRecording&gt;&gt; getRecordings (optional TVGetRecordingsOptions options);
@@ -274,14 +330,14 @@
             "idlAttrType"><a>unsigned long long</a></span>, readonly
           </dt>
           <dd>
-            MUST return the total recording size of the TV device.
+            MUST return the total recording size of the TV device in bytes.
           </dd>
           <dt>
             <dfn><code>availableRecordingSize</code></dfn> of type <span class=
             "idlAttrType"><a>unsigned long long</a></span>, readonly
           </dt>
           <dd>
-            MUST return the current available recording size of the TV device.
+            MUST return the current available recording size of the TV device in bytes.
           </dd>
           <dt>
             <dfn><code>isParentalControlled</code></dfn> of type <span class=
@@ -334,22 +390,177 @@
         </h2>
         <dl class="methods" data-dfn-for="TVManager" data-link-for="TVManager">
           <dt>
-            <dfn><code>getTuners</code></dfn>
+            <dfn><code>getCapabilities</code></dfn>
           </dt>
           <dd>
-            This method makes a request to retrieve all the TV/Radio tuners
-            that are available in the device. It returns a new
-            <code><a>Promise</a></code> that will be used to notify the caller
-            about the result of the operation, which is an array of
-            <a>TVTuner</a> elements.
+            This method makes a request to retrieve the capabilities of the device. It returns a new
+            <code><a>TVSourceCapabilities</a></code> object that describes the capabilities of the device for receiving and decoding TV or radio services.
             <div>
               <em>No parameters.</em>
             </div>
             <div>
               <em>Return type:</em>
-              <code>Promise&lt;sequence&lt;TVTuner&gt;&gt;</code>
+              <code>TVSourceCapabilities</code>
             </div>
           </dd>
+          <dt>
+            <dfn><code>getSource</code></dfn>
+          </dt>
+          <dd>
+            This method makes a request to retrieve a TV/Radio source that matches the specified constraints.
+            that are available in the device. It returns a new
+            <code><a>Promise</a></code> that will be used to notify the caller
+            about the result of the operation, which is a
+            <a>TVSource</a> element.
+            <table class="parameters">
+              <tbody>
+                <tr>
+                  <th>
+                    Parameter
+                  </th>
+                  <th>
+                    Type
+                  </th>
+                  <th>
+                    Nullable
+                  </th>
+                  <th>
+                    Optional
+                  </th>
+                  <th>
+                    Description
+                  </th>
+                </tr>
+                <tr>
+                  <td class="prmName">
+                    option
+                  </td>
+                  <td class="prmType">
+                    <code>TVSourceConstraints</code>
+                  </td>
+                  <td class="prmNullFalse">
+                    <span role="img" aria-label="False">✘</span>
+                  </td>
+                  <td class="prmOptFalse">
+                    <span role="img" aria-label="False">✘</span>
+                  </td>
+                  <td class="prmDesc">
+                    Specifies the constraints for the requested TV source.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div>
+              <em>Return type:</em>
+              <code>Promise&lt;TVSource&gt;</code>
+            </div>
+          </dd>
+          <dt>
+            <dfn><code>isSourceAvailable</code></dfn>
+          </dt>
+          <dd>
+            This method returns <code>true</code> if a TV/Radio source that matches the specified constraints.
+            is currently available, and <code>false</code> otherwise. Note that the availability of a <code>TVSource</code> will depend on the number of streams being decoded by the device, and may also depend on other factors.
+            <table class="parameters">
+              <tbody>
+                <tr>
+                  <th>
+                    Parameter
+                  </th>
+                  <th>
+                    Type
+                  </th>
+                  <th>
+                    Nullable
+                  </th>
+                  <th>
+                    Optional
+                  </th>
+                  <th>
+                    Description
+                  </th>
+                </tr>
+                <tr>
+                  <td class="prmName">
+                    option
+                  </td>
+                  <td class="prmType">
+                    <code>TVSourceConstraints</code>
+                  </td>
+                  <td class="prmNullFalse">
+                    <span role="img" aria-label="False">✘</span>
+                  </td>
+                  <td class="prmOptFalse">
+                    <span role="img" aria-label="False">✘</span>
+                  </td>
+                  <td class="prmDesc">
+                    Specifies the constraints for the requested TV source.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div>
+              <em>Return type:</em>
+              <code>boolean</code>
+            </div>
+          </dd>
+          <dt>
+            <dfn><code>getChannelList</code></dfn>
+          </dt>
+          <dd>
+            This method makes a request to retrieve the list of TV/Radio channels that matches the specified constraints.
+            that are available in the device. It returns a new
+            <code><a>Promise</a></code> that will be used to notify the caller
+            about the result of the operation, which is a
+            sequence of <a>TVChannel</a> elements.
+            <table class="parameters">
+              <tbody>
+                <tr>
+                  <th>
+                    Parameter
+                  </th>
+                  <th>
+                    Type
+                  </th>
+                  <th>
+                    Nullable
+                  </th>
+                  <th>
+                    Optional
+                  </th>
+                  <th>
+                    Description
+                  </th>
+                </tr>
+                <tr>
+                  <td class="prmName">
+                    option
+                  </td>
+                  <td class="prmType">
+                    <code>TVSourceConstraints</code>
+                  </td>
+                  <td class="prmNullFalse">
+                    <span role="img" aria-label="False">✘</span>
+                  </td>
+                  <td class="prmOptFalse">
+                    <span role="img" aria-label="False">✘</span>
+                  </td>
+                  <td class="prmDesc">
+                    Specifies the constraints for the requested channel list.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div>
+              <em>Return type:</em>
+              <code>Promise&lt;sequence&lt;TVChannel&gt;&gt;</code>
+            </div>
+          </dd>
+
+
           <dt>
             <dfn><code>addRecording</code></dfn>
           </dt>
@@ -675,7 +886,7 @@
           Procedures
         </h3>
         <p>
-          The <dfn><code>getTuners</code></dfn> method when invoked MUST run
+          The <code>getTuners</code> method when invoked MUST run
           the following steps:
         </p>
         <ol>
@@ -706,7 +917,7 @@
           </li>
         </ol>
         <p>
-          The <dfn><code>addRecording</code></dfn> method when invoked MUST run
+          The <code>addRecording</code> method when invoked MUST run
           the following steps:
         </p>
         <ol>
@@ -737,7 +948,7 @@
           </li>
         </ol>
         <p>
-          The <dfn><code>removeRecording</code></dfn> method when invoked MUST
+          The <code>removeRecording</code> method when invoked MUST
           run the following steps:
         </p>
         <ol>
@@ -764,7 +975,7 @@
           </li>
         </ol>
         <p>
-          The <dfn><code>getRecordings</code></dfn> method when invoked MUST
+          The <code>getRecordings</code> method when invoked MUST
           run the following steps:
         </p>
         <ol>
@@ -796,7 +1007,7 @@
           </li>
         </ol>
         <p>
-          The <dfn><code>setParentalControlPin</code></dfn> method when invoked
+          The <code>setParentalControlPin</code> method when invoked
           MUST run the following steps:
         </p>
         <ol>
@@ -824,7 +1035,7 @@
           </li>
         </ol>
         <p>
-          The <dfn><code>setParentalControl</code></dfn> method when invoked
+          The <code>setParentalControl</code> method when invoked
           MUST run the following steps:
         </p>
         <ol>
@@ -852,7 +1063,7 @@
           </li>
         </ol>
         <p>
-          The <dfn><code>getCICards</code></dfn> method when invoked MUST run
+          The <code>getCICards</code> method when invoked MUST run
           the following steps:
         </p>
         <ol>
@@ -987,7 +1198,7 @@
         The <a>TVTuner</a> interface represents a bunch of properties and a set
         of operations related to TV/Radio tuner devices.
       </p>
-      <pre class="idl">interface TVTuner : EventTarget {
+      <pre class="idl">interface <dfn>TVTuner</dfn> : EventTarget {
     sequence&lt;TVSourceType&gt;      getSupportedSourceTypes ();
     Promise&lt;sequence&lt;TVSource&gt;&gt; getSources ();
     Promise&lt;void&gt;               setCurrentSource (TVSourceType sourceType);
@@ -1013,7 +1224,7 @@
           </dd>
           <dt>
             <dfn><code>currentSource</code></dfn> of type <span class=
-            "idlAttrType"><a>TVSource</a></span>, readonly , nullable
+            "idlAttrType"><a>TVSource</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the currently configured TV/Radio source.<br>
@@ -1021,7 +1232,7 @@
           </dd>
           <dt>
             <dfn><code>stream</code></dfn> of type <span class=
-            "idlAttrType"><a>TVMediaStream</a></span>, readonly , nullable
+            "idlAttrType"><a>TVMediaStream</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return a <code><a>TVMediaStream</a></code> object extended
@@ -1160,7 +1371,7 @@
           Procedures
         </h3>
         <p>
-          The <dfn><code>getSources</code></dfn> method when invoked MUST run
+          The <code>getSources</code> method when invoked MUST run
           the following steps:
         </p>
         <ol>
@@ -1191,7 +1402,7 @@
           </li>
         </ol>
         <p>
-          The <dfn><code>setCurrentSource</code></dfn> method when invoked MUST
+          The <code>setCurrentSource</code> method when invoked MUST
           run the following steps:
         </p>
         <ol>
@@ -1273,12 +1484,22 @@
         <a>TVSource</a> Interface
       </h2>
       <p>
-        The <a>TVSource</a> interface represents a bunch of properties and a
-        set of operations related to a TV/Radio source.
+        The <a>TVSource</a> interface represents a logical source of TV/Radio 
+		channels. This may represent a physical tuner or a "virtual" tuner 
+		for channels delivered via IP. The <a>TVSource</a> exposes the list 
+		of <a>TVChannel</a> objects available through that source. For 
+		devices with more than one type of tuner (e.g. cable and
+		terrestrial), each tuner type may be represented by a different
+		<a>TVSource</a>.
       </p>
-      <pre class="idl">interface TVSource : EventTarget {
+      <pre class="idl">interface <dfn>TVSource</dfn> : EventTarget {
+    TVSourceConstraints             getConstraints ();
+    TVSourceSettings                getSettings ();
+	
     Promise&lt;sequence&lt;TVChannel&gt;&gt; getChannels ();
-    Promise&lt;void&gt;                setCurrentChannel (DOMString channelNumber);
+    Promise&lt;TVMediaStream&gt;             tuneToChannel (TVChannel channel);
+    Promise&lt;TVMediaStream&gt;             tuneTo (DOMString tuningParams);
+	
     Promise&lt;void&gt;                startScanning (optional TVStartScanningOptions options);
     Promise&lt;void&gt;                stopScanning ();
     readonly        attribute TVTuner      tuner;
@@ -1320,7 +1541,7 @@
           </dd>
           <dt>
             <dfn><code>currentChannel</code></dfn> of type <span class=
-            "idlAttrType"><a>TVChannel</a></span>, readonly , nullable
+            "idlAttrType"><a>TVChannel</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the channel that is currently streamed by the TV/Radio
@@ -1334,7 +1555,8 @@
           <dd>
             Handles the <code>currentchannelchanged</code> event of type
             <a>TVCurrentChannelChangedEvent</a>, fired when the method
-            <a><code>setCurrentChannel</code></a> is invoked to tune the
+            <a><code>tuneTo</code></a> or 
+			<a><code>tuneToChannel</code></a> is invoked to tune the
             currently streamed TV/Radio channel.
           </dd>
           <dt>
@@ -1377,6 +1599,31 @@
         </h2>
         <dl class="methods" data-dfn-for="TVSource" data-link-for="TVSource">
           <dt>
+            <dfn><code>getConstraints</code></dfn>
+          </dt>
+          <dd>
+            See ConstrainablePattern Interface for the definition of this method.
+            <div>
+              <em>No parameters.</em>
+            </div>
+            <div>
+              <em>Return type:</em>
+              <code><a>TVSourceConstraints</a></code>
+            </div>
+          </dd>
+          <dt>
+            <dfn><code>getSettings</code></dfn>
+          </dt>
+          <dd>
+            See ConstrainablePattern Interface for the definition of this method.
+            <div>
+              <em>No parameters.</em>
+            </div>
+            <div>
+              <em>Return type:</em>
+              <code><a>TVSourceSettings</a></code>
+            </div>
+          </dd>          <dt>
             <dfn><code>getChannels</code></dfn>
           </dt>
           <dd>
@@ -1399,11 +1646,11 @@
             </div>
           </dd>
           <dt>
-            <dfn><code>setCurrentChannel</code></dfn>
+            <dfn><code>tuneToChannel</code></dfn>
           </dt>
           <dd>
-            This method makes a request to tune the currently streamed TV/Radio
-            channel by the <code>channelNumber</code> parameter. It returns a
+            This method makes a request to tune to the TV/Radio channel 
+            specified by the <code>channel</code> parameter. It returns a
             new <code><a>Promise</a></code> that will be used to notify the
             caller about the result of the operation. Note that the
             <code><a>Promise</a></code> may be rejected with an
@@ -1432,7 +1679,62 @@
                 </tr>
                 <tr>
                   <td class="prmName">
-                    channelNumber
+                    channel
+                  </td>
+                  <td class="prmType">
+                    <code>TVChannel</code>
+                  </td>
+                  <td class="prmNullFalse">
+                    <span role="img" aria-label="False">✘</span>
+                  </td>
+                  <td class="prmOptFalse">
+                    <span role="img" aria-label="False">✘</span>
+                  </td>
+                  <td class="prmDesc">
+                    Specifies the TV/Radio channel to be tuned to.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div>
+              <em>Return type:</em> <code>Promise&lt;TVMediaStream&gt;</code>
+            </div>
+          </dd>
+          <dt>
+            <dfn><code>tuneTo</code></dfn>
+          </dt>
+          <dd>
+            This method makes a request to tune to the TV/Radio channel
+            specified by the <code>tuningParams</code> parameter. It returns a
+            new <code><a>Promise</a></code> that will be used to notify the
+            caller about the result of the operation. Note that the
+            <code><a>Promise</a></code> may be rejected with an
+            <code>InvalidStateError</code> if this method is called during
+            channel scanning, or be rejected with an
+            <code>InvalidAccessError</code> if parental control is enabled and
+            the channel is locked.
+            <table class="parameters">
+              <tbody>
+                <tr>
+                  <th>
+                    Parameter
+                  </th>
+                  <th>
+                    Type
+                  </th>
+                  <th>
+                    Nullable
+                  </th>
+                  <th>
+                    Optional
+                  </th>
+                  <th>
+                    Description
+                  </th>
+                </tr>
+                <tr>
+                  <td class="prmName">
+                    tuningParams
                   </td>
                   <td class="prmType">
                     <code>DOMString</code>
@@ -1444,17 +1746,15 @@
                     <span role="img" aria-label="False">✘</span>
                   </td>
                   <td class="prmDesc">
-                    Specifies the TV/Radio channel number for tuning the
-                    currently streamed TV/Radio channel.
+                    Specifies the tuning parameters of the TV/Radio channel to be tuned to.
                   </td>
                 </tr>
               </tbody>
             </table>
             <div>
-              <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+              <em>Return type:</em> <code>Promise&lt;TVMediaStream&gt;</code>
             </div>
-          </dd>
-          <dt>
+          </dd>          <dt>
             <dfn><code>startScanning</code></dfn>
           </dt>
           <dd>
@@ -1538,7 +1838,7 @@
           Procedures
         </h3>
         <p>
-          The <dfn><code>getChannels</code></dfn> method when invoked MUST run
+          The <code>getChannels</code> method when invoked MUST run
           the following steps:
         </p>
         <ol>
@@ -1569,7 +1869,7 @@
           </li>
         </ol>
         <p>
-          The <dfn><code>setCurrentChannel</code></dfn> method when invoked
+          The <code>tuneToChannel</code> method when invoked
           MUST run the following steps:
         </p>
         <ol>
@@ -1580,7 +1880,7 @@
           <li>Return <var>promise</var> to the caller.
           </li>
           <li>Make a request to the source to tune the currently streamed
-          TV/Radio channel according to the <code>channelNumber</code>
+          TV/Radio channel according to the <code>channel</code>
           parameter.
           </li>
           <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
@@ -1590,15 +1890,49 @@
           </li>
           <li>When the request has been successfully completed:
             <ol>
+              <li>Let <var>stream</var> an instance of a TVMediaStream 
+			  representing the media data of the specified channel.
+              </li>
               <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> without assigning
-              a value to the <code>value</code> argument.
+              "#dfn-fulfill-algorithm">fulfill algorithm</a> with
+              <em>stream</em> as the <code>value</code> argument.
               </li>
             </ol>
           </li>
         </ol>
         <p>
-          The <dfn><code>startScanning</code></dfn> method when invoked MUST
+          The <code>tuneTo</code> method when invoked
+          MUST run the following steps:
+        </p>
+        <ol>
+          <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
+          object and <var>resolver</var> be its associated
+          <code>resolver</code>.
+          </li>
+          <li>Return <var>promise</var> to the caller.
+          </li>
+          <li>Make a request to the source to tune the currently streamed
+          TV/Radio channel according to the <code>tuningParams</code>
+          parameter.
+          </li>
+          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
+            <a class="internalDFN" href="#dfn-reject-algorithm">reject
+            algorithm</a> with <em>error</em> as the <code>value</code>
+            argument.
+          </li>
+          <li>When the request has been successfully completed:
+            <ol>
+              <li>Let <var>stream</var> an instance of a TVMediaStream 
+			  representing the media data of the channel found at the 
+			  specified tuning parameters.
+              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
+              "#dfn-fulfill-algorithm">fulfill algorithm</a> with
+              <em>stream</em> as the <code>value</code> argument.
+              </li>
+            </ol>
+          </li>
+        </ol>        <p>
+          The <code>startScanning</code> method when invoked MUST
           run the following steps:
         </p>
         <ol>
@@ -1634,7 +1968,7 @@
           </li>
         </ol>
         <p>
-          The <dfn><code>stopScanning</code></dfn> method when invoked MUST run
+          The <code>stopScanning</code> method when invoked MUST run
           the following steps:
         </p>
         <ol>
@@ -1704,7 +2038,7 @@
               <td>
                 Handles the information of the currently streamed TV/Radio
                 channel that is tuned by the method
-                <a><code>setCurrentChannel</code></a>.
+                <a><code>tuneTo</code></a> or <a><code>tuneToChannel</code></a>.
               </td>
             </tr>
             <tr>
@@ -1759,6 +2093,498 @@
           </tbody>
         </table>
       </section>
+
+    <!-- - - - - - - - - - - - Interface TVSourceSupportedConstraints - - - - - - - - - - - - -->
+        <section>
+      <h2>
+        <a>TVSourceSupportedConstraints</a> Interface
+      </h2>
+      <p>
+        <a>TVSourceSupportedConstraints</a> represents the list of constraints 
+		recognized by a User Agent for controlling the Capabilities of a 
+		<a>TVSource</a> object. This dictionary is used as a function return 
+		value, and never as an operation argument.
+		
+
+      </p>
+      <pre class="idl">dictionary <dfn>TVSourceSupportedConstraints</dfn> {
+	  boolean deliverySystem = true;
+	  boolean height = true;
+	  boolean channel = true;
+	  boolean tuningStep = true;
+
+};</pre>
+      <section id="dictionary-tvsourcesupportedconstraints-members">
+        <h2>
+          Dictionary <a>TVSourceSupportedConstraints</a> members:
+        </h2>
+        <dl class="dictionary-members" data-dfn-for="TVSourceSupportedConstraints" data-link-for=
+        "TVSourceSupportedConstraints">
+          <dt>
+            <dfn><code>deliverySystem</code></dfn> of type <span class=
+            "idlAttrType"><a>boolean</a></span> defaulting to <code>true</code>
+          </dt>
+          <dd>
+            See <a href="def-constraint-deliverySystem">deliverySystem</a> for details.
+          </dd>
+          <dt>
+            <dfn><code>height</code></dfn> of type <span class=
+            "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
+          </dt>
+          <dd>
+            See <a href="#def-constraint-height">height</a> for details.
+          </dd>
+          <dt>
+            <dfn><code>channel</code></dfn> of type <span class=
+            "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
+          </dt>
+          <dd>
+            See <a href="#def-constraint-channel">channel</a> for details.
+          </dd>
+          <dt>
+            <dfn><code>tuningStep</code></dfn> of type <span class=
+            "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
+          </dt>
+          <dd>
+            See <a href="#def-constraint-tuningStep">tuningStep</a> for details.
+          </dd>
+
+        </dl>
+      </section>
+	      </section>
+    <!-- - - - - - - - - - - - Interface TVSourceCapabilities - - - - - - - - - - - - -->
+	  <section>
+      <h2>
+        <a>TVSourceCapabilities</a> Interface
+      </h2>
+      <p>
+        <a>TVSourceCapabilities</a> represents the capabilities of a <a>TVSource</a> object
+      </p>
+      <pre class="idl">dictionary <dfn>TVSourceCapabilities</dfn> {
+    sequence &lt;DOMString&gt; deliverySystem;
+	long     height;
+    long     tuningStep;
+};</pre>
+      <section id="dictionary-tvsourcecapabilities-members">
+        <h2>
+          Dictionary <a>TVSourceCapabilities</a> members:
+        </h2>
+        <dl class="dictionary-members" data-dfn-for="TVSourceCapabilities" data-link-for=
+        "TVSourceCapabilities">
+          <dt>
+            <dfn><code>deliverySystem</code></dfn> of type <span class=
+            "idlAttrType"><a>sequence &lt;TVSourceType&gt;</a></span>
+          </dt>
+          <dd>
+            See <a href="def-constraint-deliverySystem">deliverySystem</a> for details. If the device supports multiple delivery systems then the capabilities will consist of a sequence of entries. The order of entries in the sequence is implementation-dependent.
+          </dd>
+          <dt>
+            <dfn><code>height</code></dfn> of type <span class=
+            "idlAttrType"><a>long</a></span>
+          </dt>
+          <dd>
+            See <a href="#def-constraint-height">height</a> for details.
+          </dd>
+          <dt>
+            <dfn><code>tuningStep</code></dfn> of type <span class=
+            "idlAttrType"><a>long</a></span>
+          </dt>
+          <dd>
+            See <a href="#def-constraint-tuningStep">tuningStep</a> for details.
+          </dd>
+
+        </dl>
+      </section>
+	      </section>
+    <!-- - - - - - - - - - - - Interface TVSourceConstraints - - - - - - - - - - - - -->
+        <section>
+      <h2>
+        <a>TVSourceConstraints</a> Interface
+      </h2>
+      <p>
+        <a>TVSourceConstraints</a> represents the list of constraints 
+		recognized by a User Agent for controlling the Capabilities of a 
+		<a>TVSource</a> object. This dictionary is used as a function return 
+		value, and never as an operation argument.
+		
+
+      </p>
+      <pre class="idl">dictionary <dfn>TVSourceConstraints</dfn> {
+	  boolean deliverySystem = true;
+	  ConstrainLong height = true;
+	  TVChannel channel = true;
+	  ConstrainLong tuningStep = true;
+
+};</pre>
+      <section id="dictionary-tvsourceconstraints-members">
+        <h2>
+          Dictionary <a>TVSourceConstraints</a> members:
+        </h2>
+        <dl class="dictionary-members" data-dfn-for="TVSourceConstraints" data-link-for=
+        "TVSourceConstraints">
+          <dt>
+            <dfn><code>deliverySystem</code></dfn> of type <span class=
+            "idlAttrType"><a>boolean</a></span> defaulting to <code>true</code>
+          </dt>
+          <dd>
+            See <a href="def-constraint-deliverySystem">deliverySystem</a> for details.
+          </dd>
+          <dt>
+            <dfn><code>height</code></dfn> of type <span class=
+            "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
+          </dt>
+          <dd>
+            See <a href="#def-constraint-height">height</a> for details.
+          </dd>
+          <dt>
+            <dfn><code>channel</code></dfn> of type <span class=
+            "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
+          </dt>
+          <dd>
+            See <a href="#def-constraint-channel">channel</a> for details.
+          </dd>
+          <dt>
+            <dfn><code>tuningStep</code></dfn> of type <span class=
+            "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
+          </dt>
+          <dd>
+            See <a href="#def-constraint-tuningStep">tuningStep</a> for details.
+          </dd>
+
+        </dl>
+      </section>
+	      </section>
+    <!-- - - - - - - - - - - - Interface TVSourceSettings - - - - - - - - - - - - -->
+        <section>
+      <h2>
+        <a>TVSourceSettings</a> Interface
+      </h2>
+      <p>
+        <a>TVSourceSettings</a> represents the Settings of a 
+		<a>TVSource</a> object. 
+		
+      </p>
+      <pre class="idl">dictionary <dfn>TVSourceSettings</dfn> {
+	  boolean deliverySystem = true;
+	  ConstrainLong height = true;
+	  TVChannel channel = true;
+	  ConstrainLong tuningStep = true;
+
+};</pre>
+      <section id="dictionary-tvsourcesettings-members">
+        <h2>
+          Dictionary <a>TVSourceSettings</a> members:
+        </h2>
+        <dl class="dictionary-members" data-dfn-for="TVSourceSettings" data-link-for=
+        "TVSourceCSettings">
+          <dt>
+            <dfn><code>deliverySystem</code></dfn> of type <span class=
+            "idlAttrType"><a>boolean</a></span>
+          </dt>
+          <dd>
+            See <a href="def-constraint-deliverySystem">deliverySystem</a> for details.
+          </dd>
+          <dt>
+            <dfn><code>height</code></dfn> of type <span class=
+            "idlAttrType"><a>long</a></span>
+          </dt>
+          <dd>
+            See <a href="#def-constraint-height">height</a> for details.
+          </dd>
+          <dt>
+            <dfn><code>channel</code></dfn> of type <span class=
+            "idlAttrType"><a>TVChannel</a></span>
+          </dt>
+          <dd>
+            See <a href="#def-constraint-channel">channel</a> for details.
+          </dd>
+          <dt>
+            <dfn><code>tuningStep</code></dfn> of type <span class=
+            "idlAttrType"><a>long</a></span>
+          </dt>
+          <dd>
+            See <a href="#def-constraint-tuningStep">tuningStep</a> for details.
+          </dd>
+        </dl>
+      </section>
+	      </section>
+	  <section id="constrainable-properties" typeof="bibo:Chapter" resource="#constrainable-properties" property="bibo:hasPart">
+        <h3 id="h-constrainable-properties" resource="#h-constrainable-properties">Constrainable Properties</h3>
+        <p>The names of the initial set of constrainable properties for
+        TVSource are defined below.</p>
+
+        <table class="simple">
+          <thead>
+            <tr>
+              <th>Property Name</th>
+              <th>Values</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="def-constraint-deliverySystem">
+              <td><dfn data-dfn-type="dfn" id="dfn-deliverySystem">deliverySystem</dfn></td>
+              <td><code><a href="#idl-def-TVSourceType" class="idlType"><code>TVSourceType</code></a></code></td>
+              <td>The delivery system or systems that must be supported.</td>
+            </tr>
+            <tr id="def-constraint-height">
+              <td><dfn data-dfn-type="dfn" id="dfn-height">height</dfn></td>
+              <td><code><a href="#idl-def-ConstrainLong" class="idlType"><code>ConstrainLong</code></a></code></td>
+              <td>The height or height range, in pixels. As a capability, the
+              range should span the video source's pre-set height values with
+              min being the smallest height and max being the largest
+              height.</td>
+            </tr>
+            <tr id="def-constraint-channel">
+              <td><dfn data-dfn-type="dfn" id="dfn-channel">channel</dfn></td>
+              <td><code><a href="#idl-def-TVChannel" class="idlType"><code>TVChannel</code></a></code></td>
+              <td>A channel that must be able to be received and decoded by the source.</td>
+            </tr>
+          </tbody>
+        </table>
+              <div>
+        <pre class="idl">enum <dfn>TVSourceType</dfn> {
+    "dvb-t",
+    "dvb-t2",
+    "dvb-c",
+    "dvb-c2",
+    "dvb-s",
+    "dvb-s2",
+    "dvb-h",
+    "dvb-sh",
+    "atsc",
+    "atsc-m/h",
+    "isdb-t",
+    "isdb-tb",
+    "isdb-s",
+    "isdb-c",
+    "1seg",
+    "dtmb",
+    "cmmb",
+    "t-dmb",
+    "s-dmb",
+    "dab",
+    "drm",
+    "fm",
+    "AM"
+};</pre>
+        <table class="simple" data-dfn-for="TVSourceType" data-link-for=
+        "TVSourceType">
+          <tbody>
+            <tr>
+              <th colspan="2">
+                Enumeration description
+              </th>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.dvb-t">dvb-t</code></dfn>
+              </td>
+              <td>
+                The source works for DVB-T (terrestrial).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.dvb-t2">dvb-t2</code></dfn>
+              </td>
+              <td>
+                The source works for DVB-T2 (terrestrial).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.dvb-c">dvb-c</code></dfn>
+              </td>
+              <td>
+                The source works for DVB-C (cable).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.dvb-c2">dvb-c2</code></dfn>
+              </td>
+              <td>
+                The source works for DVB-C2 (cable).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.dvb-s">dvb-s</code></dfn>
+              </td>
+              <td>
+                The source works for DVB-S (satellite).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.dvb-s2">dvb-s2</code></dfn>
+              </td>
+              <td>
+                The source works for DVB-S2 (satellite).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.dvb-h">dvb-h</code></dfn>
+              </td>
+              <td>
+                The source works for DVB-H (handheld).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.dvb-sh">dvb-sh</code></dfn>
+              </td>
+              <td>
+                The source works for DVB-SH (satellite).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.atsc">atsc</code></dfn>
+              </td>
+              <td>
+                The source works for ATSC (terrestrial/cable).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id=
+                "idl-def-TVSourceType.atsc-m-h">atsc-m/h</code></dfn>
+              </td>
+              <td>
+                The source works for ATSC-M/H (mobile/handheld).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.isdb-t">isdb-t</code></dfn>
+              </td>
+              <td>
+                The source works for ISDB-T (terrestrial).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id=
+                "idl-def-TVSourceType.isdb-tb">isdb-tb</code></dfn>
+              </td>
+              <td>
+                The source works for ISDB-Tb (terrestrial, Brazil).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.isdb-s">isdb-s</code></dfn>
+              </td>
+              <td>
+                The source works for ISDB-S (satellite).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.isdb-c">isdb-c</code></dfn>
+              </td>
+              <td>
+                The source works for ISDB-C (cable).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.x1seg">1seg</code></dfn>
+              </td>
+              <td>
+                The source works for 1seg (handheld).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.dtmb">dtmb</code></dfn>
+              </td>
+              <td>
+                The source works for DTMB (terrestrial).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.cmmb">cmmb</code></dfn>
+              </td>
+              <td>
+                The source works for CMMB (handheld).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.t-dmb">t-dmb</code></dfn>
+              </td>
+              <td>
+                The source works for T-DMB (terrestrial).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.s-dmb">s-dmb</code></dfn>
+              </td>
+              <td>
+                The source works for S-DMB (satellite).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.dab">dab</code></dfn>
+              </td>
+              <td>
+                The source works for DAB (terrestrial).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.drm">drm</code></dfn>
+              </td>
+              <td>
+                The source works for DRM (terrestrial).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.fm">fm</code></dfn>
+              </td>
+              <td>
+                The source works for FM (terrestrial).
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <dfn><code id="idl-def-TVSourceType.AM">AM</code></dfn>
+              </td>
+              <td>
+                The source works for AM (terrestrial).
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+        <p>The following constrainable properties are defined to apply only to
+        radio <code><a href="#idl-def-TVSource" class="idlType"><code>TVSource</code></a></code> objects:</p>
+        <table class="simple">
+          <thead>
+            <tr>
+              <th>Property Name</th>
+              <th>Values</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="def-constraint-tuningStep">
+              <td><dfn data-dfn-type="dfn" id="dfn-tuningstep">tuningStep</dfn></td>
+              <td><code><a href="#idl-def-ConstrainLong" class="idlType"><code>ConstrainLong</code></a></code></td>
+              <td>The exact tuning step size (in KHz) supported by the tuner.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
     </section>
     <!-- - - - - - - - - - - - Interface TVChannel  - - - - - - - - - - - - -->
     <section>
@@ -1766,10 +2592,15 @@
         <a>TVChannel</a> Interface
       </h2>
       <p>
-        The <a>TVChannel</a> interface represents a bunch of properties and a
-        set of operations related to the TV/Radio channel.
+        The <a>TVChannel</a> interface represents a single TV or radio channel 
+		and provides metadata about it. Each <a>TVChannel</a> object represents
+		a single channel that is available through one <a>TVSource</a>, for 
+		instance a DVB Service or ATSC Virtual Channel. If the same channel is
+		available through two different sources (e.g. over cable and 
+		terrestrial) then each <a>TVSource</a> will return a different
+		<a>TVChannel</a> object.
       </p>
-      <pre class="idl">interface TVChannel : EventTarget {
+      <pre class="idl">interface <dfn>TVChannel</dfn> : EventTarget {
     Promise&lt;sequence&lt;TVProgram&gt;&gt;     getPrograms (optional TVGetProgramsOptions options);
     Promise&lt;TVProgram&gt;               getCurrentProgram ();
     Promise&lt;sequence&lt;TVApplication&gt;&gt; getApplications ();
@@ -1780,7 +2611,7 @@
     readonly        attribute DOMString           name;
     readonly        attribute DOMString           number;
     readonly        attribute boolean             isEmergency;
-    readonly        attribute boolean             isFree;
+    readonly        attribute boolean             isEncrypted;
     readonly        attribute DOMString?          casSystemId;
     readonly        attribute boolean             isParentalLocked;
                     attribute EventHandler        onparentallockchanged;
@@ -1838,15 +2669,15 @@
             purpose.
           </dd>
           <dt>
-            <dfn><code>isFree</code></dfn> of type <span class=
+            <dfn><code>isEncrypted</code></dfn> of type <span class=
             "idlAttrType"><a>boolean</a></span>, readonly
           </dt>
           <dd>
-            MUST indicate whether the TV/Radio channel is free to watch.
+            MUST indicate whether the TV/Radio channel is encrypted.
           </dd>
           <dt>
             <dfn><code>casSystemId</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the system ID if it requires to use a specific CAS
@@ -2183,7 +3014,7 @@
       IMHO there must be a mechanism when it comes to returning technology
       specific data. The idea here is to introduce a general
       TVChannelAttributes structure which acts as a base interface, from which
-      technology dependant sub interfaces (in this proposal for DVB and DAB)
+      technology-dependent sub interfaces (in this proposal for DVB and DAB)
       are derived.
     </p>
     <!-- - - - - - - - - - - - Interface TVChannelAttributes  - - - - - - - - - - - - -->
@@ -2199,7 +3030,7 @@
         hierarchy of technology specific subinterfaces determined by
         <a>TVSource</a> and its <a>TVSourceType</a> properties.
       </p>
-      <pre class="idl">interface TVChannelAttributes : EventTarget {
+      <pre class="idl">interface <dfn>TVChannelAttributes</dfn> : EventTarget {
                     attribute EventHandler onattributeschanged;
 };</pre>
       <section>
@@ -2229,7 +3060,8 @@
         attributes
       </p>
       <pre class="idl">
-        interface TVDVBChannelAttributes : TVChannelAttributes {
+        interface <dfn>TVDVBChannelAttributes</dfn> : TVChannelAttributes {
+    readonly        attribute DOMString originalNetworkId;
     readonly        attribute DOMString networkId;
     readonly        attribute DOMString transportStreamId;
     readonly        attribute DOMString serviceId;
@@ -2240,6 +3072,16 @@
         </h2>
         <dl class="attributes" data-dfn-for="TVDVBChannelAttributes"
         data-link-for="TVDVBChannelAttributes">
+          <dt>
+            <dfn><code>originalNetworkId</code></dfn> of type <span class=
+            "idlAttrType"><a>DOMString</a></span>, readonly
+          </dt>
+          <dd>
+            MUST return the identification of the originating broadcast 
+			transmission network for this channel. This is the 
+			<code>networkID</code> of the operator that originated this 
+			channel.
+          </dd>
           <dt>
             <dfn><code>networkId</code></dfn> of type <span class=
             "idlAttrType"><a>DOMString</a></span>, readonly
@@ -2283,7 +3125,7 @@
         attributes
       </p>
       <pre class="idl">
-        interface TVDABChannelAttributes : TVChannelAttributes {
+        interface <dfn>TVDABChannelAttributes</dfn> : TVChannelAttributes {
     readonly        attribute DOMString ensembleId;
     readonly        attribute DOMString serviceId;
 };</pre>
@@ -2331,7 +3173,7 @@
         be the parent interface for a hierarchy of technology specific
         subinterfaces <a>TVApplicationType</a>
       </p>
-      <pre class="idl">interface TVApplication : EventTarget {
+      <pre class="idl">interface <dfn>TVApplication</dfn> : EventTarget {
     readonly        attribute TVApplicationType type;
     readonly        attribute object?           applicationData;
                     attribute EventHandler      onapplicationchanged;
@@ -2351,7 +3193,7 @@
           </dd>
           <dt>
             <dfn><code>applicationData</code></dfn> of type <span class=
-            "idlAttrType"><a>object</a></span>, readonly , nullable
+            "idlAttrType"><a>object</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return application specific data. Please note that the
@@ -2375,22 +3217,26 @@
         <a>TVProgram</a> Interface
       </h2>
       <p>
-        The <a>TVProgram</a> interface represents a bunch of properties and a
-        set of operations related to the TV/Radio program.
+        The <a>TVProgram</a> interface represents a set of properties and
+        operations related to a TV/Radio program (e.g. a DVB or ATSC 
+		Event). An instance of a <a>TVProgram</a> corresponds to one 
+		showing of that program: if the same program is shown at two 
+		different times or on different channels then each showing is
+		represented by a different <a>TVProgram</a> instance.
       </p>
-      <pre class="idl">interface TVProgram {
+      <pre class="idl">interface <dfn>TVProgram</dfn> {
     sequence&lt;DOMString&gt; getAudioLanguages ();
     sequence&lt;DOMString&gt; getSubtitleLanguages ();
     sequence&lt;DOMString&gt; getGenres ();
     readonly        attribute DOMString          eventId;
     readonly        attribute TVChannel          channel;
     readonly        attribute DOMString          title;
-    readonly        attribute unsigned long long startTime;
-    readonly        attribute unsigned long long duration;
+    readonly        attribute DOMTimeStamp startTime;
+    readonly        attribute DOMTimeStamp duration;
     readonly        attribute DOMString?         shortDescription;
     readonly        attribute DOMString?         longDescription;
-    readonly        attribute DOMString?         rating;
-    readonly        attribute boolean            isFree;
+    readonly        attribute DOMString?         parentalRating;
+    readonly        attribute boolean            isEncrypted;
     readonly        attribute DOMString?         seriesId;
 };</pre>
       <section>
@@ -2423,50 +3269,51 @@
           </dd>
           <dt>
             <dfn><code>startTime</code></dfn> of type <span class=
-            "idlAttrType"><a>unsigned long long</a></span>, readonly
+            "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
-            MUST return the start time (in milliseconds) of the TV/Radio
-            program.
+            MUST return the start time of the TV/Radio
+            program, in milliseconds relative to 1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>duration</code></dfn> of type <span class=
-            "idlAttrType"><a>unsigned long long</a></span>, readonly
+            "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
             MUST return the duration (in milliseconds) of the TV/Radio program.
           </dd>
           <dt>
             <dfn><code>shortDescription</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the short description of the TV/Radio program.
           </dd>
           <dt>
             <dfn><code>longDescription</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the long description of the TV/Radio program.
           </dd>
           <dt>
-            <dfn><code>rating</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            <dfn><code>parentalRating</code></dfn> of type <span class=
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
-            MUST return the rating of the TV/Radio program.
+            MUST return the parental rating of the TV/Radio program.
           </dd>
           <dt>
-            <dfn><code>isFree</code></dfn> of type <span class=
+            <dfn><code>isEncrypted</code></dfn> of type <span class=
             "idlAttrType"><a>boolean</a></span>, readonly
           </dt>
           <dd>
-            MUST indicate whether the TV/Radio program is free to watch.
+            MUST indicate whether the TV/Radio program is encrypted by
+			a content protection mechanism.
           </dd>
           <dt>
             <dfn><code>seriesId</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the ID of the series (if applicable) which the TV/Radio
@@ -2543,7 +3390,7 @@
         oncuechange</a></code> event to realize a TV/Radio trigger becomes
         active or dismissed.
       </p>
-      <pre class="idl">interface TVTriggerCue : TextTrackCue {
+      <pre class="idl">interface <dfn>TVTriggerCue</dfn> : TextTrackCue {
     readonly        attribute TVTriggerType  type;
     readonly        attribute DOMString?     title;
     readonly        attribute DOMString?     url;
@@ -2566,28 +3413,28 @@
           </dd>
           <dt>
             <dfn><code>title</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the human readable title for the TV/Radio trigger.
           </dd>
           <dt>
             <dfn><code>url</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the URL for the TV/Radio trigger.
           </dd>
           <dt>
             <dfn><code>channel</code></dfn> of type <span class=
-            "idlAttrType"><a>TVChannel</a></span>, readonly , nullable
+            "idlAttrType"><a>TVChannel</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the channel associated with the TV/Radio trigger.
           </dd>
           <dt>
             <dfn><code>stream</code></dfn> of type <span class=
-            "idlAttrType"><a>TVMediaStream</a></span>, readonly , nullable
+            "idlAttrType"><a>TVMediaStream</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the TVMediaStream object that could be played for the
@@ -2595,7 +3442,7 @@
           </dd>
           <dt>
             <dfn><code>additionalData</code></dfn> of type <span class=
-            "idlAttrType"><a>object</a></span>, readonly , nullable
+            "idlAttrType"><a>object</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the content source information or other supplemental
@@ -2621,14 +3468,14 @@
         tuner which the recording channel belongs to since watching takes
         priority over recording), or an error.
       </p>
-      <pre class="idl">interface TVRecording {
+      <pre class="idl">interface <dfn>TVRecording</dfn> {
     Promise&lt;TVMediaStream&gt; getStream ();
     Promise&lt;void&gt;          stop ();
     readonly        attribute DOMString          id;
     readonly        attribute TVChannel          channel;
     readonly        attribute TVProgram?         program;
-    readonly        attribute unsigned long long startTime;
-    readonly        attribute unsigned long long endTime;
+    readonly        attribute DOMTimeStamp startTime;
+    readonly        attribute DOMTimeStamp endTime;
     readonly        attribute TVRecordingState   state;
     readonly        attribute unsigned long long size;
     readonly        attribute unsigned long long duration;
@@ -2657,7 +3504,7 @@
           </dd>
           <dt>
             <dfn><code>program</code></dfn> of type <span class=
-            "idlAttrType"><a>TVProgram</a></span>, readonly , nullable
+            "idlAttrType"><a>TVProgram</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the associated program of the TV/Radio recording if
@@ -2672,19 +3519,19 @@
           </dd>
           <dt>
             <dfn><code>startTime</code></dfn> of type <span class=
-            "idlAttrType"><a>unsigned long long</a></span>, readonly
+            "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
-            MUST return the start time (in milliseconds) of the TV/Radio
-            recording.
+            MUST return the start time of the TV/Radio
+            recording, in milliseconds relative to 1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>endTime</code></dfn> of type <span class=
-            "idlAttrType"><a>unsigned long long</a></span>, readonly
+            "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
-            MUST return the end time (in milliseconds) of the TV/Radio
-            recording.
+            MUST return the end time of the TV/Radio
+            recording, in milliseconds relative to 1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>state</code></dfn> of type <span class=
@@ -2704,11 +3551,11 @@
           </dd>
           <dt>
             <dfn><code>duration</code></dfn> of type <span class=
-            "idlAttrType"><a>unsigned long long</a></span>, readonly
+            "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
-            MUST return the actual duration (in milliseconds) of the TV/Radio
-            recording. Please note the value should be zero if the TV recording
+            MUST return the actual duration of the TV/Radio recording, in 
+            milliseconds. Please note the value should be zero if the TV recording
             hasn't actually recorded anything.
           </dd>
           <dt>
@@ -2892,7 +3739,13 @@
         <a>TVMediaStream</a> to the <code><a>HTMLMediaElement</a></code>'s
         <code>srcObject</code> attribute.
       </p>
-      <pre class="idl">interface TVMediaStream : MediaStream {
+	  <p>A <a>TVMediaStream</a> represents the stream data for all components
+	  within a channel being presented. It is obtained from a <a>TVSource</a>, 
+	  and when a <a>TVMediaStream</a> object is created it means that all of the 
+	  resources needed to receive and present that channel have been 
+	  successfully allocated.
+	  </p>
+      <pre class="idl">interface <dfn>TVMediaStream</dfn> : MediaStream {
     sequence&lt;TextTrack&gt; getTextTracks ();
     void                addTextTrack (TextTrack textTrack);
     void                removeTextTrack (TextTrack textTrack);
@@ -3309,7 +4162,7 @@
         to CI (Common Interface) card which is used to decrypt encrypted TV
         channel.
       </p>
-      <pre class="idl">interface TVCICard {
+      <pre class="idl">interface <dfn>TVCICard</dfn> {
     readonly        attribute TVCICardState state;
     readonly        attribute DOMString     casSystemId;
     readonly        attribute boolean       isInUse;
@@ -3356,7 +4209,7 @@
         The <a>TVStartScanningOptions</a> dictionary contains the information
         for scanning the TV/Radio channels.
       </p>
-      <pre class="idl">dictionary TVStartScanningOptions {
+      <pre class="idl">dictionary <dfn>TVStartScanningOptions</dfn> {
              boolean isRescanned;
 };</pre>
       <section>
@@ -3386,10 +4239,10 @@
         The <a>TVGetProgramsOptions</a> dictionary contains the information for
         retrieving the TV/Radio programs.
       </p>
-      <pre class="idl">dictionary TVGetProgramsOptions {
-             unsigned long long startTime;
-             unsigned long long endTime;
-             DOMString          genre;
+      <pre class="idl">dictionary <dfn>TVGetProgramsOptions</dfn> {
+             DOMTimeStamp startTime;
+             DOMTimeStamp endTime;
+             DOMString    genre;
 };</pre>
       <section>
         <h2>
@@ -3399,7 +4252,7 @@
         data-link-for="TVGetProgramsOptions">
           <dt>
             <dfn><code>startTime</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long long</a></span>
+            "idlMemberType"><a>DOMTimeStamp</a></span>
           </dt>
           <dd>
             Specifies the start time of a time period which bounds the time
@@ -3407,7 +4260,7 @@
           </dd>
           <dt>
             <dfn><code>endTime</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long long</a></span>
+            "idlMemberType"><a>DOMTimeStamp</a></span>
           </dt>
           <dd>
             Specifies the end time of a time period which bounds the time slots
@@ -3432,12 +4285,12 @@
         The <a>TVAddRecordingOptions</a> dictionary contains the information
         for adding a TV/Radio recording.
       </p>
-      <pre class="idl">dictionary TVAddRecordingOptions {
-    required DOMString           description;
-    required TVChannel           channel;
-             TVProgram?          program;
-             unsigned long long? startTime;
-             unsigned long long? endTime;
+      <pre class="idl">dictionary <dfn>TVAddRecordingOptions</dfn> {
+    required DOMString     description;
+    required TVChannel     channel;
+             TVProgram?    program;
+             DOMTimeStamp? startTime;
+             DOMTimeStamp? endTime;
 };</pre>
       <section>
         <h2>
@@ -3470,30 +4323,31 @@
           </dd>
           <dt>
             <dfn><code>startTime</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long long</a></span>, nullable
+            "idlMemberType"><a>DOMTimeStamp</a></span>, nullable
           </dt>
           <dd>
-            Specifies the start time of a recording time frame. When not
-            specified, it implies the recording should start from now on.
-            Please note this could also be ommited and auto determined if
-            <code>program</code> is specified.
+            Specifies the start time of a recording time frame, in milliseconds
+            relative to 1970-01-01T00:00:00Z. When not specified, it implies the
+            recording should start from the current time. Please note this could 
+			also be ommited and auto determined if <code>program</code> is 
+			specified.
           </dd>
           <dt>
             <dfn><code>endTime</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long long</a></span>, nullable
+            "idlMemberType"><a>DOMTimeStamp</a></span>, nullable
           </dt>
           <dd>
-            Specifies the end time of a recording time frame. When not
-            specified, it implies the recording should continue until a
-            <code>stop()</code> call of <a>TVRecording</a> or the user agent
-            forces it to stop due to resource control. Please note this could
-            also be ommited and auto determined if <code>program</code> is
-            specified.
+            Specifies the end time of a recording time frame, in milliseconds
+            relative to 1970-01-01T00:00:00Z. When not specified, it implies 
+			the recording should continue until a <code>stop()</code> call 
+			of <a>TVRecording</a> or the user agent forces it to stop due to 
+			resource control. Please note this could also be ommited and auto 
+			determined if <code>program</code> is specified.
           </dd>
         </dl>
       </section>
     </section>
-    <!-- - - - - - - - - - Dictionary TVGetRecordingsOptions   - - - - - - - - - -->
+    <!-- - - - - - - - -fTVCICar - Dictionary TVGetRecordingsOptions   - - - - - - - - - -->
     <section>
       <h2>
         <a>TVGetRecordingsOptions</a> Dictionary
@@ -3502,7 +4356,7 @@
         The <a>TVGetRecordingsOptions</a> dictionary contains the information
         for retrieving the TV/Radio recordings.
       </p>
-      <pre class="idl">dictionary TVGetRecordingsOptions {
+      <pre class="idl">dictionary <dfn>TVGetRecordingsOptions</dfn> {
              TVRecordingState? state;
              DOMString?        id;
 };</pre>
@@ -3538,7 +4392,7 @@
         The <a>TVTunerChangedEvent</a> interface represents the event related
         to the TV/Radio tuner that is added/removed by the device.
       </p>
-      <pre class="idl">interface TVTunerChangedEvent : Event {
+      <pre class="idl">interface <dfn>TVTunerChangedEvent</dfn> : Event {
     readonly        attribute TVTunerChangedEventOperation operation;
     readonly        attribute DOMString                    id;
 };</pre>
@@ -3575,7 +4429,7 @@
         related to the current TV/Radio source that is configured by the method
         <a><code>setCurrentSource</code></a>.
       </p>
-      <pre class="idl">interface TVCurrentSourceChangedEvent : Event {
+      <pre class="idl">interface <dfn>TVCurrentSourceChangedEvent</dfn> : Event {
     readonly        attribute TVSource? source;
 };</pre>
       <section>
@@ -3586,7 +4440,7 @@
         data-link-for="TVCurrentSourceChangedEvent">
           <dt>
             <dfn><code>source</code></dfn> of type <span class=
-            "idlAttrType"><a>TVSource</a></span>, readonly , nullable
+            "idlAttrType"><a>TVSource</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the source that is currently configured by the TV/Radio
@@ -3606,7 +4460,7 @@
         to the available TV programs in the EIT that is broadcasted by the TV
         source.
       </p>
-      <pre class="idl">interface TVEITBroadcastedEvent : Event {
+      <pre class="idl">interface <dfn>TVEITBroadcastedEvent</dfn> : Event {
     readonly        attribute object programs;
 };</pre>
       <section>
@@ -3640,7 +4494,7 @@
         related to the emergency alert that is broadcasted by the TV/Radio
         source.
       </p>
-      <pre class="idl">interface TVEmergencyAlertedEvent : Event {
+      <pre class="idl">interface <dfn>TVEmergencyAlertedEvent</dfn> : Event {
     readonly        attribute DOMString? type;
     readonly        attribute DOMString? severityLevel;
     readonly        attribute DOMString? description;
@@ -3656,7 +4510,7 @@
         data-link-for="TVEmergencyAlertedEvent">
           <dt>
             <dfn><code>type</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the the nature of the emergency, i.e. “Earthquake”,
@@ -3665,7 +4519,7 @@
           </dd>
           <dt>
             <dfn><code>severityLevel</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the severity level of the emergency alert. Please note
@@ -3675,14 +4529,14 @@
           </dd>
           <dt>
             <dfn><code>description</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the human readable description of the emergency alert.
           </dd>
           <dt>
             <dfn><code>channel</code></dfn> of type <span class=
-            "idlAttrType"><a>TVChannel</a></span>, readonly , nullable
+            "idlAttrType"><a>TVChannel</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the emergency channel which might be switched to for
@@ -3690,7 +4544,7 @@
           </dd>
           <dt>
             <dfn><code>url</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the URL where more information might be available.
@@ -3731,7 +4585,7 @@
         related to the state of channel scanning, which is changed by the
         TV/Radio source.
       </p>
-      <pre class="idl">interface TVScanningStateChangedEvent : Event {
+      <pre class="idl">interface <dfn>TVScanningStateChangedEvent</dfn> : Event {
     readonly        attribute TVScanningState state;
     readonly        attribute TVChannel?      channel;
 };</pre>
@@ -3751,7 +4605,7 @@
           </dd>
           <dt>
             <dfn><code>channel</code></dfn> of type <span class=
-            "idlAttrType"><a>TVChannel</a></span>, readonly , nullable
+            "idlAttrType"><a>TVChannel</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the TV/Radio channel that is scanned by the TV/Radio
@@ -3769,9 +4623,9 @@
       <p>
         The <a>TVCurrentChannelChangedEvent</a> interface represents the event
         related to the currently streamed TV/Radio channel that is tuned by the
-        method <a><code>setCurrentChannel</code></a>.
+        method <a><code>tuneTo</code></a> or <a><code>tuneToChannel</code></a>.
       </p>
-      <pre class="idl">interface TVCurrentChannelChangedEvent : Event {
+      <pre class="idl">interface <dfn>TVCurrentChannelChangedEvent</dfn> : Event {
     readonly        attribute TVChannel? channel;
 };</pre>
       <section>
@@ -3782,7 +4636,7 @@
         data-link-for="TVCurrentChannelChangedEvent">
           <dt>
             <dfn><code>channel</code></dfn> of type <span class=
-            "idlAttrType"><a>TVChannel</a></span>, readonly , nullable
+            "idlAttrType"><a>TVChannel</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the TV/Radio channel that is currently streamed by the
@@ -3801,7 +4655,7 @@
         The <a>TVRecordingChangedEvent</a> interface represents the event
         related to the update of a TV/Radio recording.
       </p>
-      <pre class="idl">interface TVRecordingChangedEvent : Event {
+      <pre class="idl">interface <dfn>TVRecordingChangedEvent</dfn> : Event {
     readonly        attribute DOMString  id;
     readonly        attribute boolean    isTimeChange;
     readonly        attribute boolean    isStateChange;
@@ -3838,7 +4692,7 @@
           </dd>
           <dt>
             <dfn><code>errorName</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly , nullable
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
             MUST return the name of the DOMException, i.e. "AbortError", if
@@ -3856,7 +4710,7 @@
         The <a>TVCICardChangedEvent</a> interface represents the event related
         to the changes in the state of the CI (Common Interface) card.
       </p>
-      <pre class="idl">interface TVCICardChangedEvent : Event {
+      <pre class="idl">interface <dfn>TVCICardChangedEvent</dfn> : Event {
     readonly        attribute TVCICardState state;
     readonly        attribute DOMString     casSystemId;
 };</pre>
@@ -3893,235 +4747,13 @@
         The attribute <code>type</code> in the <a>TVSource</a> can have the
         following values:
       </p>
-      <div>
-        <pre class="idl">enum TVSourceType {
-    "dvb-t",
-    "dvb-t2",
-    "dvb-c",
-    "dvb-c2",
-    "dvb-s",
-    "dvb-s2",
-    "dvb-h",
-    "dvb-sh",
-    "atsc",
-    "atsc-m/h",
-    "isdb-t",
-    "isdb-tb",
-    "isdb-s",
-    "isdb-c",
-    "1seg",
-    "dtmb",
-    "cmmb",
-    "t-dmb",
-    "s-dmb",
-    "dab",
-    "drm",
-    "fm",
-    "AM"
-};</pre>
-        <table class="simple" data-dfn-for="TVSourceType" data-link-for=
-        "TVSourceType">
-          <tbody>
-            <tr>
-              <th colspan="2">
-                Enumeration description
-              </th>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-t">dvb-t</code></dfn>
-              </td>
-              <td>
-                The source works for DVB-T (terrestrial).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-t2">dvb-t2</code></dfn>
-              </td>
-              <td>
-                The source works for DVB-T2 (terrestrial).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-c">dvb-c</code></dfn>
-              </td>
-              <td>
-                The source works for DVB-C (cable).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-c2">dvb-c2</code></dfn>
-              </td>
-              <td>
-                The source works for DVB-C2 (cable).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-s">dvb-s</code></dfn>
-              </td>
-              <td>
-                The source works for DVB-S (satellite).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-s2">dvb-s2</code></dfn>
-              </td>
-              <td>
-                The source works for DVB-S2 (satellite).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-h">dvb-h</code></dfn>
-              </td>
-              <td>
-                The source works for DVB-H (handheld).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-sh">dvb-sh</code></dfn>
-              </td>
-              <td>
-                The source works for DVB-SH (satellite).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.atsc">atsc</code></dfn>
-              </td>
-              <td>
-                The source works for ATSC (terrestrial/cable).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id=
-                "idl-def-TVSourceType.atsc-m-h">atsc-m/h</code></dfn>
-              </td>
-              <td>
-                The source works for ATSC-M/H (mobile/handheld).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.isdb-t">isdb-t</code></dfn>
-              </td>
-              <td>
-                The source works for ISDB-T (terrestrial).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id=
-                "idl-def-TVSourceType.isdb-tb">isdb-tb</code></dfn>
-              </td>
-              <td>
-                The source works for ISDB-Tb (terrestrial, Brazil).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.isdb-s">isdb-s</code></dfn>
-              </td>
-              <td>
-                The source works for ISDB-S (satellite).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.isdb-c">isdb-c</code></dfn>
-              </td>
-              <td>
-                The source works for ISDB-C (cable).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.x1seg">1seg</code></dfn>
-              </td>
-              <td>
-                The source works for 1seg (handheld).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.dtmb">dtmb</code></dfn>
-              </td>
-              <td>
-                The source works for DTMB (terrestrial).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.cmmb">cmmb</code></dfn>
-              </td>
-              <td>
-                The source works for CMMB (handheld).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.t-dmb">t-dmb</code></dfn>
-              </td>
-              <td>
-                The source works for T-DMB (terrestrial).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.s-dmb">s-dmb</code></dfn>
-              </td>
-              <td>
-                The source works for S-DMB (satellite).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.dab">dab</code></dfn>
-              </td>
-              <td>
-                The source works for DAB (terrestrial).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.drm">drm</code></dfn>
-              </td>
-              <td>
-                The source works for DRM (terrestrial).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.fm">fm</code></dfn>
-              </td>
-              <td>
-                The source works for FM (terrestrial).
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code id="idl-def-TVSourceType.AM">AM</code></dfn>
-              </td>
-              <td>
-                The source works for AM (terrestrial).
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
       <p>
         The attribute <code>type</code> in a <a>TVChannel</a> can have the
         following values:
       </p>
       <div>
-        <pre class="idl">enum TVChannelType {
+        <pre class="idl">enum <dfn>TVChannelType</dfn> {
     "tv",
     "radio",
     "data"
@@ -4166,7 +4798,7 @@
         can have the following values:
       </p>
       <div>
-        <pre class="idl">enum TVApplicationType {
+        <pre class="idl">enum <dfn>TVApplicationType</dfn> {
     "hbbtv",
     "mheg",
     "sls",
@@ -4231,7 +4863,7 @@
         can have the following values:
       </p>
       <div>
-        <pre class="idl">enum TVTunerChangedEventOperation {
+        <pre class="idl">enum <dfn>TVTunerChangedEventOperation</dfn> {
     "added",
     "removed"
 };</pre>
@@ -4269,7 +4901,7 @@
         <a>TVScanningStateChangedEvent</a> can have the following values:
       </p>
       <div>
-        <pre class="idl">enum TVScanningState {
+        <pre class="idl">enum <dfn>TVScanningState</dfn> {
     "cleared",
     "scanned",
     "completed",
@@ -4331,7 +4963,7 @@
         following values:
       </p>
       <div>
-        <pre class="idl">enum TVTriggerType {
+        <pre class="idl">enum <dfn>TVTriggerType</dfn> {
     "channel-change",
     "time",
     "content-boundary",
@@ -4430,7 +5062,7 @@
       following values:
     </p>
     <div>
-      <pre class="idl">enum TVRecordingState {
+      <pre class="idl">enum <dfn>TVRecordingState</dfn> {
     "scheduled",
     "recording",
     "stopped"
@@ -4479,7 +5111,7 @@
       following values:
     </p>
     <div>
-      <pre class="idl">enum TVCICardState {
+      <pre class="idl">enum <dfn>TVCICardState</dfn> {
     "inserted",
     "accepted",
     "removed",
@@ -4541,7 +5173,7 @@
         through their participation in the TV Control API Community Group:
         Kazayuki Ashimura, Marco Chen, Daniel Davis, Francois Daoust, Yoshiharu
         Dewa, Paul Higgs, Bin Hu, Shelly Lin, Sangwhan Moon, Chris Needham,
-        John Piesing.
+        Jon Piesing.
       </p>
     </section>
     <!-- - - - - - - - - - - - - - - Conformance - - - - - - - - - - - - - - - - -->

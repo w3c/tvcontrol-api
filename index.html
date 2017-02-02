@@ -3228,16 +3228,16 @@
     sequence&lt;DOMString&gt; getAudioLanguages ();
     sequence&lt;DOMString&gt; getSubtitleLanguages ();
     sequence&lt;DOMString&gt; getGenres ();
-    readonly        attribute DOMString          eventId;
-    readonly        attribute TVChannel          channel;
-    readonly        attribute DOMString          title;
+    readonly        attribute DOMString    eventId;
+    readonly        attribute TVChannel    channel;
+    readonly        attribute DOMString    title;
     readonly        attribute DOMTimeStamp startTime;
     readonly        attribute DOMTimeStamp duration;
-    readonly        attribute DOMString?         shortDescription;
-    readonly        attribute DOMString?         longDescription;
-    readonly        attribute DOMString?         parentalRating;
-    readonly        attribute boolean            isEncrypted;
-    readonly        attribute DOMString?         seriesId;
+    readonly        attribute DOMString?   shortDescription;
+    readonly        attribute DOMString?   longDescription;
+    readonly        attribute DOMString?   rating;
+    readonly        attribute boolean      isFree;
+    readonly        attribute DOMString?   seriesId;
 };</pre>
       <section>
         <h2>
@@ -3274,13 +3274,15 @@
           <dd>
             MUST return the start time of the TV/Radio
             program, in milliseconds relative to 1970-01-01T00:00:00Z.
+
           </dd>
           <dt>
             <dfn><code>duration</code></dfn> of type <span class=
             "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
-            MUST return the duration (in milliseconds) of the TV/Radio program.
+            MUST return the duration of the TV/Radio program, in milliseconds
+            relative to 1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>shortDescription</code></dfn> of type <span class=
@@ -3298,6 +3300,7 @@
           </dd>
           <dt>
             <dfn><code>parentalRating</code></dfn> of type <span class=
+
             "idlAttrType"><a>DOMString</a></span>, readonly, nullable
           </dt>
           <dd>
@@ -3309,7 +3312,7 @@
           </dt>
           <dd>
             MUST indicate whether the TV/Radio program is encrypted by
-			a content protection mechanism.
+			      a content protection mechanism.
           </dd>
           <dt>
             <dfn><code>seriesId</code></dfn> of type <span class=
@@ -3474,11 +3477,12 @@
     readonly        attribute DOMString          id;
     readonly        attribute TVChannel          channel;
     readonly        attribute TVProgram?         program;
-    readonly        attribute DOMTimeStamp startTime;
-    readonly        attribute DOMTimeStamp endTime;
+
+    readonly        attribute DOMTimeStamp       startTime;
+    readonly        attribute DOMTimeStamp       endTime;
     readonly        attribute TVRecordingState   state;
     readonly        attribute unsigned long long size;
-    readonly        attribute unsigned long long duration;
+    readonly        attribute DOMTimeStamp       duration;
                     attribute DOMString          description;
                     attribute EventHandler       onrecordingchanged;
 };</pre>
@@ -3522,16 +3526,17 @@
             "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
-            MUST return the start time of the TV/Radio
-            recording, in milliseconds relative to 1970-01-01T00:00:00Z.
+            MUST return the start time of the TV/Radio recording, in
+            milliseconds relative to 1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>endTime</code></dfn> of type <span class=
             "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
-            MUST return the end time of the TV/Radio
-            recording, in milliseconds relative to 1970-01-01T00:00:00Z.
+
+            MUST return the end time of the TV/Radio recording, in
+            milliseconds relative to 1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>state</code></dfn> of type <span class=
@@ -3554,9 +3559,9 @@
             "idlAttrType"><a>DOMTimeStamp</a></span>, readonly
           </dt>
           <dd>
-            MUST return the actual duration of the TV/Radio recording, in 
-            milliseconds. Please note the value should be zero if the TV recording
-            hasn't actually recorded anything.
+            MUST return the actual duration of the TV/Radio recording, in
+            milliseconds. Please note the value should be zero if the TV
+            recording hasn't actually recorded anything.
           </dd>
           <dt>
             <dfn><code>description</code></dfn> of type <span class=
@@ -4240,6 +4245,7 @@
         retrieving the TV/Radio programs.
       </p>
       <pre class="idl">dictionary <dfn>TVGetProgramsOptions</dfn> {
+
              DOMTimeStamp startTime;
              DOMTimeStamp endTime;
              DOMString    genre;
@@ -4256,7 +4262,8 @@
           </dt>
           <dd>
             Specifies the start time of a time period which bounds the time
-            slots of TV/Radio programs to be retrieved.
+            slots of TV/Radio programs to be retrieved, in milliseconds
+            relative to 1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>endTime</code></dfn> of type <span class=
@@ -4264,7 +4271,8 @@
           </dt>
           <dd>
             Specifies the end time of a time period which bounds the time slots
-            of TV/Radio programs to be retrieved.
+            of TV/Radio programs to be retrieved, in milliseconds relative to
+            1970-01-01T00:00:00Z.
           </dd>
           <dt>
             <dfn><code>genre</code></dfn> of type <span class=
@@ -4328,9 +4336,8 @@
           <dd>
             Specifies the start time of a recording time frame, in milliseconds
             relative to 1970-01-01T00:00:00Z. When not specified, it implies the
-            recording should start from the current time. Please note this could 
-			also be ommited and auto determined if <code>program</code> is 
-			specified.
+            recording should start from now on. Please note this could also be
+            omitted and auto determined if <code>program</code> is specified.
           </dd>
           <dt>
             <dfn><code>endTime</code></dfn> of type <span class=
@@ -4338,11 +4345,11 @@
           </dt>
           <dd>
             Specifies the end time of a recording time frame, in milliseconds
-            relative to 1970-01-01T00:00:00Z. When not specified, it implies 
-			the recording should continue until a <code>stop()</code> call 
-			of <a>TVRecording</a> or the user agent forces it to stop due to 
-			resource control. Please note this could also be ommited and auto 
-			determined if <code>program</code> is specified.
+            relative to 1970-01-01T00:00:00Z. When not specified, it implies the
+            recording should continue until a <code>stop()</code> call of
+            <a>TVRecording</a> or the user agent forces it to stop due to
+            resource control. Please note this could also be omitted and auto
+            determined if <code>program</code> is specified.
           </dd>
         </dl>
       </section>

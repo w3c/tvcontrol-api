@@ -35,6 +35,7 @@
         company: "Mozilla",
         note: "until July 2014"
       }],
+	  issueBase:           "https://github.com/w3c/tvcontrol-api/issues/",
       publishDate:         "", // no needed for "ED" or "unofficial"
       edDraftURI:          "https://w3c.github.io/tvcontrol-api/", // needed for "ED"
       previousPublishDate: "", // needed for "WD", "LC", "CR"
@@ -215,9 +216,9 @@
     <!-- - - - - - - - - - - - - Extended Interface Navigator  - - - - - - - - - -->
     <section>
       <h2>
-        <a>Navigator</a> Interface
+        <a><dfn>Navigator</dfn></a> Interface
       </h2>
-      <pre class="idl">partial interface <dfn>Navigator</dfn> {
+      <pre class="idl">partial interface Navigator {
     [SameObject]
     readonly        attribute TVControl tv;
 };</pre>
@@ -241,12 +242,13 @@
     <!-- - - - - - - - - - - - - Interface TVControl  - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVControl</a> Interface
+        <a><dfn>TVControl</dfn></a> Interface
       </h2>
 	        <p>
-        The <a>TVControl</a> interface represents the entry point in to the TV Control API for applications.
+        The <a>TVControl</a> interface represents the entry point in to the TV 
+		Control API for applications.
       </p>
-      <pre class="idl">interface <dfn>TVControl</dfn> {
+      <pre class="idl">interface TVControl {
 		Promise&lt;TVManager&gt; getTVManager();
 		Promise&lt;TVManager&gt; getRadioManager(); 
 };</pre>
@@ -260,8 +262,11 @@
             <dfn><code>getTVManager</code></dfn>
           </dt>
           <dd>
-            This method makes a request to retrieve a manager for TV services. It returns a new
-            <code><a>TVManager</a></code> that can be used for interacting with TV services available through the device. Note that these services may include radio services delivered via a digital TV system.
+            This method makes a request to retrieve a manager for TV services. It 
+			returns a new <code><a>TVManager</a></code> that can be used for 
+			interacting with TV services available through the device. Note that 
+			these services may include radio services delivered via a digital TV 
+			system.
             <div>
               <em>No parameters.</em>
             </div>
@@ -274,8 +279,10 @@
             <dfn><code>getRadioManager</code></dfn>
           </dt>
           <dd>
-            This method makes a request to retrieve a manager for radio services. It returns a new
-            <code><a>TVManager</a></code> that can be used for interacting with radio services (e.g. delivered via AM, FM or DAB) available through the device.
+            This method makes a request to retrieve a manager for radio services. 
+			It returns a new <code><a>TVManager</a></code> that can be used for 
+			interacting with radio services (e.g. delivered via AM, FM or DAB) 
+			available through the device.
             <div>
               <em>No parameters.</em>
             </div>
@@ -292,12 +299,18 @@
 
     <section>
       <h2>
-        <a>TVManager</a> Interface
+        <a><dfn>TVManager</dfn></a> Interface
       </h2>
       <p>
-        The <a>TVManager</a> interface represents the set of operations that can be used to manage the TV/Radio device.
+        The <a>TVManager</a> interface represents the set of operations that can 
+		be used to manage the TV/Radio device.
       </p>
-      <pre class="idl">interface <dfn>TVManager</dfn> : EventTarget {
+      <p class=”issue” data-number=”4”>The location of the 
+	  <code>getChannelList()</code> method is still under discussion: this draft 
+	  includes versions of this method on both the <code>TVManager</code> and 
+	  <code>TVSource</code> interfaces.  It is highly likely that one of these 
+	  will be removed in a future draft.</p>
+	  <pre class="idl">interface TVManager : EventTarget {
     TVSourceCapabilities getCapabilities();
     Promise&lt;TVSource&gt; getSource(TVSourceConstraints constraints);
     boolean isSourceAvailable(TVSourceConstraints constraints);
@@ -314,10 +327,10 @@
     readonly        attribute unsigned long long totalRecordingSize;
     readonly        attribute unsigned long long availableRecordingSize;
     readonly        attribute boolean            isParentalControlled;
-                    attribute EventHandler       ontunerchanged;
-                    attribute EventHandler       onrecordingchanged;
-                    attribute EventHandler       onparentalcontrolchanged;
-                    attribute EventHandler       oncicardchanged;
+                    attribute EventHandler       ontunerchange;
+                    attribute EventHandler       onrecordingchange;
+                    attribute EventHandler       onparentalcontrolchange;
+                    attribute EventHandler       oncicardchange;
 };</pre>
       <section>
         <h2>
@@ -349,37 +362,37 @@
             unset, all the locked TV channels/programs will become accessible.
           </dd>
           <dt>
-            <dfn><code>ontunerchanged</code></dfn> of type <span class=
+            <dfn><code>ontunerchange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>tunerchanged</code> event of type
-            <a>TVTunerChangedEvent</a>, fired when the TV/Radio device detects
+            Handles the <code>tunerchange</code> event of type
+            <a>TVTunerChangeEvent</a>, fired when the TV/Radio device detects
             a tuner is added/removed.
           </dd>
           <dt>
-            <dfn><code>onrecordingchanged</code></dfn> of type <span class=
+            <dfn><code>onrecordingchange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>recordingchanged</code> event of type
-            <a>TVRecordingChangedEvent</a>, fired when the recording time frame
+            Handles the <code>recordingchange</code> event of type
+            <a>TVRecordingChangeEvent</a>, fired when the recording time frame
             or the state of the TV/Radio recording has been changed.
           </dd>
           <dt>
-            <dfn><code>onparentalcontrolchanged</code></dfn> of type
+            <dfn><code>onparentalcontrolchange</code></dfn> of type
             <span class="idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>parentalcontrolchanged</code> event, fired when
+            Handles the <code>parentalcontrolchange</code> event, fired when
             the parental control status is changed.
           </dd>
           <dt>
-            <dfn><code>oncicardchanged</code></dfn> of type <span class=
+            <dfn><code>oncicardchange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>cicardchanged</code> event, fired when the CI
+            Handles the <code>cicardchange</code> event, fired when the CI
             (Common Interface) card status is changed.
           </dd>
         </dl>
@@ -393,8 +406,10 @@
             <dfn><code>getCapabilities</code></dfn>
           </dt>
           <dd>
-            This method makes a request to retrieve the capabilities of the device. It returns a new
-            <code><a>TVSourceCapabilities</a></code> object that describes the capabilities of the device for receiving and decoding TV or radio services.
+            This method makes a request to retrieve the capabilities of the 
+			device. It returns a new <code><a>TVSourceCapabilities</a></code> 
+			object that describes the capabilities of the device for receiving 
+			and decoding TV or radio services.
             <div>
               <em>No parameters.</em>
             </div>
@@ -407,11 +422,11 @@
             <dfn><code>getSource</code></dfn>
           </dt>
           <dd>
-            This method makes a request to retrieve a TV/Radio source that matches the specified constraints.
-            that are available in the device. It returns a new
-            <code><a>Promise</a></code> that will be used to notify the caller
-            about the result of the operation, which is a
-            <a>TVSource</a> element.
+            This method makes a request to retrieve a TV/Radio source that matches 
+			the specified constraints that are available in the device. It returns 
+			a new <code><a>Promise</a></code> that will be used to notify the 
+			caller about the result of the operation, which is a <a>TVSource</a> 
+			obect.
             <table class="parameters">
               <tbody>
                 <tr>
@@ -460,8 +475,11 @@
             <dfn><code>isSourceAvailable</code></dfn>
           </dt>
           <dd>
-            This method returns <code>true</code> if a TV/Radio source that matches the specified constraints.
-            is currently available, and <code>false</code> otherwise. Note that the availability of a <code>TVSource</code> will depend on the number of streams being decoded by the device, and may also depend on other factors.
+            This method returns <code>true</code> if a TV/Radio source that 
+			matches the specified constraints is currently available, and 
+			<code>false</code> otherwise. Note that the availability of a 
+			<code>TVSource</code> will depend on the number of streams being 
+			decoded by the device, and may also depend on other factors.
             <table class="parameters">
               <tbody>
                 <tr>
@@ -510,11 +528,11 @@
             <dfn><code>getChannelList</code></dfn>
           </dt>
           <dd>
-            This method makes a request to retrieve the list of TV/Radio channels that matches the specified constraints.
-            that are available in the device. It returns a new
-            <code><a>Promise</a></code> that will be used to notify the caller
-            about the result of the operation, which is a
-            sequence of <a>TVChannel</a> elements.
+            This method makes a request to retrieve the list of TV/Radio 
+			channels that matches the specified constraints that are available 
+			in the device. It returns a new <code><a>Promise</a></code> that 
+			will be used to notify the caller about the result of the 
+			operation, which is a sequence of <a>TVChannel</a> elements.
             <table class="parameters">
               <tbody>
                 <tr>
@@ -886,37 +904,6 @@
           Procedures
         </h3>
         <p>
-          The <code>getTuners</code> method when invoked MUST run
-          the following steps:
-        </p>
-        <ol>
-          <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
-          object and <var>resolver</var> be its associated
-          <code>resolver</code>.
-          </li>
-          <li>Return <var>promise</var> to the caller.
-          </li>
-          <li>Make a request to the TV/Radio device to retrieve all the tuners
-          that are available in the TV/Radio device.
-          </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
-          </li>
-          <li>When the request has been successfully completed:
-            <ol>
-              <li>Let <var>tuners</var> be the array of the retrieved
-              <a>TVTuner</a> elements.
-              </li>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> with
-              <em>tuners</em> as the <code>value</code> argument.
-              </li>
-            </ol>
-          </li>
-        </ol>
-        <p>
           The <code>addRecording</code> method when invoked MUST run
           the following steps:
         </p>
@@ -1124,14 +1111,14 @@
           <tbody>
             <tr>
               <td>
-                <strong><code>ontunerchanged</code></strong>
+                <strong><code>ontunerchange</code></strong>
               </td>
               <td>
                 <code><dfn id=
-                "dfn-tunerchanged-event">tunerchanged</dfn></code>
+                "dfn-tunerchange-event">tunerchange</dfn></code>
               </td>
               <td>
-                <a><code>TVTunerChangedEvent</code></a>
+                <a><code>TVTunerChangeEvent</code></a>
               </td>
               <td>
                 Handles the information of the TV/Radio tuner that is
@@ -1140,14 +1127,14 @@
             </tr>
             <tr>
               <td>
-                <strong><code>onrecordingchanged</code></strong>
+                <strong><code>onrecordingchange</code></strong>
               </td>
               <td>
                 <code><dfn id=
-                "dfn-recordingchanged-event">recordingchanged</dfn></code>
+                "dfn-recordingchange-event">recordingchange</dfn></code>
               </td>
               <td>
-                <a><code>TVRecordingChangedEvent</code></a>
+                <a><code>TVRecordingChangeEvent</code></a>
               </td>
               <td>
                 Handles the information of the updates for TV/Radio recordings.
@@ -1155,11 +1142,11 @@
             </tr>
             <tr>
               <td>
-                <strong><code>onparentalcontrolchanged</code></strong>
+                <strong><code>onparentalcontrolchange</code></strong>
               </td>
               <td>
                 <code><dfn id=
-                "dfn-parentalcontrolchanged-event">parentalcontrolchanged</dfn></code>
+                "dfn-parentalcontrolchange-event">parentalcontrolchange</dfn></code>
               </td>
               <td>
                 <a><code>Event</code></a>
@@ -1171,14 +1158,14 @@
             </tr>
             <tr>
               <td>
-                <strong><code>oncicardchanged</code></strong>
+                <strong><code>oncicardchange</code></strong>
               </td>
               <td>
                 <code><dfn id=
-                "dfn-cicardchanged-event">cicardchanged</dfn></code>
+                "dfn-cicardchange-event">cicardchange</dfn></code>
               </td>
               <td>
-                <a><code>TVCICardChangedEvent</code></a>
+                <a><code>TVCICardChangeEvent</code></a>
               </td>
               <td>
                 Handles the information of the status changes of the TV CI
@@ -1192,23 +1179,23 @@
     <!-- - - - - - - - - - - - Interface TVTuner  - - - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVTuner</a> Interface
+        <a><dfn>TVTuner</dfn></a> Interface
       </h2>
       <p>
         The <a>TVTuner</a> interface represents a bunch of properties and a set
         of operations related to TV/Radio tuner devices.
       </p>
-      <pre class="idl">interface <dfn>TVTuner</dfn> : EventTarget {
+	  <p class=”issue” data-number=”4”>Note that this interface is at risk of removal.</p>
+      <pre class="idl">interface TVTuner : EventTarget {
     sequence&lt;TVSourceType&gt;      getSupportedSourceTypes ();
     Promise&lt;sequence&lt;TVSource&gt;&gt; getSources ();
     Promise&lt;void&gt;               setCurrentSource (TVSourceType sourceType);
     readonly        attribute DOMString      id;
     readonly        attribute TVSource?      currentSource;
     [SameObject]
-    readonly        attribute TVMediaStream? stream;
     readonly        attribute double         signalStrength;
     readonly        attribute boolean        isRecordable;
-                    attribute EventHandler   oncurrentsourcechanged;
+                    attribute EventHandler   oncurrentsourcechange;
 };</pre>
       <section>
         <h2>
@@ -1231,25 +1218,6 @@
             MUST return <em>null</em> if the TV/Radio source is not configured.
           </dd>
           <dt>
-            <dfn><code>stream</code></dfn> of type <span class=
-            "idlAttrType"><a>TVMediaStream</a></span>, readonly, nullable
-          </dt>
-          <dd>
-            MUST return a <code><a>TVMediaStream</a></code> object extended
-            from <code><a>MediaStream</a></code> and currently streamed by the
-            TV tuner, which can be played by the <code><a>video</a></code>
-            element by assigning the <code><a>TVMediaStream</a></code>
-            (<code><a>MediaStream</a></code>) to the
-            <code><a>HTMLMediaElement</a></code>'s <code>srcObject</code>
-            attribute and can be recorded by the
-            <code><a>MediaRecorder</a></code>.<br>
-            MUST return <em>null</em> if the TV tuner is not streaming any
-            data, which happens when the streaming signal is broken or due to
-            any reason that makes the TV tuner fail to do so.<br>
-            Note that the stream instance should be the same even after the
-            current TV source or its selected TV channel has been changed.
-          </dd>
-          <dt>
             <dfn><code>signalStrength</code></dfn> of type <span class=
             "idlAttrType"><a>double</a></span>, readonly
           </dt>
@@ -1266,12 +1234,12 @@
             tuner is supported by the user agent.
           </dd>
           <dt>
-            <dfn><code>oncurrentsourcechanged</code></dfn> of type <span class=
+            <dfn><code>oncurrentsourcechange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>currentsourcechanged</code> event of type
-            <a>TVCurrentSourceChangedEvent</a>, fired when the method
+            Handles the <code>currentsourcechange</code> event of type
+            <a>TVCurrentSourceChangeEvent</a>, fired when the method
             <a><code>setCurrentSource</code></a> is invoked to configure the
             current TV/Radio source.
           </dd>
@@ -1314,7 +1282,7 @@
             </div>
           </dd>
           <dt>
-            <dfn><code>setCurrentSource</code></dfn>
+            <code><dfn>setCurrentSource</dfn></code>
           </dt>
           <dd>
             This method makes a request to configure the current TV/Radio
@@ -1460,18 +1428,18 @@
           <tbody>
             <tr>
               <td>
-                <strong><code>oncurrentsourcechanged</code></strong>
+                <strong><code>oncurrentsourcechange</code></strong>
               </td>
               <td>
                 <code><dfn id=
-                "dfn-currentsourcechanged-event">currentsourcechanged</dfn></code>
+                "dfn-currentsourcechange-event">currentsourcechange</dfn></code>
               </td>
               <td>
-                <a><code>TVCurrentSourceChangedEvent</code></a>
+                <a><code>TVCurrentSourceChangeEvent</code></a>
               </td>
               <td>
                 Handles the information of the current TV/Radio source that is
-                configured by the method <a><code>setCurrentSource</code></a>.
+                configured by the method <code>setCurrentSource</code>.
               </td>
             </tr>
           </tbody>
@@ -1481,7 +1449,7 @@
     <!-- - - - - - - - - - - - Interface TVSource  - - - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVSource</a> Interface
+        <a><dfn>TVSource</dfn></a> Interface
       </h2>
       <p>
         The <a>TVSource</a> interface represents a logical source of TV/Radio 
@@ -1492,7 +1460,7 @@
 		terrestrial), each tuner type may be represented by a different
 		<a>TVSource</a>.
       </p>
-      <pre class="idl">interface <dfn>TVSource</dfn> : EventTarget {
+      <pre class="idl">interface TVSource : EventTarget {
     TVSourceConstraints             getConstraints ();
     TVSourceSettings                getSettings ();
 	
@@ -1502,14 +1470,14 @@
 	
     Promise&lt;void&gt;                startScanning (optional TVStartScanningOptions options);
     Promise&lt;void&gt;                stopScanning ();
-    readonly        attribute TVTuner      tuner;
-    readonly        attribute TVSourceType type;
-    readonly        attribute boolean      isScanning;
-    readonly        attribute TVChannel?   currentChannel;
-                    attribute EventHandler oncurrentchannelchanged;
-                    attribute EventHandler oneitbroadcasted;
-                    attribute EventHandler onemergencyalerted;
-                    attribute EventHandler onscanningstatechanged;
+    readonly        attribute TVSourceType   type;
+    readonly        attribute TVMediaStream? stream;
+    readonly        attribute boolean        isScanning;
+    readonly        attribute TVChannel?     currentChannel;
+                    attribute EventHandler   oncurrentchannelchange;
+                    attribute EventHandler   oneitbroadcast;
+                    attribute EventHandler   onemergencyalert;
+                    attribute EventHandler   onscanningstatechange;
 };</pre>
       <section>
         <h2>
@@ -1518,18 +1486,30 @@
         <dl class="attributes" data-dfn-for="TVSource" data-link-for=
         "TVSource">
           <dt>
-            <dfn><code>tuner</code></dfn> of type <span class=
-            "idlAttrType"><a>TVTuner</a></span>, readonly
-          </dt>
-          <dd>
-            MUST return the tuner which the TV/Radio source belongs to.
-          </dd>
-          <dt>
             <dfn><code>type</code></dfn> of type <span class=
             "idlAttrType"><a>TVSourceType</a></span>, readonly
           </dt>
           <dd>
             MUST return the type of the TV/Radio source.
+          </dd>
+          <dt>
+            <dfn><code>stream</code></dfn> of type <span class=
+            "idlAttrType"><a>TVMediaStream</a></span>, readonly, nullable
+          </dt>
+          <dd>
+            MUST return a <code><a>TVMediaStream</a></code> object extended
+            from <code><a>MediaStream</a></code> and currently streamed by the
+            source, which can be played by the <code><a>video</a></code>
+            element by assigning the <code><a>TVMediaStream</a></code>
+            (<code><a>MediaStream</a></code>) to the
+            <code><a>HTMLMediaElement</a></code>'s <code>srcObject</code>
+            attribute and can be recorded by the
+            <code><a>MediaRecorder</a></code>.<br>
+            MUST return <em>null</em> if the source is not streaming any
+            data, which happens when the streaming signal is broken or due to
+            any reason that makes the TV source fail to do so.<br>
+            Note that the stream instance should be the same even after the
+            current selected TV channel has been changed.
           </dd>
           <dt>
             <dfn><code>isScanning</code></dfn> of type <span class=
@@ -1549,42 +1529,42 @@
             TV/Radio tuner is not streaming any data.
           </dd>
           <dt>
-            <dfn><code>oncurrentchannelchanged</code></dfn> of type
+            <dfn><code>oncurrentchannelchange</code></dfn> of type
             <span class="idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>currentchannelchanged</code> event of type
-            <a>TVCurrentChannelChangedEvent</a>, fired when the method
-            <a><code>tuneTo</code></a> or 
-			<a><code>tuneToChannel</code></a> is invoked to tune the
+            Handles the <code>currentchannelchange</code> event of type
+            <a>TVCurrentChannelChangeEvent</a>, fired when the method
+            <code>tuneTo</code> or 
+			<code>tuneToChannel</code> is invoked to tune the
             currently streamed TV/Radio channel.
           </dd>
           <dt>
-            <dfn><code>oneitbroadcasted</code></dfn> of type <span class=
+            <dfn><code>oneitbroadcast</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>eitbroadcasted</code> event of type
-            <a>TVEITBroadcastedEvent</a>, fired when the Event Information
-            Table (EIT) is broadcasted by the TV source.
+            Handles the <code>eitbroadcast</code> event of type
+            <a>TVEITBroadcastEvent</a>, fired when the Event Information
+            Table (EIT) is broadcast by the TV source.
           </dd>
           <dt>
-            <dfn><code>onemergencyalerted</code></dfn> of type <span class=
+            <dfn><code>onemergencyalert</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>emergencyalerted</code> event of type
-            <a>TVEmergencyAlertedEvent</a>, fired when an emergency, such as
-            earthquake or tsunami, occurs and is broadcasted by the TV/Radio
+            Handles the <code>emergencyalert</code> event of type
+            <a>TVEmergencyAlertEvent</a>, fired when an emergency, such as
+            earthquake or tsunami, occurs and is broadcast by the TV/Radio
             source.
           </dd>
           <dt>
-            <dfn><code>onscanningstatechanged</code></dfn> of type <span class=
+            <dfn><code>onscanningstatechange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>scanningstatechanged</code> event of type
-            <a>TVScanningStateChangedEvent</a>, fired when the state of
+            Handles the <code>scanningstatechange</code> event of type
+            <a>TVScanningStateChangeEvent</a>, fired when the state of
             scanning the TV/Radio channels is changed by the source. E.g., it
             can be fired when the method <a><code>startScanning</code></a> or
             the method <a><code>stopScanning</code></a> starts or stops
@@ -1623,7 +1603,8 @@
               <em>Return type:</em>
               <code><a>TVSourceSettings</a></code>
             </div>
-          </dd>          <dt>
+          </dd>
+          <dt>
             <dfn><code>getChannels</code></dfn>
           </dt>
           <dd>
@@ -1754,7 +1735,8 @@
             <div>
               <em>Return type:</em> <code>Promise&lt;TVMediaStream&gt;</code>
             </div>
-          </dd>          <dt>
+          </dd>
+          <dt>
             <dfn><code>startScanning</code></dfn>
           </dt>
           <dd>
@@ -1931,8 +1913,8 @@
               </li>
             </ol>
           </li>
-        </ol>        <p>
           The <code>startScanning</code> method when invoked MUST
+        </ol>        <p>
           run the following steps:
         </p>
         <ol>
@@ -2026,64 +2008,64 @@
           <tbody>
             <tr>
               <td>
-                <strong><code>oncurrentchannelchanged</code></strong>
+                <strong><code>oncurrentchannelchange</code></strong>
               </td>
               <td>
                 <code><dfn id=
-                "dfn-currentchannelchanged-event">currentchannelchanged</dfn></code>
+                "dfn-currentchannelchange-event">currentchannelchange</dfn></code>
               </td>
               <td>
-                <a><code>TVCurrentChannelChangedEvent</code></a>
+                <a><code>TVCurrentChannelChangeEvent</code></a>
               </td>
               <td>
                 Handles the information of the currently streamed TV/Radio
                 channel that is tuned by the method
-                <a><code>tuneTo</code></a> or <a><code>tuneToChannel</code></a>.
+                <code>tuneTo</code> or <code>tuneToChannel</code>.
               </td>
             </tr>
             <tr>
               <td>
-                <strong><code>oneitbroadcasted</code></strong>
+                <strong><code>oneitbroadcast</code></strong>
               </td>
               <td>
                 <code><dfn id=
-                "dfn-eitbroadcasted-event">eitbroadcasted</dfn></code>
+                "dfn-eitbroadcast-event">eitbroadcast</dfn></code>
               </td>
               <td>
-                <a><code>TVEITBroadcastedEvent</code></a>
+                <a><code>TVEITBroadcastEvent</code></a>
               </td>
               <td>
                 Handles the information of the available TV programs in the EIT
-                that is broadcasted by the TV source.
+                that is broadcast by the TV source.
               </td>
             </tr>
             <tr>
               <td>
-                <strong><code>onemergencyalerted</code></strong>
+                <strong><code>onemergencyalert</code></strong>
               </td>
               <td>
                 <code><dfn id=
-                "dfn-emergencyalerted-event">emergencyalerted</dfn></code>
+                "dfn-emergencyalert-event">emergencyalert</dfn></code>
               </td>
               <td>
-                <a><code>TVEmergencyAlertedEvent</code></a>
+                <a><code>TVEmergencyAlertEvent</code></a>
               </td>
               <td>
                 Handles the information of the emergency alert when an
                 emergency, such as earthquake or tsunami, occurs and is
-                broadcasted by the TV/Radio source.
+                broadcast by the TV/Radio source.
               </td>
             </tr>
             <tr>
               <td>
-                <strong><code>onscanningstatechanged</code></strong>
+                <strong><code>onscanningstatechange</code></strong>
               </td>
               <td>
                 <code><dfn id=
-                "dfn-scanningstatechanged-event">scanningstatechanged</dfn></code>
+                "dfn-scanningstatechange-event">scanningstatechange</dfn></code>
               </td>
               <td>
-                <a><code>TVScanningStateChangedEvent</code></a>
+                <a><code>TVScanningStateChangeEvent</code></a>
               </td>
               <td>
                 Handles the information of the state of scanning the TV/Radio
@@ -2094,10 +2076,10 @@
         </table>
       </section>
 
-    <!-- - - - - - - - - - - - Interface TVSourceSupportedConstraints - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - Dictionary TVSourceSupportedConstraints - - - - - - - - - - - - -->
         <section>
       <h2>
-        <a>TVSourceSupportedConstraints</a> Interface
+        <a><dfn>TVSourceSupportedConstraints</dfn></a> Dictionary
       </h2>
       <p>
         <a>TVSourceSupportedConstraints</a> represents the list of constraints 
@@ -2107,7 +2089,7 @@
 		
 
       </p>
-      <pre class="idl">dictionary <dfn>TVSourceSupportedConstraints</dfn> {
+      <pre class="idl">dictionary TVSourceSupportedConstraints {
 	  boolean deliverySystem = true;
 	  boolean height = true;
 	  boolean channel = true;
@@ -2116,13 +2098,13 @@
 };</pre>
       <section id="dictionary-tvsourcesupportedconstraints-members">
         <h2>
-          Dictionary <a>TVSourceSupportedConstraints</a> members:
+          Dictionary <a>TVSourceSupportedConstraints</a> Members
         </h2>
         <dl class="dictionary-members" data-dfn-for="TVSourceSupportedConstraints" data-link-for=
         "TVSourceSupportedConstraints">
           <dt>
             <dfn><code>deliverySystem</code></dfn> of type <span class=
-            "idlAttrType"><a>boolean</a></span> defaulting to <code>true</code>
+            "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
           </dt>
           <dd>
             See <a href="def-constraint-deliverySystem">deliverySystem</a> for details.
@@ -2152,22 +2134,22 @@
         </dl>
       </section>
 	      </section>
-    <!-- - - - - - - - - - - - Interface TVSourceCapabilities - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - Dictionary TVSourceCapabilities - - - - - - - - - - - - -->
 	  <section>
       <h2>
-        <a>TVSourceCapabilities</a> Interface
+        <a><dfn>TVSourceCapabilities</dfn></a> Dictionary
       </h2>
       <p>
         <a>TVSourceCapabilities</a> represents the capabilities of a <a>TVSource</a> object
       </p>
-      <pre class="idl">dictionary <dfn>TVSourceCapabilities</dfn> {
-    sequence &lt;DOMString&gt; deliverySystem;
+      <pre class="idl">dictionary TVSourceCapabilities {
+    sequence &lt;TVSourceType&gt; deliverySystem;
 	long     height;
     long     tuningStep;
 };</pre>
       <section id="dictionary-tvsourcecapabilities-members">
         <h2>
-          Dictionary <a>TVSourceCapabilities</a> members:
+          Dictionary <a>TVSourceCapabilities</a> Members
         </h2>
         <dl class="dictionary-members" data-dfn-for="TVSourceCapabilities" data-link-for=
         "TVSourceCapabilities">
@@ -2196,10 +2178,10 @@
         </dl>
       </section>
 	      </section>
-    <!-- - - - - - - - - - - - Interface TVSourceConstraints - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - Dictionary TVSourceConstraints - - - - - - - - - - - - -->
         <section>
       <h2>
-        <a>TVSourceConstraints</a> Interface
+        <a><dfn>TVSourceConstraints</dfn></a> Dictionary
       </h2>
       <p>
         <a>TVSourceConstraints</a> represents the list of constraints 
@@ -2209,8 +2191,8 @@
 		
 
       </p>
-      <pre class="idl">dictionary <dfn>TVSourceConstraints</dfn> {
-	  boolean deliverySystem = true;
+      <pre class="idl">dictionary TVSourceConstraints {
+	  sequence&lt;TVSourceType&gt; deliverySystem = true;
 	  ConstrainLong height = true;
 	  TVChannel channel = true;
 	  ConstrainLong tuningStep = true;
@@ -2218,13 +2200,13 @@
 };</pre>
       <section id="dictionary-tvsourceconstraints-members">
         <h2>
-          Dictionary <a>TVSourceConstraints</a> members:
+          Dictionary <a>TVSourceConstraints</a> Members
         </h2>
         <dl class="dictionary-members" data-dfn-for="TVSourceConstraints" data-link-for=
         "TVSourceConstraints">
           <dt>
             <dfn><code>deliverySystem</code></dfn> of type <span class=
-            "idlAttrType"><a>boolean</a></span> defaulting to <code>true</code>
+            "idlAttrType"><a>sequence &lt;TVSourceType&gt;</a></span>
           </dt>
           <dd>
             See <a href="def-constraint-deliverySystem">deliverySystem</a> for details.
@@ -2254,32 +2236,32 @@
         </dl>
       </section>
 	      </section>
-    <!-- - - - - - - - - - - - Interface TVSourceSettings - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - Dictionary TVSourceSettings - - - - - - - - - - - - -->
         <section>
       <h2>
-        <a>TVSourceSettings</a> Interface
+        <a><dfn>TVSourceSettings</dfn></a> Dictionary
       </h2>
       <p>
         <a>TVSourceSettings</a> represents the Settings of a 
 		<a>TVSource</a> object. 
 		
       </p>
-      <pre class="idl">dictionary <dfn>TVSourceSettings</dfn> {
-	  boolean deliverySystem = true;
-	  ConstrainLong height = true;
-	  TVChannel channel = true;
-	  ConstrainLong tuningStep = true;
+      <pre class="idl">dictionary TVSourceSettings {
+	  sequence &lt;TVSourceType&gt; deliverySystem;
+	  ConstrainLong height;
+	  TVChannel channel;
+	  ConstrainLong tuningStep;
 
 };</pre>
       <section id="dictionary-tvsourcesettings-members">
         <h2>
-          Dictionary <a>TVSourceSettings</a> members:
+          Dictionary <a>TVSourceSettings</a> Members
         </h2>
         <dl class="dictionary-members" data-dfn-for="TVSourceSettings" data-link-for=
         "TVSourceCSettings">
           <dt>
             <dfn><code>deliverySystem</code></dfn> of type <span class=
-            "idlAttrType"><a>boolean</a></span>
+            "idlAttrType"><a>sequence &lt;TVSourceType&gt;</a></span>
           </dt>
           <dd>
             See <a href="def-constraint-deliverySystem">deliverySystem</a> for details.
@@ -2324,7 +2306,7 @@
           <tbody>
             <tr id="def-constraint-deliverySystem">
               <td><dfn data-dfn-type="dfn" id="dfn-deliverySystem">deliverySystem</dfn></td>
-              <td><code><a href="#idl-def-TVSourceType" class="idlType"><code>TVSourceType</code></a></code></td>
+              <td><code><a href="#idl-def-TVSourceType" class="idlType"><code>sequence &lt;TVSourceType&gt;</code></a></code></td>
               <td>The delivery system or systems that must be supported.</td>
             </tr>
             <tr id="def-constraint-height">
@@ -2589,7 +2571,7 @@
     <!-- - - - - - - - - - - - Interface TVChannel  - - - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVChannel</a> Interface
+        <a><dfn>TVChannel</dfn></a> Interface
       </h2>
       <p>
         The <a>TVChannel</a> interface represents a single TV or radio channel 
@@ -2600,7 +2582,7 @@
 		terrestrial) then each <a>TVSource</a> will return a different
 		<a>TVChannel</a> object.
       </p>
-      <pre class="idl">interface <dfn>TVChannel</dfn> : EventTarget {
+      <pre class="idl">interface TVChannel: EventTarget {
     Promise&lt;sequence&lt;TVProgram&gt;&gt;     getPrograms (optional TVGetProgramsOptions options);
     Promise&lt;TVProgram&gt;               getCurrentProgram ();
     Promise&lt;sequence&lt;TVApplication&gt;&gt; getApplications ();
@@ -2614,7 +2596,7 @@
     readonly        attribute boolean             isEncrypted;
     readonly        attribute DOMString?          casSystemId;
     readonly        attribute boolean             isParentalLocked;
-                    attribute EventHandler        onparentallockchanged;
+                    attribute EventHandler        onparentallockchange;
 };</pre>
       <section>
         <h2>
@@ -2693,11 +2675,11 @@
             control.
           </dd>
           <dt>
-            <dfn><code>onparentallockchanged</code></dfn> of type <span class=
+            <dfn><code>onparentallockchange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>parentallockchanged</code> event, fired when the
+            Handles the <code>parentallockchange</code> event, fired when the
             parental lock status of the TV/Radio channel is changed.
           </dd>
         </dl>
@@ -2989,11 +2971,11 @@
           <tbody>
             <tr>
               <td>
-                <strong><code>onparentallockchanged</code></strong>
+                <strong><code>onparentallockchange</code></strong>
               </td>
               <td>
                 <code><dfn id=
-                "dfn-parentallockchanged-event">parentallockchanged</dfn></code>
+                "dfn-parentallockchange-event">parentallockchange</dfn></code>
               </td>
               <td>
                 <a><code>Event</code></a>
@@ -3020,7 +3002,7 @@
     <!-- - - - - - - - - - - - Interface TVChannelAttributes  - - - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVChannelAttributes</a> Interface
+        <a><dfn>TVChannelAttributes</dfn></a> Interface
       </h2>
       <p>
         The <a>TVChannelAttributes</a> interface represents a bunch of
@@ -3030,8 +3012,8 @@
         hierarchy of technology specific subinterfaces determined by
         <a>TVSource</a> and its <a>TVSourceType</a> properties.
       </p>
-      <pre class="idl">interface <dfn>TVChannelAttributes</dfn> : EventTarget {
-                    attribute EventHandler onattributeschanged;
+      <pre class="idl">interface TVChannelAttributes : EventTarget {
+                    attribute EventHandler onattributeschange;
 };</pre>
       <section>
         <h2>
@@ -3040,11 +3022,11 @@
         <dl class="attributes" data-dfn-for="TVChannelAttributes"
         data-link-for="TVChannelAttributes">
           <dt>
-            <dfn><code>onattributeschanged</code></dfn> of type <span class=
+            <dfn><code>onattributeschange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>onattributeschanged</code> event, fired when the
+            Handles the <code>onattributeschange</code> event, fired when the
             attributes of the TV/Radio channel are changed.
           </dd>
         </dl>
@@ -3053,14 +3035,14 @@
     <!-- - - - - - - - - - - - Interface TVDVBChannelAttributes  - - - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVDVBChannelAttributes</a> Interface
+        <a><dfn>TVDVBChannelAttributes</dfn></a> Interface
       </h2>
       <p>
         The <a>TVDVBChannelAttributes</a> interface represents DVB channel
         attributes
       </p>
       <pre class="idl">
-        interface <dfn>TVDVBChannelAttributes</dfn> : TVChannelAttributes {
+        interface TVDVBChannelAttributes : TVChannelAttributes {
     readonly        attribute DOMString originalNetworkId;
     readonly        attribute DOMString networkId;
     readonly        attribute DOMString transportStreamId;
@@ -3118,14 +3100,14 @@
     <!-- - - - - - - - - - - - Interface TVDABChannelAttributes  - - - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVDABChannelAttributes</a> Interface
+        <a><dfn>TVDABChannelAttributes</dfn></a> Interface
       </h2>
       <p>
         The <a>TVDABChannelAttributes</a> interface represents DVB channel
         attributes
       </p>
       <pre class="idl">
-        interface <dfn>TVDABChannelAttributes</dfn> : TVChannelAttributes {
+        interface TVDABChannelAttributes : TVChannelAttributes {
     readonly        attribute DOMString ensembleId;
     readonly        attribute DOMString serviceId;
 };</pre>
@@ -3164,7 +3146,7 @@
     </p>
     <section>
       <h2>
-        <a>TVApplication</a> Interface
+        <a><dfn>TVApplication</dfn></a> Interface
       </h2>
       <p>
         The <a>TVApplication</a> interface represents a bunch of properties and
@@ -3173,10 +3155,10 @@
         be the parent interface for a hierarchy of technology specific
         subinterfaces <a>TVApplicationType</a>
       </p>
-      <pre class="idl">interface <dfn>TVApplication</dfn> : EventTarget {
+      <pre class="idl">interface TVApplication : EventTarget {
     readonly        attribute TVApplicationType type;
     readonly        attribute object?           applicationData;
-                    attribute EventHandler      onapplicationchanged;
+                    attribute EventHandler      onapplicationchange;
 };</pre>
       <section>
         <h2>
@@ -3201,11 +3183,11 @@
             broadcasting standards or only known by private agreements.
           </dd>
           <dt>
-            <dfn><code>onapplicationchanged</code></dfn> of type <span class=
+            <dfn><code>onapplicationchange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>onapplicationchanged</code> event, fired when the
+            Handles the <code>onapplicationchange</code> event, fired when the
             application of the TV/Radio channel is changed.
           </dd>
         </dl>
@@ -3214,7 +3196,7 @@
     <!-- - - - - - - - - - - - Interface TVProgram  - - - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVProgram</a> Interface
+        <a><dfn>TVProgram</dfn></a> Interface
       </h2>
       <p>
         The <a>TVProgram</a> interface represents a set of properties and
@@ -3224,7 +3206,7 @@
 		different times or on different channels then each showing is
 		represented by a different <a>TVProgram</a> instance.
       </p>
-      <pre class="idl">interface <dfn>TVProgram</dfn> {
+      <pre class="idl">interface TVProgram {
     sequence&lt;DOMString&gt; getAudioLanguages ();
     sequence&lt;DOMString&gt; getSubtitleLanguages ();
     sequence&lt;DOMString&gt; getGenres ();
@@ -3372,7 +3354,7 @@
     <!-- - - - - - - - - - - - Interface TVTriggerCue - - - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVTriggerCue</a> Interface
+        <a><dfn>TVTriggerCue</dfn></a> Interface
       </h2>
       <p>
         The <a>TVTriggerCue</a> interface represents a bunch of properties and
@@ -3390,7 +3372,7 @@
         oncuechange</a></code> event to realize a TV/Radio trigger becomes
         active or dismissed.
       </p>
-      <pre class="idl">interface <dfn>TVTriggerCue</dfn> : TextTrackCue {
+      <pre class="idl">interface TVTriggerCue : TextTrackCue {
     readonly        attribute TVTriggerType  type;
     readonly        attribute DOMString?     title;
     readonly        attribute DOMString?     url;
@@ -3456,7 +3438,7 @@
     <!-- - - - - - - - - - - - Interface TVRecording  - - - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVRecording</a> Interface
+        <a><dfn>TVRecording</dfn></a> Interface
       </h2>
       <p>
         The <a>TVRecording</a> interface represents a bunch of properties and a
@@ -3468,7 +3450,7 @@
         tuner which the recording channel belongs to since watching takes
         priority over recording), or an error.
       </p>
-      <pre class="idl">interface <dfn>TVRecording</dfn> {
+      <pre class="idl">interface TVRecording {
     Promise&lt;TVMediaStream&gt; getStream ();
     Promise&lt;void&gt;          stop ();
     readonly        attribute DOMString          id;
@@ -3480,7 +3462,7 @@
     readonly        attribute unsigned long long size;
     readonly        attribute unsigned long long duration;
                     attribute DOMString          description;
-                    attribute EventHandler       onrecordingchanged;
+                    attribute EventHandler       onrecordingchange;
 };</pre>
       <section>
         <h2>
@@ -3512,7 +3494,7 @@
             relevant updates in Event Information Table (EIT) in the case of
             DVB or ProgramInfo in the case of DAB while <a>TVProgram</a> is
             specified, and then update correspondent attributes and fire a
-            <a>TVRecordingChangedEvent</a> accordingly. Furthermore, if the
+            <a>TVRecordingChangeEvent</a> accordingly. Furthermore, if the
             updated time frame conflicts with some existent ones, and there's
             no sufficient resource (i.e. tuner) to meet this, then the
             recording should change its state to <code>stopped</code>.
@@ -3566,12 +3548,12 @@
             MUST return the description of the TV/Radio recording.
           </dd>
           <dt>
-            <dfn><code>onrecordingchanged</code></dfn> of type <span class=
+            <dfn><code>onrecordingchange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>recordingchanged</code> event of type
-            <a>TVRecordingChangedEvent</a>, fired when the recording time frame
+            Handles the <code>recordingchange</code> event of type
+            <a>TVRecordingChangeEvent</a>, fired when the recording time frame
             or the state of the TV/Radio recording has been changed.
           </dd>
         </dl>
@@ -3710,13 +3692,13 @@
           <tbody>
             <tr>
               <td>
-                <strong><code>onrecordingchanged</code></strong>
+                <strong><code>onrecordingchange</code></strong>
               </td>
               <td>
-                <code>recordingchanged</code>
+                <code>recordingchange</code>
               </td>
               <td>
-                <a><code>TVRecordingChangedEvent</code></a>
+                <a><code>TVRecordingChangeEvent</code></a>
               </td>
               <td>
                 Handles the information of the updates for TV/Radio recordings.
@@ -3729,7 +3711,7 @@
     <!-- - - - - - - - - - - - Interface TVMediaStream  - - - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVMediaStream</a> Interface
+        <a><dfn>TVMediaStream</dfn></a> Interface
       </h2>
       <p>
         The <a>TVMediaStream</a> interface is an extended
@@ -3745,7 +3727,7 @@
 	  resources needed to receive and present that channel have been 
 	  successfully allocated.
 	  </p>
-      <pre class="idl">interface <dfn>TVMediaStream</dfn> : MediaStream {
+      <pre class="idl">interface TVMediaStream : MediaStream {
     sequence&lt;TextTrack&gt; getTextTracks ();
     void                addTextTrack (TextTrack textTrack);
     void                removeTextTrack (TextTrack textTrack);
@@ -4155,14 +4137,14 @@
     <!-- - - - - - - - - - - - Interface TVCICard - - - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVCICard</a> Interface
+        <a><dfn>TVCICard</dfn></a> Interface
       </h2>
       <p>
         The <a>TVCICard</a> interface represents a bunch of properties related
         to CI (Common Interface) card which is used to decrypt encrypted TV
         channel.
       </p>
-      <pre class="idl">interface <dfn>TVCICard</dfn> {
+      <pre class="idl">interface TVCICard {
     readonly        attribute TVCICardState state;
     readonly        attribute DOMString     casSystemId;
     readonly        attribute boolean       isInUse;
@@ -4203,13 +4185,13 @@
     <!-- - - - - - - - - - - - Dictionary TVStartScanningOptions   - - - - - - - -->
     <section>
       <h2>
-        <a>TVStartScanningOptions</a> Dictionary
+        <a><dfn>TVStartScanningOptions</dfn></a> Dictionary
       </h2>
       <p>
         The <a>TVStartScanningOptions</a> dictionary contains the information
         for scanning the TV/Radio channels.
       </p>
-      <pre class="idl">dictionary <dfn>TVStartScanningOptions</dfn> {
+      <pre class="idl">dictionary TVStartScanningOptions {
              boolean isRescanned;
 };</pre>
       <section>
@@ -4233,13 +4215,13 @@
     <!-- - - - - - - - - - Dictionary TVGetProgramsOptions   - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVGetProgramsOptions</a> Dictionary
+        <a><dfn>TVGetProgramsOptions</dfn></a> Dictionary
       </h2>
       <p>
         The <a>TVGetProgramsOptions</a> dictionary contains the information for
         retrieving the TV/Radio programs.
       </p>
-      <pre class="idl">dictionary <dfn>TVGetProgramsOptions</dfn> {
+      <pre class="idl">dictionary TVGetProgramsOptions {
              DOMTimeStamp startTime;
              DOMTimeStamp endTime;
              DOMString    genre;
@@ -4279,13 +4261,13 @@
     <!-- - - - - - - - - - Dictionary TVAddRecordingOptions   - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVAddRecordingOptions</a> Dictionary
+        <a><dfn>TVAddRecordingOptions</dfn></a> Dictionary
       </h2>
       <p>
         The <a>TVAddRecordingOptions</a> dictionary contains the information
         for adding a TV/Radio recording.
       </p>
-      <pre class="idl">dictionary <dfn>TVAddRecordingOptions</dfn> {
+      <pre class="idl">dictionary TVAddRecordingOptions {
     required DOMString     description;
     required TVChannel     channel;
              TVProgram?    program;
@@ -4347,16 +4329,16 @@
         </dl>
       </section>
     </section>
-    <!-- - - - - - - - -fTVCICar - Dictionary TVGetRecordingsOptions   - - - - - - - - - -->
+    <!-- - - - - - - - - - Dictionary TVGetRecordingsOptions   - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVGetRecordingsOptions</a> Dictionary
+        <a><dfn>TVGetRecordingsOptions</dfn></a> Dictionary
       </h2>
       <p>
         The <a>TVGetRecordingsOptions</a> dictionary contains the information
         for retrieving the TV/Radio recordings.
       </p>
-      <pre class="idl">dictionary <dfn>TVGetRecordingsOptions</dfn> {
+      <pre class="idl">dictionary TVGetRecordingsOptions {
              TVRecordingState? state;
              DOMString?        id;
 };</pre>
@@ -4383,28 +4365,28 @@
         </dl>
       </section>
     </section>
-    <!-- - - - - - - - - - Interface TVTunerChangedEvent - - - - - - - - - - -->
+    <!-- - - - - - - - - - Interface TVTunerChangeEvent - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVTunerChangedEvent</a> Interface
+        <a><dfn>TVTunerChangeEvent</dfn></a> Interface
       </h2>
       <p>
-        The <a>TVTunerChangedEvent</a> interface represents the event related
+        The <a>TVTunerChangeEvent</a> interface represents the event related
         to the TV/Radio tuner that is added/removed by the device.
       </p>
-      <pre class="idl">interface <dfn>TVTunerChangedEvent</dfn> : Event {
-    readonly        attribute TVTunerChangedEventOperation operation;
+      <pre class="idl">interface TVTunerChangeEvent : Event {
+    readonly        attribute TVTunerChangeEventOperation operation;
     readonly        attribute DOMString                    id;
 };</pre>
       <section>
         <h2>
           Attributes
         </h2>
-        <dl class="attributes" data-dfn-for="TVTunerChangedEvent"
-        data-link-for="TVTunerChangedEvent">
+        <dl class="attributes" data-dfn-for="TVTunerChangeEvent"
+        data-link-for="TVTunerChangeEvent">
           <dt>
             <dfn><code>operation</code></dfn> of type <span class=
-            "idlAttrType"><a>TVTunerChangedEventOperation</a></span>, readonly
+            "idlAttrType"><a>TVTunerChangeEventOperation</a></span>, readonly
           </dt>
           <dd>
             MUST return the type of operation that changes the TV/Radio tuner.
@@ -4419,25 +4401,25 @@
         </dl>
       </section>
     </section>
-    <!-- - - - - - - - Interface TVCurrentSourceChangedEvent - - - - - - - - - -->
+    <!-- - - - - - - - Interface TVCurrentSourceChangeEvent - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVCurrentSourceChangedEvent</a> Interface
+        <a><dfn>TVCurrentSourceChangeEvent</dfn></a> Interface
       </h2>
       <p>
-        The <a>TVCurrentSourceChangedEvent</a> interface represents the event
+        The <a>TVCurrentSourceChangeEvent</a> interface represents the event
         related to the current TV/Radio source that is configured by the method
-        <a><code>setCurrentSource</code></a>.
+        <code>setCurrentSource</code>.
       </p>
-      <pre class="idl">interface <dfn>TVCurrentSourceChangedEvent</dfn> : Event {
+      <pre class="idl">interface TVCurrentSourceChangeEvent : Event {
     readonly        attribute TVSource? source;
 };</pre>
       <section>
         <h2>
           Attributes
         </h2>
-        <dl class="attributes" data-dfn-for="TVCurrentSourceChangedEvent"
-        data-link-for="TVCurrentSourceChangedEvent">
+        <dl class="attributes" data-dfn-for="TVCurrentSourceChangeEvent"
+        data-link-for="TVCurrentSourceChangeEvent">
           <dt>
             <dfn><code>source</code></dfn> of type <span class=
             "idlAttrType"><a>TVSource</a></span>, readonly, nullable
@@ -4450,32 +4432,32 @@
         </dl>
       </section>
     </section>
-    <!-- - - - - - - - - - - - Interface TVEITBroadcastedEvent - - - - - - - - -->
+    <!-- - - - - - - - - - - - Interface TVEITBroadcastEvent - - - - - - - - -->
     <section>
       <h2>
-        <a>TVEITBroadcastedEvent</a> Interface
+        <a><dfn>TVEITBroadcastEvent</dfn></a> Interface
       </h2>
       <p>
-        The <a>TVEITBroadcastedEvent</a> interface represents the event related
-        to the available TV programs in the EIT that is broadcasted by the TV
+        The <a>TVEITBroadcastEvent</a> interface represents the event related
+        to the available TV programs in the EIT that is broadcast by the TV
         source.
       </p>
-      <pre class="idl">interface <dfn>TVEITBroadcastedEvent</dfn> : Event {
+      <pre class="idl">interface TVEITBroadcastEvent : Event {
     readonly        attribute object programs;
 };</pre>
       <section>
         <h2>
           Attributes
         </h2>
-        <dl class="attributes" data-dfn-for="TVEITBroadcastedEvent"
-        data-link-for="TVEITBroadcastedEvent">
+        <dl class="attributes" data-dfn-for="TVEITBroadcastEvent"
+        data-link-for="TVEITBroadcastEvent">
           <dt>
             <dfn><code>programs</code></dfn> of type <span class=
             "idlAttrType"><a>object</a></span>, readonly
           </dt>
           <dd>
             MUST return the available TV programs in the EIT that is
-            broadcasted by the TV source. Please note that it needs to be
+            broadcast by the TV source. Please note that it needs to be
             casted into a list of <code>TVProgram</code> instances. The cached
             value for this array needs to go into an internal slot for the
             object, and it should be cached there until the next time that the
@@ -4484,17 +4466,17 @@
         </dl>
       </section>
     </section>
-    <!-- - - - - - - - - - - - Interface TVEmergencyAlertedEvent - - - - - - - - -->
+    <!-- - - - - - - - - - - - Interface TVEmergencyAlertEvent - - - - - - - - -->
     <section>
       <h2>
-        <a>TVEmergencyAlertedEvent</a> Interface
+        <a><dfn>TVEmergencyAlertEvent</dfn></a> Interface
       </h2>
       <p>
-        The <a>TVEmergencyAlertedEvent</a> interface represents the event
-        related to the emergency alert that is broadcasted by the TV/Radio
+        The <a>TVEmergencyAlertEvent</a> interface represents the event
+        related to the emergency alert that is broadcast by the TV/Radio
         source.
       </p>
-      <pre class="idl">interface <dfn>TVEmergencyAlertedEvent</dfn> : Event {
+      <pre class="idl">interface TVEmergencyAlertEvent : Event {
     readonly        attribute DOMString? type;
     readonly        attribute DOMString? severityLevel;
     readonly        attribute DOMString? description;
@@ -4506,8 +4488,8 @@
         <h2>
           Attributes
         </h2>
-        <dl class="attributes" data-dfn-for="TVEmergencyAlertedEvent"
-        data-link-for="TVEmergencyAlertedEvent">
+        <dl class="attributes" data-dfn-for="TVEmergencyAlertEvent"
+        data-link-for="TVEmergencyAlertEvent">
           <dt>
             <dfn><code>type</code></dfn> of type <span class=
             "idlAttrType"><a>DOMString</a></span>, readonly, nullable
@@ -4555,8 +4537,8 @@
         <h2>
           Methods
         </h2>
-        <dl class="methods" data-dfn-for="TVEmergencyAlertedEvent"
-        data-link-for="TVEmergencyAlertedEvent">
+        <dl class="methods" data-dfn-for="TVEmergencyAlertEvent"
+        data-link-for="TVEmergencyAlertEvent">
           <dt>
             <dfn><code>getRegions</code></dfn>
           </dt>
@@ -4575,17 +4557,17 @@
         </dl>
       </section>
     </section>
-    <!-- - - - - - - - - - Interface TVScanningStateChangedEvent - - - - - - - - -->
+    <!-- - - - - - - - - - Interface TVScanningStateChangeEvent - - - - - - - - -->
     <section>
       <h2>
-        <a>TVScanningStateChangedEvent</a> Interface
+        <a><dfn>TVScanningStateChangeEvent</dfn></a> Interface
       </h2>
       <p>
-        The <a>TVScanningStateChangedEvent</a> interface represents the event
+        The <a>TVScanningStateChangeEvent</a> interface represents the event
         related to the state of channel scanning, which is changed by the
         TV/Radio source.
       </p>
-      <pre class="idl">interface <dfn>TVScanningStateChangedEvent</dfn> : Event {
+      <pre class="idl">interface TVScanningStateChangeEvent : Event {
     readonly        attribute TVScanningState state;
     readonly        attribute TVChannel?      channel;
 };</pre>
@@ -4593,8 +4575,8 @@
         <h2>
           Attributes
         </h2>
-        <dl class="attributes" data-dfn-for="TVScanningStateChangedEvent"
-        data-link-for="TVScanningStateChangedEvent">
+        <dl class="attributes" data-dfn-for="TVScanningStateChangeEvent"
+        data-link-for="TVScanningStateChangeEvent">
           <dt>
             <dfn><code>state</code></dfn> of type <span class=
             "idlAttrType"><a>TVScanningState</a></span>, readonly
@@ -4615,25 +4597,25 @@
         </dl>
       </section>
     </section>
-    <!-- - - - - - - - Interface TVCurrentChannelChangedEvent - - - - - - - - - -->
+    <!-- - - - - - - - Interface TVCurrentChannelChangeEvent - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVCurrentChannelChangedEvent</a> Interface
+        <a><dfn>TVCurrentChannelChangeEvent</dfn></a> Interface
       </h2>
       <p>
-        The <a>TVCurrentChannelChangedEvent</a> interface represents the event
+        The <a>TVCurrentChannelChangeEvent</a> interface represents the event
         related to the currently streamed TV/Radio channel that is tuned by the
-        method <a><code>tuneTo</code></a> or <a><code>tuneToChannel</code></a>.
+        method <code>tuneTo</code> or <code>tuneToChannel</code>.
       </p>
-      <pre class="idl">interface <dfn>TVCurrentChannelChangedEvent</dfn> : Event {
+      <pre class="idl">interface TVCurrentChannelChangeEvent : Event {
     readonly        attribute TVChannel? channel;
 };</pre>
       <section>
         <h2>
           Attributes
         </h2>
-        <dl class="attributes" data-dfn-for="TVCurrentChannelChangedEvent"
-        data-link-for="TVCurrentChannelChangedEvent">
+        <dl class="attributes" data-dfn-for="TVCurrentChannelChangeEvent"
+        data-link-for="TVCurrentChannelChangeEvent">
           <dt>
             <dfn><code>channel</code></dfn> of type <span class=
             "idlAttrType"><a>TVChannel</a></span>, readonly, nullable
@@ -4646,16 +4628,16 @@
         </dl>
       </section>
     </section>
-    <!-- - - - - - - - Interface TVRecordingChangedEvent - - - - - - - - - - - - -->
+    <!-- - - - - - - - Interface TVRecordingChangeEvent - - - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVRecordingChangedEvent</a> Interface
+        <a><dfn>TVRecordingChangeEvent</dfn></a> Interface
       </h2>
       <p>
-        The <a>TVRecordingChangedEvent</a> interface represents the event
+        The <a>TVRecordingChangeEvent</a> interface represents the event
         related to the update of a TV/Radio recording.
       </p>
-      <pre class="idl">interface <dfn>TVRecordingChangedEvent</dfn> : Event {
+      <pre class="idl">interface TVRecordingChangeEvent : Event {
     readonly        attribute DOMString  id;
     readonly        attribute boolean    isTimeChange;
     readonly        attribute boolean    isStateChange;
@@ -4665,8 +4647,8 @@
         <h2>
           Attributes
         </h2>
-        <dl class="attributes" data-dfn-for="TVRecordingChangedEvent"
-        data-link-for="TVRecordingChangedEvent">
+        <dl class="attributes" data-dfn-for="TVRecordingChangeEvent"
+        data-link-for="TVRecordingChangeEvent">
           <dt>
             <dfn><code>id</code></dfn> of type <span class=
             "idlAttrType"><a>DOMString</a></span>, readonly
@@ -4701,16 +4683,16 @@
         </dl>
       </section>
     </section>
-    <!-- - - - - - - - - - Interface TVCICardChangedEvent - - - - - - - - - - -->
+    <!-- - - - - - - - - - Interface TVCICardChangeEvent - - - - - - - - - - -->
     <section>
       <h2>
-        <a>TVCICardChangedEvent</a> Interface
+        <a><dfn>TVCICardChangeEvent</dfn></a> Interface
       </h2>
       <p>
-        The <a>TVCICardChangedEvent</a> interface represents the event related
+        The <a>TVCICardChangeEvent</a> interface represents the event related
         to the changes in the state of the CI (Common Interface) card.
       </p>
-      <pre class="idl">interface <dfn>TVCICardChangedEvent</dfn> : Event {
+      <pre class="idl">interface TVCICardChangeEvent : Event {
     readonly        attribute TVCICardState state;
     readonly        attribute DOMString     casSystemId;
 };</pre>
@@ -4718,8 +4700,8 @@
         <h2>
           Attributes
         </h2>
-        <dl class="attributes" data-dfn-for="TVCICardChangedEvent"
-        data-link-for="TVCICardChangedEvent">
+        <dl class="attributes" data-dfn-for="TVCICardChangeEvent"
+        data-link-for="TVCICardChangeEvent">
           <dt>
             <dfn><code>state</code></dfn> of type <span class=
             "idlAttrType"><a>TVCICardState</a></span>, readonly
@@ -4744,16 +4726,11 @@
         Enumerations
       </h2>
       <p>
-        The attribute <code>type</code> in the <a>TVSource</a> can have the
-        following values:
-      </p>
-
-      <p>
         The attribute <code>type</code> in a <a>TVChannel</a> can have the
         following values:
       </p>
       <div>
-        <pre class="idl">enum <dfn>TVChannelType</dfn> {
+        <pre class="idl">enum TVChannelType {
     "tv",
     "radio",
     "data"
@@ -4771,7 +4748,7 @@
                 <dfn><code id="idl-def-TVChannelType.tv">tv</code></dfn>
               </td>
               <td>
-                The channel is broadcasted as a regular TV type.
+                The channel is broadcast as a regular TV type.
               </td>
             </tr>
             <tr>
@@ -4779,7 +4756,7 @@
                 <dfn><code id="idl-def-TVChannelType.radio">radio</code></dfn>
               </td>
               <td>
-                The channel is broadcasted as a radio type.
+                The channel is broadcast as a radio type.
               </td>
             </tr>
             <tr>
@@ -4787,18 +4764,18 @@
                 <dfn><code id="idl-def-TVChannelType.data">data</code></dfn>
               </td>
               <td>
-                The channel is broadcasted as a data type.
+                The channel is broadcast as a data type.
               </td>
             </tr>
           </tbody>
         </table>
       </div>
       <p>
-        The attribute <code>TVApplicationType</code> in a <a>TVApplication</a>
+        The attribute <code>type</code> in a <a>TVApplication</a>
         can have the following values:
       </p>
       <div>
-        <pre class="idl">enum <dfn>TVApplicationType</dfn> {
+        <pre class="idl">enum TVApplicationType {
     "hbbtv",
     "mheg",
     "sls",
@@ -4859,16 +4836,16 @@
         </table>
       </div>
       <p>
-        The attribute <code>operation</code> in the <a>TVTunerChangedEvent</a>
+        The attribute <code>operation</code> in the <a>TVTunerChangeEvent</a>
         can have the following values:
       </p>
       <div>
-        <pre class="idl">enum <dfn>TVTunerChangedEventOperation</dfn> {
+        <pre class="idl">enum <dfn>TVTunerChangeEventOperation</dfn> {
     "added",
     "removed"
 };</pre>
-        <table class="simple" data-dfn-for="TVTunerChangedEventOperation"
-        data-link-for="TVTunerChangedEventOperation">
+        <table class="simple" data-dfn-for="TVTunerChangeEventOperation"
+        data-link-for="TVTunerChangeEventOperation">
           <tbody>
             <tr>
               <th colspan="2">
@@ -4878,7 +4855,7 @@
             <tr>
               <td>
                 <dfn><code id=
-                "idl-def-TVTunerChangedEventOperation.added">added</code></dfn>
+                "idl-def-TVTunerChangeEventOperation.added">added</code></dfn>
               </td>
               <td>
                 A tuner is added.
@@ -4887,7 +4864,7 @@
             <tr>
               <td>
                 <dfn><code id=
-                "idl-def-TVTunerChangedEventOperation.removed">removed</code></dfn>
+                "idl-def-TVTunerChangeEventOperation.removed">removed</code></dfn>
               </td>
               <td>
                 A tuner is removed.
@@ -4898,7 +4875,7 @@
       </div>
       <p>
         The attribute <code>state</code> in the
-        <a>TVScanningStateChangedEvent</a> can have the following values:
+        <a>TVScanningStateChangeEvent</a> can have the following values:
       </p>
       <div>
         <pre class="idl">enum <dfn>TVScanningState</dfn> {
@@ -4933,7 +4910,7 @@
               <td>
                 A TV/Radio channel has been found by the source during the
                 channel scan. The <code>channel</code> attribute in the
-                <code>TVScanningStateChangedEvent</code> object references the
+                <code>TVScanningStateChangeEvent</code> object references the
                 channel found.
               </td>
             </tr>

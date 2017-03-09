@@ -2945,8 +2945,8 @@
     readonly        attribute DOMTimeStamp duration;
     readonly        attribute DOMString?   shortDescription;
     readonly        attribute DOMString?   longDescription;
-    readonly        attribute DOMString?   rating;
-    readonly        attribute boolean      isFree;
+    readonly        attribute DOMString?   parentalRating;
+    readonly        attribute boolean      isEncrypted;
     readonly        attribute DOMString?   seriesId;
 };</pre>
       <section>
@@ -4461,8 +4461,8 @@
         Enumerations
       </h2>
       <p>
-        The attribute <code>type</code> in a <a>TVChannel</a> can have the
-        following values:
+	      The attribute <code>type</code> in a <a>TVChannel</a> is of type 
+	      <dfn>TVChannelType</dfn>, which can have the following values:
       </p>
       <div>
         <pre class="idl">enum TVChannelType {
@@ -4506,8 +4506,8 @@
         </table>
       </div>
       <p>
-        The attribute <code>type</code> in a <a>TVApplication</a>
-        can have the following values:
+        The attribute <code>type</code> in a <a>TVApplication</a> is of type 
+	<dfn>TVApplicationType</dfn>, which can have the following values:
       </p>
       <div>
         <pre class="idl">enum TVApplicationType {
@@ -4875,6 +4875,22 @@
         </tbody>
       </table>
     </div>
+    <!-- - - - - - - - Privacy and security considerations - - - - - - - - - - - -->
+    <section id="privacy-and-security-considerations">
+      <h2>
+        Privacy and Security Considerations
+      </h2>
+      <p>
+        This section is non-normative; it specifies no new behavior, but instead
+		summarizes information already present in other parts of the
+		specification.
+      </p>
+      <p class="ednote">
+        This section will be completed in a future draft of the specification.  See 
+		<a href="https://github.com/w3c/tvcontrol-api/issues/8">this issue</a> for
+        details.
+      </p>
+    </section>
     <!-- - - - - - - - - - - - Acknowledgements  - - - - - - - - - - - - - - - - -->
     <section>
       <h2>

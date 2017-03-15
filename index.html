@@ -52,6 +52,26 @@
           value: 'GitHub w3c/tvcontrol-api/commits',
           href: "https://github.com/w3c/tvcontrol-api/commits/gh-pages"
         }]
+      }, {
+        key: 'Participate',
+        data: [
+          {
+            value: 'GitHub w3c/tvcontrol-api',
+            href: 'https://github.com/w3c/tvcontrol-api/'
+          },
+          {
+            value: 'File an issue',
+            href: 'https://github.com/w3c/tvcontrol-api/issues/new'
+          },
+          {
+            value: 'Open issues',
+            href: 'https://github.com/w3c/tvcontrol-api/issues/'
+          },
+          {
+            value: 'Mailing-list (public-tvcontrol@w3.org)',
+            href: 'https://lists.w3.org/Archives/Public/public-tvcontrol/'
+          }
+        ]
       }],
       inlineCSS:    true,
       noIDLIn:      true,
@@ -143,79 +163,45 @@
       <h2>
         Terminology
       </h2>
+      <p>The following terms are defined in [[!HTML]]:</p>
+      <ul>
+        <li>The <dfn data-cite="!HTML#the-audio-element"><code>audio</code></dfn> element</li>
+        <li><dfn data-cite="!HTML#eventhandler"><code>EventHandler</code></dfn></li>
+        <li><dfn data-cite="!HTML#event-handlers">event handlers</dfn></li>
+        <li><dfn data-cite="!HTML#event-handler-event-type" data-lt="event type|event types">event handler event type</dfn></li>
+        <li><dfn data-cite="!HTML#navigator"><code>Navigator</code></dfn></li>
+        <li><dfn data-cite="!HTML#htmlmediaelement"><code>HTMLMediaElement</code></dfn></li>
+        <li><dfn data-cite="!HTML#timeranges"><code>TimeRanges</code></dfn></li>
+        <li><dfn data-cite="!HTML#texttrack"><code>TextTrack</a></code></dfn></li>
+        <li><dfn data-cite="!HTML#texttrackcue"><code>TextTrackCue</a></code></dfn></li>
+        <li>The <dfn data-cite="!HTML#the-video-element"><code>video</code></dfn> element</li>
+      </ul>
       <p>
-        The <dfn><a href=
-        "http://www.w3.org/TR/html5/webappapis.html#eventhandler">EventHandler</a></dfn>
-        interface represents a callback used for event handlers as defined in
-        [[!HTML5]].
-      </p>
-      <p>
-        The <dfn><a href=
-        "http://www.w3.org/TR/dom/#interface-event">Event</a></dfn> and
-        <dfn><a href=
-        "http://www.w3.org/TR/dom/#interface-eventtarget">EventTarget</a></dfn>
+        The <dfn data-cite="!DOM#event"><code>Event</code></dfn> and
+        <dfn data-cite="!DOM#eventtarget"><code>EventTarget</code></dfn>
         interfaces are defined in [[!DOM]].
       </p>
       <p>
-        The concepts <dfn><a href=
-        "http://www.w3.org/TR/html5/webappapis.html#queue-a-task">queue a
-        task</a></dfn> and <dfn><a href=
-        "http://www.w3.org/TR/html5/webappapis.html#fire-a-simple-event">fire
-        an event</a></dfn> are defined in [[!HTML5]].
-      </p>
-      <p>
-        The terms <a href=
-        "http://www.w3.org/TR/html5/webappapis.html#event-handlers"><dfn id=
-        "dfn-eventhandler">event handler</dfn></a> and <a href=
-        "http://www.w3.org/TR/html5/webappapis.html#event-handler-event-type"><dfn id="dfn-eventtypes">
-        event handler event types</dfn></a> are defined in [[!HTML5]].
-      </p>
-      <p>
-        The <dfn><a href=
-        "https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></dfn>
-        interface, the concepts of a <a href=
-        "https://tc39.github.io/ecma262/#sec-promise-resolve-functions"><dfn>resolver</dfn></a>,
-        a <dfn id="dfn-fulfill-algorithm"><a href=
-        "https://tc39.github.io/ecma262/#sec-fulfillpromise">resolver's fulfill
-        algorithm</a></dfn> and a <dfn id="dfn-reject-algorithm"><a href=
-        "https://tc39.github.io/ecma262/#sec-rejectpromise">resolver's reject
+        The <dfn data-cite="!ECMAScript#sec-promise-objects"><code>Promise</code></dfn>
+        interface, the concepts of a <dfn data-cite="!ECMAScript#sec-promise-resolve-functions">resolver</dfn>,
+        a <dfn data-cite="!ECMAScript#sec-fulfillpromise" data-lt="fulfill algorithm">resolver's fulfill
+        algorithm</dfn> and a <dfn data-cite="!ECMAScript#sec-rejectpromise" data-lt="reject algorithm">resolver's reject
         algorithm</a></dfn> are defined in [[ECMAScript]].
       </p>
       <p>
-        The <dfn><a href=
-        "http://www.w3.org/TR/mediacapture-streams/#mediastream">MediaStream</a></dfn>
-        interface is defined in [[!MediaCapture-Streams]].
+        The <dfn data-cite="!MediaCapture-Streams#idl-def-MediaStream"><code>MediaStream</code></dfn>
+        interface and the <dfn data-cite="!MediaCapture-Streams#idl-def-ConstrainLong"><code>ConstrainLong</code></dfn>
+        type are defined in [[!MediaCapture-Streams]].
       </p>
       <p>
-        The <dfn><a href=
-        "http://www.w3.org/TR/mediastream-recording/#dom-mediarecorder">MediaRecorder</a></dfn>
+        The <dfn data-cite="MediaStream-Recording#dom-mediarecorder"><code>MediaRecorder</code></dfn>
         interface is defined in [[MediaStream-Recording]].
-      </p>
-      <p>
-        The <dfn><a href=
-        "http://www.w3.org/TR/html5/embedded-content-0.html#the-video-element">video</a></dfn>
-        element, and <dfn><a href=
-        "http://www.w3.org/TR/html5/embedded-content-0.html#the-audio-element">audio</a></dfn>
-        <dfn><a href=
-        "http://www.w3.org/TR/html5/embedded-content-0.html#htmlmediaelement">HTMLMediaElement</a></dfn>,
-        <dfn><a href=
-        "http://www.w3.org/TR/html5/embedded-content-0.html#timeranges">TimeRanges</a></dfn>
-        interfaces are defined in [[!HTML5]].
-      </p>
-      <p>
-        The <dfn><a href=
-        "http://www.w3.org/TR/html5/embedded-content-0.html#texttrack">TextTrack</a></dfn>,
-        <dfn><a href=
-        "http://www.w3.org/TR/html5/embedded-content-0.html#texttrackcue">TextTrackCue</a></dfn>,
-        and <dfn><a href=
-        "http://www.w3.org/TR/html5/embedded-content-0.html#trackevent">TrackEvent</a></dfn>
-        interfaces are defined in [[!HTML5]]
       </p>
     </section>
     <!-- - - - - - - - - - - - - Extended Interface Navigator  - - - - - - - - - -->
     <section>
       <h2>
-        <a><dfn>Navigator</dfn></a> Interface
+        Navigator Interface
       </h2>
       <pre class="idl">partial interface Navigator {
     [SameObject]
@@ -228,8 +214,7 @@
         <dl class="attributes" data-dfn-for="Navigator" data-link-for=
         "Navigator">
           <dt>
-            <dfn><code>tv</code></dfn> of type <span class=
-            "idlAttrType"><a>TVControl</a></span>, readonly
+            <dfn><code>tv</code></dfn> of type <a>TVControl</a>, readonly
           </dt>
           <dd>
             MUST return the object that exposes the interface to the TV control
@@ -271,7 +256,7 @@
             </div>
             <div>
               <em>Return type:</em>
-              <code>Promise&lt;TVManager&gt;</code>
+              <code><a>Promise</a>&lt;<a>TVManager</a>&gt;</code>
             </div>
           </dd>
          <dt>
@@ -287,7 +272,7 @@
             </div>
             <div>
               <em>Return type:</em>
-              <code>Promise&lt;TVManager&gt;</code>
+              <code><a>Promise</a>&lt;<a>TVManager</a>&gt;</code>
             </div>
           </dd>
 		</dl>
@@ -304,10 +289,10 @@
         The <a>TVManager</a> interface represents the set of operations that can 
 		be used to manage the TV/Radio device.
       </p>
-      <p class=”issue” data-number=”4”>The location of the 
+      <p class="issue" data-number="4">The location of the 
 	  <code>getChannelList()</code> method is still under discussion: this draft 
-	  includes versions of this method on both the <code>TVManager</code> and 
-	  <code>TVSource</code> interfaces.  It is highly likely that one of these 
+	  includes versions of this method on both the <a>TVManager</a> and 
+	  <a>TVSource</a> interfaces.  It is highly likely that one of these 
 	  will be removed in a future draft.</p>
 	  <pre class="idl">interface TVManager : EventTarget {
     TVSourceCapabilities getCapabilities();
@@ -364,7 +349,7 @@
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>tunerchange</code> event of type
+            Handles the <a>tunerchange</a> event of type
             <a>TVTunerChangeEvent</a>, fired when the TV/Radio device detects
             a tuner is added/removed.
           </dd>
@@ -373,7 +358,7 @@
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>recordingchange</code> event of type
+            Handles the <a>recordingchange</a> event of type
             <a>TVRecordingChangeEvent</a>, fired when the recording time frame
             or the state of the TV/Radio recording has been changed.
           </dd>
@@ -382,7 +367,7 @@
             <span class="idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>parentalcontrolchange</code> event, fired when
+            Handles the <a>parentalcontrolchange</a> event, fired when
             the parental control status is changed.
           </dd>
           <dt>
@@ -390,7 +375,7 @@
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>cicardchange</code> event, fired when the CI
+            Handles the <a>cicardchange</a> event, fired when the CI
             (Common Interface) card status is changed.
           </dd>
         </dl>
@@ -413,7 +398,7 @@
             </div>
             <div>
               <em>Return type:</em>
-              <code>TVSourceCapabilities</code>
+              <a>TVSourceCapabilities</a>
             </div>
           </dd>
           <dt>
@@ -449,7 +434,7 @@
                     option
                   </td>
                   <td class="prmType">
-                    <code>TVSourceConstraints</code>
+                    <a>TVSourceConstraints</a>
                   </td>
                   <td class="prmNullFalse">
                     <span role="img" aria-label="False">✘</span>
@@ -466,7 +451,7 @@
 
             <div>
               <em>Return type:</em>
-              <code>Promise&lt;TVSource&gt;</code>
+              <code><a>Promise</a>&lt;<a>TVSource</a>&gt;</code>
             </div>
           </dd>
           <dt>
@@ -476,7 +461,7 @@
             This method returns <code>true</code> if a TV/Radio source that 
 			matches the specified constraints is currently available, and 
 			<code>false</code> otherwise. Note that the availability of a 
-			<code>TVSource</code> will depend on the number of streams being 
+			<a>TVSource</a> will depend on the number of streams being 
 			decoded by the device, and may also depend on other factors.
             <table class="parameters">
               <tbody>
@@ -502,7 +487,7 @@
                     option
                   </td>
                   <td class="prmType">
-                    <code>TVSourceConstraints</code>
+                    <a>TVSourceConstraints</a>
                   </td>
                   <td class="prmNullFalse">
                     <span role="img" aria-label="False">✘</span>
@@ -555,7 +540,7 @@
                     option
                   </td>
                   <td class="prmType">
-                    <code>TVSourceConstraints</code>
+                    <a>TVSourceConstraints</a>
                   </td>
                   <td class="prmNullFalse">
                     <span role="img" aria-label="False">✘</span>
@@ -572,7 +557,7 @@
 
             <div>
               <em>Return type:</em>
-              <code>Promise&lt;sequence&lt;TVChannel&gt;&gt;</code>
+              <code><a>Promise</a>&lt;sequence&lt;<a>TVChannel</a>&gt;&gt;</code>
             </div>
           </dd>
 
@@ -621,7 +606,7 @@
                     option
                   </td>
                   <td class="prmType">
-                    <code>TVAddRecordingOptions</code>
+                    <a>TVAddRecordingOptions</a>
                   </td>
                   <td class="prmNullFalse">
                     <span role="img" aria-label="False">✘</span>
@@ -636,7 +621,7 @@
               </tbody>
             </table>
             <div>
-              <em>Return type:</em> <code>Promise&lt;TVRecording&gt;</code>
+              <em>Return type:</em> <code><a>Promise</a>&lt;<a>TVRecording</a>&gt;</code>
             </div>
           </dd>
           <dt>
@@ -685,7 +670,7 @@
               </tbody>
             </table>
             <div>
-              <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+              <em>Return type:</em> <code><a>Promise</a>&lt;void&gt;</code>
             </div>
           </dd>
           <dt>
@@ -720,7 +705,7 @@
                     options
                   </td>
                   <td class="prmType">
-                    <code>TVGetRecordingsOptions</code>
+                    <a>TVGetRecordingsOptions</a>
                   </td>
                   <td class="prmNullFalse">
                     <span role="img" aria-label="False">✘</span>
@@ -736,7 +721,7 @@
             </table>
             <div>
               <em>Return type:</em>
-              <code>Promise&lt;sequence&lt;TVRecording&gt;&gt;</code>
+              <code><a>Promise</a>&lt;sequence&lt;<a>TVRecording</a>&gt;&gt;</code>
             </div>
           </dd>
           <dt>
@@ -745,7 +730,7 @@
           <dd>
             This method makes a request to set the TV/Radio parental control
             PIN used for enabling or disabling parental control. It returns a
-            new <code>Promise</code> that will be used to notify the caller
+            new <a>Promise</a> that will be used to notify the caller
             about the result of the operation. Note that the
             <code><a>Promise</a></code> may be rejected with an
             <code>InvalidAccessError</code> if the old PIN does not match the
@@ -806,7 +791,7 @@
               </tbody>
             </table>
             <div>
-              <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+              <em>Return type:</em> <code><a>Promise</a>&lt;void&gt;</code>
             </div>
           </dd>
           <dt>
@@ -814,7 +799,7 @@
           </dt>
           <dd>
             This method makes a request to set the TV/Radio parental control
-            status. It returns a new <code>Promise</code> that will be used to
+            status. It returns a new <a>Promise</a> that will be used to
             notify the caller about the result of the operation. Note that the
             <code><a>Promise</a></code> may be rejected with an
             <code>InvalidAccessError</code> if the PIN does not match the
@@ -875,7 +860,7 @@
               </tbody>
             </table>
             <div>
-              <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+              <em>Return type:</em> <code><a>Promise</a>&lt;void&gt;</code>
             </div>
           </dd>
           <dt>
@@ -892,81 +877,77 @@
             </div>
             <div>
               <em>Return type:</em>
-              <code>Promise&lt;sequence&lt;TVCICard&gt;&gt;</code>
+              <code><a>Promise</a>&lt;sequence&lt;<a>TVCICard</a>&gt;&gt;</code>
             </div>
           </dd>
         </dl>
       </section>
-      <section>
+      <section data-link-for="TVManager">
         <h3>
           Procedures
         </h3>
         <p>
-          The <code>addRecording</code> method when invoked MUST run
+          The <a>addRecording</a> method when invoked MUST run
           the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
           <li>Make a recording request to the TV/Radio recording scheduler
           according to the <code>options</code> parameter.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
               <li>Let <var>recording</var> be the newly-created
               <a>TVRecording</a> object.
               </li>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> with
-              <em>recording</em> as the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> with
+              <var>recording</var> as the <code>value</code> argument.
               </li>
             </ol>
           </li>
         </ol>
         <p>
-          The <code>removeRecording</code> method when invoked MUST
+          The <a>removeRecording</a> method when invoked MUST
           run the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
           <li>Make a request to the TV/Radio device to remove the given record.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> without assigning
-              a value to the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> without
+              assigning a value to the <code>value</code> argument.
               </li>
             </ol>
           </li>
         </ol>
         <p>
-          The <code>getRecordings</code> method when invoked MUST
+          The <a>getRecordings</a> method when invoked MUST
           run the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
@@ -974,106 +955,98 @@
           available TV/Radio recordings according to the <code>options</code>
           parameter.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
               <li>Let <var>recordings</var> be the array of the retrieved
               <a>TVRecording</a> elements.
               </li>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> with
-              <em>recordings</em> as the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> with
+              <var>recordings</var> as the <code>value</code> argument.
               </li>
             </ol>
           </li>
         </ol>
         <p>
-          The <code>setParentalControlPin</code> method when invoked
+          The <a>setParentalControlPin</a> method when invoked
           MUST run the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
           <li>Make a request to set the new PIN for parental control according
           to the <code>newPin</code> parameter.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> without assigning
-              a value to the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> without
+              assigning a value to the <code>value</code> argument.
               </li>
             </ol>
           </li>
         </ol>
         <p>
-          The <code>setParentalControl</code> method when invoked
+          The <a>setParentalControl</a> method when invoked
           MUST run the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
           <li>Make a request to set the new status for parental control
           according to the <code>isLocked</code> parameter.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> without assigning
-              a value to the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> without
+              assigning a value to the <code>value</code> argument.
               </li>
             </ol>
           </li>
         </ol>
         <p>
-          The <code>getCICards</code> method when invoked MUST run
+          The <a>getCICards</a> method when invoked MUST run
           the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
           <li>Make a request to the TV device to retrieve all the CI (Common
           Interface) cards that are available in the TV device.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
               <li>Let <var>cicards</var> be the array of the retrieved
               <a>TVCICard</a> elements.
               </li>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> with
-              <em>cicards</em> as the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> with
+              <var>cicards</var> as the <code>value</code> argument.
               </li>
             </ol>
           </li>
@@ -1084,10 +1057,9 @@
           Event handlers
         </h3>
         <p>
-          The following are the <a class="internalDFN" href=
-          "#dfn-eventhandler">event handlers</a> (and their corresponding
-          <a class="internalDFN" href="#dfn-eventtypes">event types</a>) that
-          MUST be supported as attributes by the <a>TVManager</a> object.
+          The following are the <a>event handlers</a> (and their corresponding
+          <a>event types</a>) that MUST be supported as attributes by the
+          <a>TVManager</a> object.
         </p>
         <table class="simple">
           <thead>
@@ -1233,7 +1205,7 @@
             <code><a>HTMLMediaElement</a></code>'s <code>srcObject</code>
             attribute and can be recorded by the
             <code><a>MediaRecorder</a></code>.<br>
-            MUST return <em>null</em> if the source is not streaming any
+            MUST return <code>null</code> if the source is not streaming any
             data, which happens when the streaming signal is broken or due to
             any reason that makes the TV source fail to do so.<br>
             Note that the stream instance should be the same even after the
@@ -1253,7 +1225,7 @@
           </dt>
           <dd>
             MUST return the channel that is currently streamed by the TV/Radio
-            tuner which owns the source. MUST return <em>null</em> if the
+            tuner which owns the source. MUST return <code>null</code> if the
             TV/Radio tuner is not streaming any data.
           </dd>
           <dt>
@@ -1261,10 +1233,9 @@
             <span class="idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>currentchannelchange</code> event of type
+            Handles the <a>currentchannelchange</a> event of type
             <a>TVCurrentChannelChangeEvent</a>, fired when the method
-            <code>tuneTo</code> or 
-			<code>tuneToChannel</code> is invoked to tune the
+            <a>tuneTo</a> or <a>tuneToChannel</a> is invoked to tune the
             currently streamed TV/Radio channel.
           </dd>
           <dt>
@@ -1272,7 +1243,7 @@
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>eitbroadcast</code> event of type
+            Handles the <a>eitbroadcast</a> event of type
             <a>TVEITBroadcastEvent</a>, fired when the Event Information
             Table (EIT) is broadcast by the TV source.
           </dd>
@@ -1281,7 +1252,7 @@
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>emergencyalert</code> event of type
+            Handles the <a>emergencyalert</a> event of type
             <a>TVEmergencyAlertEvent</a>, fired when an emergency, such as
             earthquake or tsunami, occurs and is broadcast by the TV/Radio
             source.
@@ -1291,7 +1262,7 @@
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>scanningstatechange</code> event of type
+            Handles the <a>scanningstatechange</a> event of type
             <a>TVScanningStateChangeEvent</a>, fired when the state of
             scanning the TV/Radio channels is changed by the source. E.g., it
             can be fired when the method <a><code>startScanning</code></a> or
@@ -1351,7 +1322,7 @@
             </div>
             <div>
               <em>Return type:</em>
-              <code>Promise&lt;sequence&lt;TVChannel&gt;&gt;</code>
+              <code><a>Promise</a>&lt;sequence&lt;<a>TVChannel</a>&gt;&gt;</code>
             </div>
           </dd>
           <dt>
@@ -1391,7 +1362,7 @@
                     channel
                   </td>
                   <td class="prmType">
-                    <code>TVChannel</code>
+                    <a>TVChannel</a>
                   </td>
                   <td class="prmNullFalse">
                     <span role="img" aria-label="False">✘</span>
@@ -1406,7 +1377,7 @@
               </tbody>
             </table>
             <div>
-              <em>Return type:</em> <code>Promise&lt;TVMediaStream&gt;</code>
+              <em>Return type:</em> <code><a>Promise</a>&lt;<a>TVMediaStream</a>&gt;</code>
             </div>
           </dd>
           <dt>
@@ -1461,7 +1432,7 @@
               </tbody>
             </table>
             <div>
-              <em>Return type:</em> <code>Promise&lt;TVMediaStream&gt;</code>
+              <em>Return type:</em> <code><a>Promise</a>&lt;<a>TVMediaStream</a>&gt;</code>
             </div>
           </dd>
           <dt>
@@ -1502,7 +1473,7 @@
                     options
                   </td>
                   <td class="prmType">
-                    <code>TVStartScanningOptions</code>
+                    <a>TVStartScanningOptions</a>
                   </td>
                   <td class="prmNullFalse">
                     <span role="img" aria-label="False">✘</span>
@@ -1523,7 +1494,7 @@
               </tbody>
             </table>
             <div>
-              <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+              <em>Return type:</em> <code><a>Promise</a>&lt;void&gt;</code>
             </div>
           </dd>
           <dt>
@@ -1538,54 +1509,52 @@
               <em>No parameters.</em>
             </div>
             <div>
-              <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+              <em>Return type:</em> <code><a>Promise</a>&lt;void&gt;</code>
             </div>
           </dd>
         </dl>
       </section>
-      <section>
+      <section data-link-for="TVSource">
         <h3>
           Procedures
         </h3>
         <p>
-          The <code>getChannels</code> method when invoked MUST run
+          The <a>getChannels</a> method when invoked MUST run
           the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
           <li>Make a request to the source to retrieve all the TV/Radio
           channels that are available in the source.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
               <li>Let <var>channels</var> be the array of the retrieved
               <a>TVChannel</a> elements.
               </li>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> with
-              <em>channels</em> as the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> with
+              <var>channels</var> as the <code>value</code> argument.
               </li>
             </ol>
           </li>
         </ol>
         <p>
-          The <code>tuneToChannel</code> method when invoked
+          The <a>tuneToChannel</a> method when invoked
           MUST run the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
@@ -1593,31 +1562,29 @@
           TV/Radio channel according to the <code>channel</code>
           parameter.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
               <li>Let <var>stream</var> an instance of a TVMediaStream 
 			  representing the media data of the specified channel.
               </li>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> with
-              <em>stream</em> as the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> with
+              <var>stream</var> as the <code>value</code> argument.
               </li>
             </ol>
           </li>
         </ol>
         <p>
-          The <code>tuneTo</code> method when invoked
+          The <a>tuneTo</a> method when invoked
           MUST run the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
@@ -1625,30 +1592,29 @@
           TV/Radio channel according to the <code>tuningParams</code>
           parameter.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
               <li>Let <var>stream</var> an instance of a TVMediaStream 
 			  representing the media data of the channel found at the 
 			  specified tuning parameters.
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> with
-              <em>stream</em> as the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> with
+              <var>stream</var> as the <code>value</code> argument.
               </li>
             </ol>
           </li>
-          The <code>startScanning</code> method when invoked MUST
-        </ol>        <p>
+        </ol>
+        <p>
+          The <a>startScanning</a> method when invoked MUST
           run the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
@@ -1656,51 +1622,46 @@
           channels that are available in the source according to the scanning
           options specified in the <code>options</code> parameter. If the
           <code>isRescanned</code> option in the <code>options</code> parameter
-          is not passed or it is passed as <code>true</code>, the <a class=
-          "internalDFN" href="#dfn-user-agent">user agent</a> MUST clear the
-          currently scanned TV/Radio channels before scanning; if it is passed
-          as <code>false</code>, the <a class="internalDFN" href=
-          "#dfn-user-agent">user agent</a> will simply scan additional TV/Radio
-          channels which haven't been scanned yet.
+          is not passed or it is passed as <code>true</code>, the <a>user
+          agent</a> MUST clear the currently scanned TV/Radio channels before
+          scanning; if it is passed as <code>false</code>, the <a>user
+          agent</a> will simply scan additional TV/Radio channels which haven't
+          been scanned yet.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> without assigning
-              a value to the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> without
+              assigning a value to the <code>value</code> argument.
               </li>
             </ol>
           </li>
         </ol>
         <p>
-          The <code>stopScanning</code> method when invoked MUST run
+          The <a>stopScanning</a> method when invoked MUST run
           the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
           <li>Make a request to the source to stop scanning the TV/Radio
           channels.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> without assigning
-              a value to the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> without
+              assigning a value to the <code>value</code> argument.
               </li>
             </ol>
           </li>
@@ -1711,10 +1672,9 @@
           Event handlers
         </h3>
         <p>
-          The following are the <a class="internalDFN" href=
-          "#dfn-eventhandler">event handlers</a> (and their corresponding
-          <a class="internalDFN" href="#dfn-eventtypes">event types</a>) that
-          MUST be supported as attributes by the <a>TVSource</a> object.
+          The following are the <a>event handlers</a> (and their corresponding
+          <a>event types</a>) that MUST be supported as attributes by the
+          <a>TVSource</a> object.
         </p>
         <table class="simple">
           <thead>
@@ -1745,10 +1705,10 @@
               <td>
                 <a><code>TVCurrentChannelChangeEvent</code></a>
               </td>
-              <td>
+              <td data-link-for="TVSource">
                 Handles the information of the currently streamed TV/Radio
                 channel that is tuned by the method
-                <code>tuneTo</code> or <code>tuneToChannel</code>.
+                <a>tuneTo</a> or <a>tuneToChannel</a>.
               </td>
             </tr>
             <tr>
@@ -1824,7 +1784,7 @@
 	  boolean tuningStep = true;
 
 };</pre>
-      <section id="dictionary-tvsourcesupportedconstraints-members">
+      <section>
         <h2>
           Dictionary <a>TVSourceSupportedConstraints</a> Members
         </h2>
@@ -1835,7 +1795,7 @@
             "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
           </dt>
           <dd>
-            See <a href="def-constraint-deliverySystem">deliverySystem</a> for details.
+            See <a href="#def-constraint-deliverySystem">deliverySystem</a> for details.
           </dd>
           <dt>
             <dfn><code>height</code></dfn> of type <span class=
@@ -1875,7 +1835,7 @@
 	long     height;
     long     tuningStep;
 };</pre>
-      <section id="dictionary-tvsourcecapabilities-members">
+      <section>
         <h2>
           Dictionary <a>TVSourceCapabilities</a> Members
         </h2>
@@ -1883,7 +1843,7 @@
         "TVSourceCapabilities">
           <dt>
             <dfn><code>deliverySystem</code></dfn> of type <span class=
-            "idlAttrType"><a>sequence &lt;TVSourceType&gt;</a></span>
+            "idlAttrType">sequence &lt;<a>TVSourceType</a>&gt;</span>
           </dt>
           <dd>
             See <a href="def-constraint-deliverySystem">deliverySystem</a> for details. If the device supports multiple delivery systems then the capabilities will consist of a sequence of entries. The order of entries in the sequence is implementation-dependent.
@@ -1926,7 +1886,7 @@
 	  ConstrainLong tuningStep;
 
 };</pre>
-      <section id="dictionary-tvsourceconstraints-members">
+      <section>
         <h2>
           Dictionary <a>TVSourceConstraints</a> Members
         </h2>
@@ -1981,7 +1941,7 @@
 	  ConstrainLong tuningStep;
 
 };</pre>
-      <section id="dictionary-tvsourcesettings-members">
+      <section>
         <h2>
           Dictionary <a>TVSourceSettings</a> Members
         </h2>
@@ -2002,8 +1962,7 @@
             See <a href="#def-constraint-height">height</a> for details.
           </dd>
           <dt>
-            <dfn><code>channel</code></dfn> of type <span class=
-            "idlAttrType"><a>TVChannel</a></span>
+            <dfn><code>channel</code></dfn> of type <a>TVChannel</a>
           </dt>
           <dd>
             See <a href="#def-constraint-channel">channel</a> for details.
@@ -2017,9 +1976,9 @@
           </dd>
         </dl>
       </section>
-	      </section>
-	  <section id="constrainable-properties" typeof="bibo:Chapter" resource="#constrainable-properties" property="bibo:hasPart">
-        <h3 id="h-constrainable-properties" resource="#h-constrainable-properties">Constrainable Properties</h3>
+    </section>
+	  <section>
+        <h3>Constrainable Properties</h3>
         <p>The names of the initial set of constrainable properties for
         TVSource are defined below.</p>
 
@@ -2034,12 +1993,12 @@
           <tbody>
             <tr id="def-constraint-deliverySystem">
               <td><dfn data-dfn-type="dfn" id="dfn-deliverySystem">deliverySystem</dfn></td>
-              <td><code><a href="#idl-def-TVSourceType" class="idlType"><code>sequence &lt;TVSourceType&gt;</code></a></code></td>
+              <td><code>sequence &lt;<a>TVSourceType</a>&gt;</code></td>
               <td>The delivery system or systems that must be supported.</td>
             </tr>
             <tr id="def-constraint-height">
               <td><dfn data-dfn-type="dfn" id="dfn-height">height</dfn></td>
-              <td><code><a href="#idl-def-ConstrainLong" class="idlType"><code>ConstrainLong</code></a></code></td>
+              <td><a>ConstrainLong</a></code></td>
               <td>The height or height range, in pixels. As a capability, the
               range should span the video source's pre-set height values with
               min being the smallest height and max being the largest
@@ -2047,13 +2006,15 @@
             </tr>
             <tr id="def-constraint-channel">
               <td><dfn data-dfn-type="dfn" id="dfn-channel">channel</dfn></td>
-              <td><code><a href="#idl-def-TVChannel" class="idlType"><code>TVChannel</code></a></code></td>
+              <td><a>TVChannel</a></td>
               <td>A channel that must be able to be received and decoded by the source.</td>
             </tr>
           </tbody>
         </table>
+        <p>The delivery system may be one of the following values of
+        <dfn>TVSourceType</dfn>:</p>
               <div>
-        <pre class="idl">enum <dfn>TVSourceType</dfn> {
+        <pre class="idl">enum TVSourceType {
     "dvb-t",
     "dvb-t2",
     "dvb-c",
@@ -2088,7 +2049,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-t">dvb-t</code></dfn>
+                <dfn>dvb-t</dfn>
               </td>
               <td>
                 The source works for DVB-T (terrestrial).
@@ -2096,7 +2057,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-t2">dvb-t2</code></dfn>
+                <dfn>dvb-t2</dfn>
               </td>
               <td>
                 The source works for DVB-T2 (terrestrial).
@@ -2104,7 +2065,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-c">dvb-c</code></dfn>
+                <dfn>dvb-c</dfn>
               </td>
               <td>
                 The source works for DVB-C (cable).
@@ -2112,7 +2073,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-c2">dvb-c2</code></dfn>
+                <dfn>dvb-c2</dfn>
               </td>
               <td>
                 The source works for DVB-C2 (cable).
@@ -2120,7 +2081,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-s">dvb-s</code></dfn>
+                <dfn>dvb-s</dfn>
               </td>
               <td>
                 The source works for DVB-S (satellite).
@@ -2128,7 +2089,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-s2">dvb-s2</code></dfn>
+                <dfn>dvb-s2</dfn>
               </td>
               <td>
                 The source works for DVB-S2 (satellite).
@@ -2136,7 +2097,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-h">dvb-h</code></dfn>
+                <dfn>dvb-h</dfn>
               </td>
               <td>
                 The source works for DVB-H (handheld).
@@ -2144,7 +2105,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.dvb-sh">dvb-sh</code></dfn>
+                <dfn>dvb-sh</dfn>
               </td>
               <td>
                 The source works for DVB-SH (satellite).
@@ -2152,7 +2113,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.atsc">atsc</code></dfn>
+                <dfn>atsc</dfn>
               </td>
               <td>
                 The source works for ATSC (terrestrial/cable).
@@ -2160,8 +2121,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVSourceType.atsc-m-h">atsc-m/h</code></dfn>
+                <dfn>atsc-m/h</dfn>
               </td>
               <td>
                 The source works for ATSC-M/H (mobile/handheld).
@@ -2169,7 +2129,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.isdb-t">isdb-t</code></dfn>
+                <dfn>isdb-t</dfn>
               </td>
               <td>
                 The source works for ISDB-T (terrestrial).
@@ -2177,8 +2137,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVSourceType.isdb-tb">isdb-tb</code></dfn>
+                <dfn>isdb-tb</dfn>
               </td>
               <td>
                 The source works for ISDB-Tb (terrestrial, Brazil).
@@ -2186,7 +2145,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.isdb-s">isdb-s</code></dfn>
+                <dfn>isdb-s</dfn>
               </td>
               <td>
                 The source works for ISDB-S (satellite).
@@ -2194,7 +2153,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.isdb-c">isdb-c</code></dfn>
+                <dfn>isdb-c</dfn>
               </td>
               <td>
                 The source works for ISDB-C (cable).
@@ -2202,7 +2161,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.x1seg">1seg</code></dfn>
+                <dfn>1seg</dfn>
               </td>
               <td>
                 The source works for 1seg (handheld).
@@ -2210,7 +2169,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.dtmb">dtmb</code></dfn>
+                <dfn>dtmb</dfn>
               </td>
               <td>
                 The source works for DTMB (terrestrial).
@@ -2218,7 +2177,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.cmmb">cmmb</code></dfn>
+                <dfn>cmmb</dfn>
               </td>
               <td>
                 The source works for CMMB (handheld).
@@ -2226,7 +2185,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.t-dmb">t-dmb</code></dfn>
+                <dfn>t-dmb</dfn>
               </td>
               <td>
                 The source works for T-DMB (terrestrial).
@@ -2234,7 +2193,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.s-dmb">s-dmb</code></dfn>
+                <dfn>s-dmb</dfn>
               </td>
               <td>
                 The source works for S-DMB (satellite).
@@ -2242,7 +2201,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.dab">dab</code></dfn>
+                <dfn>dab</dfn>
               </td>
               <td>
                 The source works for DAB (terrestrial).
@@ -2250,7 +2209,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.drm">drm</code></dfn>
+                <dfn>drm</dfn>
               </td>
               <td>
                 The source works for DRM (terrestrial).
@@ -2258,7 +2217,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.fm">fm</code></dfn>
+                <dfn>fm</dfn>
               </td>
               <td>
                 The source works for FM (terrestrial).
@@ -2266,7 +2225,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVSourceType.AM">AM</code></dfn>
+                <dfn>AM</dfn>
               </td>
               <td>
                 The source works for AM (terrestrial).
@@ -2276,7 +2235,7 @@
         </table>
       </div>
         <p>The following constrainable properties are defined to apply only to
-        radio <code><a href="#idl-def-TVSource" class="idlType"><code>TVSource</code></a></code> objects:</p>
+        radio <a>TVSource</a> objects:</p>
         <table class="simple">
           <thead>
             <tr>
@@ -2288,7 +2247,7 @@
           <tbody>
             <tr id="def-constraint-tuningStep">
               <td><dfn data-dfn-type="dfn" id="dfn-tuningstep">tuningStep</dfn></td>
-              <td><code><a href="#idl-def-ConstrainLong" class="idlType"><code>ConstrainLong</code></a></code></td>
+              <td><a>ConstrainLong</a></td>
               <td>The exact tuning step size (in KHz) supported by the tuner.
               </td>
             </tr>
@@ -2407,7 +2366,7 @@
             "idlAttrType"><a>EventHandler</a></span>
           </dt>
           <dd>
-            Handles the <code>parentallockchange</code> event, fired when the
+            Handles the <a>parentallockchange</a> event, fired when the
             parental lock status of the TV/Radio channel is changed.
           </dd>
         </dl>
@@ -2451,7 +2410,7 @@
                     options
                   </td>
                   <td class="prmType">
-                    <code>TVGetProgramsOptions</code>
+                    <a>TVGetProgramsOptions</a>
                   </td>
                   <td class="prmNullFalse">
                     <span role="img" aria-label="False">✘</span>
@@ -2469,7 +2428,7 @@
             </table>
             <div>
               <em>Return type:</em>
-              <code>Promise&lt;sequence&lt;TVProgram&gt;&gt;</code>
+              <code><a>Promise</a>&lt;sequence&lt;<a>TVProgram</a>&gt;&gt;</code>
             </div>
           </dd>
           <dt>
@@ -2485,7 +2444,7 @@
               <em>No parameters.</em>
             </div>
             <div>
-              <em>Return type:</em> <code>Promise&lt;TVProgram&gt;</code>
+              <em>Return type:</em> <code><a>Promise</a>&lt;<a>TVProgram</a>&gt;</code>
             </div>
           </dd>
           <dt>
@@ -2502,7 +2461,7 @@
             </div>
             <div>
               <em>Return type:</em>
-              <code>Promise&lt;sequence&lt;TVApplication&gt;&gt;</code>
+              <code><a>Promise</a>&lt;sequence&lt;<a>TVApplication</a>&gt;&gt;</code>
             </div>
           </dd>
           <dt>
@@ -2510,7 +2469,7 @@
           </dt>
           <dd>
             This method makes a request to set the parental lock status for the
-            channel. It returns a new <code>Promise</code> that will be used to
+            channel. It returns a new <a>Promise</a> that will be used to
             notify the caller about the result of the operation.
             <table class="parameters">
               <tbody>
@@ -2568,23 +2527,23 @@
               </tbody>
             </table>
             <div>
-              <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+              <em>Return type:</em> <code><a>Promise</a>&lt;void&gt;</code>
             </div>
           </dd>
         </dl>
       </section>
-      <section>
+      <section data-link-for="TVChannel">
         <h3>
           Procedures
         </h3>
         <p>
-          The <dfn><code>getPrograms</code></dfn> method when invoked MUST run
+          The <a>getPrograms</a> method when invoked MUST run
           the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
@@ -2592,62 +2551,58 @@
           programs that are available in the channel according to the
           retrieving options specified in the <code>options</code> parameter.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
               <li>Let <var>programs</var> be the array of the retrieved
               <a>TVProgram</a> elements.
               </li>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> with
-              <em>programs</em> as the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> with
+              <var>programs</var> as the <code>value</code> argument.
               </li>
             </ol>
           </li>
         </ol>
         <p>
-          The <dfn><code>getCurrentProgram</code></dfn> method when invoked
+          The <a>getCurrentProgram</a> method when invoked
           MUST run the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
           <li>Make a request to the channel to retrieve the current TV/Radio
           program available in the channel.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
               <li>Let <var>program</var> be the retrieved <a>TVProgram</a>
               element.
               </li>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> with
-              <em>program</em> as the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> with
+              <var>program</var> as the <code>value</code> argument.
               </li>
             </ol>
           </li>
         </ol>
         <p>
-          The <dfn><code>setParentalLock</code></dfn> method when invoked MUST
+          The <a>setParentalLock</a> method when invoked MUST
           run the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
@@ -2655,15 +2610,13 @@
           channel according to the <code>isLocked</code> parameter.
           </li>
           <li>If the <code>pin</code> parameter does not match the current PIN
-          or an <var>error</var> occurs invoke <em>resolver</em>'s <a class=
-          "internalDFN" href="#dfn-reject-algorithm">reject algorithm</a> with
-          <em>error</em> as the <code>value</code> argument.
+          or an <var>error</var> occurs invoke <var>resolver</var>'s <a>reject
+          algorithm</a> with <var>error</var> as the <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> without assigning
-              a value to the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> without
+              assigning a value to the <code>value</code> argument.
               </li>
             </ol>
           </li>
@@ -2674,10 +2627,9 @@
           Event handlers
         </h2>
         <p>
-          The following are the <a class="internalDFN" href=
-          "#dfn-eventhandler">event handlers</a> (and their corresponding
-          <a class="internalDFN" href="#dfn-eventtypes">event types</a>) that
-          MUST be supported as attributes by the <a>TVChannel</a> object.
+          The following are the <a>event handlers</a> (and their corresponding
+          <a>event types</a>) that MUST be supported as attributes by the
+          <a>TVChannel</a> object.
         </p>
         <table class="simple">
           <thead>
@@ -3099,8 +3051,8 @@
         <code><a>TextTrack</a></code> associated with the
         <code><a>HTMLMediaElement</a></code>. Besides, the
         <code><a>TextTrack</a></code> can rely on its <code><a href=
-        "http://www.w3.org/TR/html5/embedded-content-0.html#handler-texttrack-oncuechange">
-        oncuechange</a></code> event to realize a TV/Radio trigger becomes
+        "https://www.w3.org/TR/html51/semantics-embedded-content.html#dom-texttrack-oncuechange">
+        cuechange</a></code> event to realize a TV/Radio trigger becomes
         active or dismissed.
       </p>
       <pre class="idl">interface TVTriggerCue : TextTrackCue {
@@ -3306,7 +3258,7 @@
             <code><a>MediaStream</a></code> and can be played by the
             <code><a>video</a></code> element by assigning the
             <a>TVMediaStream</a> to the <code><a>HTMLMediaElement</a></code>'s
-            <code>srcObject</code> attribute. MUST return <em>null</em> if the
+            <code>srcObject</code> attribute. MUST return <code>null</code> if the
             TV/Radio recording hasn't actually recorded anything. Note that the
             <code><a>Promise</a></code> may be rejected with an
             <code>InvalidAccessError</code> if parental control is enabled and
@@ -3315,7 +3267,7 @@
               <em>No parameters.</em>
             </div>
             <div>
-              <em>Return type:</em> <code>Promise&lt;TVMediaStream&gt;</code>
+              <em>Return type:</em> <code><a>Promise</a>&lt;<a>TVMediaStream</a>&gt;</code>
             </div>
           </dd>
           <dt>
@@ -3327,69 +3279,65 @@
               <em>No parameters.</em>
             </div>
             <div>
-              <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+              <em>Return type:</em> <code><a>Promise</a>&lt;void&gt;</code>
             </div>
           </dd>
         </dl>
       </section>
-      <section>
+      <section data-link-for="TVRecording">
         <h3>
           Procedures
         </h3>
         <p>
-          The <dfn><code>getStream</code></dfn> method when invoked MUST run
+          The <a>getStream</a> method when invoked MUST run
           the following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
           <li>Make a request to the source to retrieve the recorded content
           that is available in the TV/Radio recording.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
               <li>Let <var>stream</var> be the retrieved <a>TVMediaStream</a>
               object.
               </li>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> with
-              <em>stream</em> as the <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> with
+              <var>stream</var> as the <code>value</code> argument.
               </li>
             </ol>
           </li>
         </ol>
         <p>
-          The <dfn><code>stop</code></dfn> method when invoked MUST run the
+          The <a>stop</a> method when invoked MUST run the
           following steps:
         </p>
         <ol>
           <li>Let <var>promise</var> be a new <code><a>Promise</a></code>
           object and <var>resolver</var> be its associated
-          <code>resolver</code>.
+          <a>resolver</a>.
           </li>
           <li>Return <var>promise</var> to the caller.
           </li>
           <li>Make a request to the TV/Radio recording to stop it.
           </li>
-          <li>If an <var>error</var> occurs invoke <em>resolver</em>'s
-            <a class="internalDFN" href="#dfn-reject-algorithm">reject
-            algorithm</a> with <em>error</em> as the <code>value</code>
-            argument.
+          <li>If an <var>error</var> occurs invoke <var>resolver</var>'s
+            <a>reject algorithm</a> with <var>error</var> as the
+            <code>value</code> argument.
           </li>
           <li>When the request has been successfully completed:
             <ol>
-              <li>Invoke <em>resolver</em>'s <a class="internalDFN" href=
-              "#dfn-fulfill-algorithm">fulfill algorithm</a> without assigning
-              a value to <code>value</code> argument.
+              <li>Invoke <var>resolver</var>'s <a>fulfill algorithm</a> without
+              assigning a value to <code>value</code> argument.
               </li>
             </ol>
           </li>
@@ -3400,10 +3348,9 @@
           Event handlers
         </h3>
         <p>
-          The following are the <a class="internalDFN" href=
-          "#dfn-eventhandler">event handlers</a> (and their corresponding
-          <a class="internalDFN" href="#dfn-eventtypes">event types</a>) that
-          MUST be supported as attributes by the <a>TVRecording</a> object.
+          The following are the <a>event handlers</a> (and their corresponding
+          <a>event types</a>) that MUST be supported as attributes by the
+          <a>TVRecording</a> object.
         </p>
         <table class="simple">
           <thead>
@@ -3450,7 +3397,7 @@
         The <a>TVMediaStream</a> interface is an extended
         <code><a>MediaStream</a></code> with a buffering mechanism to support
         basic seekability. It can be played by the <code><a>video</a></code>
-        or<code><a>audio</a></code> element by assigning the
+        or <code><a>audio</a></code> element by assigning the
         <a>TVMediaStream</a> to the <code><a>HTMLMediaElement</a></code>'s
         <code>srcObject</code> attribute.
       </p>
@@ -3480,7 +3427,7 @@
               <em>No parameters.</em>
             </div>
             <div>
-              <em>Return type:</em> <code>sequence&lt;TextTrack&gt;</code>
+              <em>Return type:</em> <code>sequence&lt;<a>TextTrack</a>&gt;</code>
             </div>
           </dd>
           <dt>
@@ -3511,7 +3458,7 @@
                     textTrack
                   </td>
                   <td class="prmType">
-                    <code>TextTrack</code>
+                    <a>TextTrack</a>
                   </td>
                   <td class="prmNullFalse">
                     <span role="img" aria-label="False">✘</span>
@@ -3520,7 +3467,7 @@
                     <span role="img" aria-label="False">✘</span>
                   </td>
                   <td class="prmDesc">
-                    The TextTrack object to be added.
+                    The <a>TextTrack</a> object to be added.
                   </td>
                 </tr>
               </tbody>
@@ -3557,7 +3504,7 @@
                     textTrack
                   </td>
                   <td class="prmType">
-                    <code>TextTrack</code>
+                    <a>TextTrack</a>
                   </td>
                   <td class="prmNullFalse">
                     <span role="img" aria-label="False">✘</span>
@@ -3566,7 +3513,7 @@
                     <span role="img" aria-label="False">✘</span>
                   </td>
                   <td class="prmDesc">
-                    The TextTrack object to be removed.
+                    The <a>TextTrack</a> object to be removed.
                   </td>
                 </tr>
               </tbody>
@@ -3612,7 +3559,7 @@
             <tr>
               <td>
                 <a class="externalDFN" href=
-                "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-currentsrc">
+                "https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-currentsrc">
                 <code>currentSrc</code></a>
               </td>
               <td>
@@ -3630,7 +3577,7 @@
             <tr>
               <td>
                 <a class="externalDFN" href=
-                "http://www.w3.org/TR/html5/embedded-content-0.html#attr-media-preload">
+                "https://www.w3.org/TR/html5/embedded-content-0.html#attr-media-preload">
                 <code>preload</code></a>
               </td>
               <td>
@@ -3647,7 +3594,7 @@
             <tr>
               <td>
                 <a class="externalDFN" href=
-                "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-buffered">
+                "https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-buffered">
                 <code>buffered</code></a>
               </td>
               <td>
@@ -3664,7 +3611,7 @@
             <tr>
               <td>
                 <a class="externalDFN" href=
-                "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-networkstate">
+                "https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-networkstate">
                 <code>networkState</code></a>
               </td>
               <td>
@@ -3682,7 +3629,7 @@
             <tr>
               <td>
                 <a class="externalDFN" href=
-                "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-readystate">
+                "https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-readystate">
                 <code>readyState</code></a>
               </td>
               <td>
@@ -3703,7 +3650,7 @@
             <tr>
               <td>
                 <a class="externalDFN" href=
-                "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-currenttime">
+                "https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-currenttime">
                 <code>currentTime</code></a>
               </td>
               <td>
@@ -3720,7 +3667,7 @@
             <tr>
               <td>
                 <a class="externalDFN" href=
-                "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-duration">
+                "https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-duration">
                 <code>duration</code></a>
               </td>
               <td>
@@ -3737,7 +3684,7 @@
             <tr>
               <td>
                 <a class="externalDFN" href=
-                "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-seeking">
+                "https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-seeking">
                 <code>seeking</code></a>
               </td>
               <td>
@@ -3754,7 +3701,7 @@
             <tr>
               <td>
                 <a class="externalDFN" href=
-                "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-defaultplaybackrate">
+                "https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-defaultplaybackrate">
                 <code>defaultPlaybackRate</code></a>
               </td>
               <td>
@@ -3771,7 +3718,7 @@
             <tr>
               <td>
                 <a class="externalDFN" href=
-                "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-playbackrate">
+                "https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-playbackrate">
                 <code>playbackRate</code></a>
               </td>
               <td>
@@ -3788,7 +3735,7 @@
             <tr>
               <td>
                 <a class="externalDFN" href=
-                "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-played">
+                "https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-played">
                 <code>played</code></a>
               </td>
               <td>
@@ -3805,7 +3752,7 @@
             <tr>
               <td>
                 <a class="externalDFN" href=
-                "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-seekable">
+                "https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-seekable">
                 <code>seekable</code></a>
               </td>
               <td>
@@ -3822,7 +3769,7 @@
             <tr>
               <td>
                 <a class="externalDFN" href=
-                "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-loop">
+                "https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-loop">
                 <code>loop</code></a>
               </td>
               <td>
@@ -4161,7 +4108,7 @@
           </dt>
           <dd>
             MUST return the source that is currently configured by the TV/Radio
-            tuner. MUST return <em>null</em> if the TV/Radio source is not
+            tuner. MUST return <code>null</code> if the TV/Radio source is not
             configured.
           </dd>
         </dl>
@@ -4193,7 +4140,7 @@
           <dd>
             MUST return the available TV programs in the EIT that is
             broadcast by the TV source. Please note that it needs to be
-            casted into a list of <code>TVProgram</code> instances. The cached
+            casted into a list of <a>TVProgram</a> instances. The cached
             value for this array needs to go into an internal slot for the
             object, and it should be cached there until the next time that the
             underlying array changes when the cached value will be updated.
@@ -4241,7 +4188,7 @@
           <dd>
             MUST return the severity level of the emergency alert. Please note
             that the classification of severity level might vary between
-            different broadcasting standards. MUST return <em>null</em> when
+            different broadcasting standards. MUST return <code>null</code> when
             the emergency announcement is over.
           </dd>
           <dt>
@@ -4326,7 +4273,7 @@
           </dt>
           <dd>
             MUST return the TV/Radio channel that is scanned by the TV/Radio
-            source. MUST return <em>null</em> if the <code>state</code> is not
+            source. MUST return <code>null</code> if the <code>state</code> is not
             <code>"scanned"</code>.
           </dd>
         </dl>
@@ -4340,7 +4287,8 @@
       <p>
         The <a>TVCurrentChannelChangeEvent</a> interface represents the event
         related to the currently streamed TV/Radio channel that is tuned by the
-        method <code>tuneTo</code> or <code>tuneToChannel</code>.
+        method <a data-link-for="TVSource">tuneTo</a> or
+        <a data-link-for="TVSource">tuneToChannel</a>.
       </p>
       <pre class="idl">interface TVCurrentChannelChangeEvent : Event {
     readonly        attribute TVChannel? channel;
@@ -4357,7 +4305,7 @@
           </dt>
           <dd>
             MUST return the TV/Radio channel that is currently streamed by the
-            TV/Radio tuner. MUST return <em>null</em> if the TV/Radio tuner is
+            TV/Radio tuner. MUST return <code>null</code> if the TV/Radio tuner is
             not streaming any data.
           </dd>
         </dl>
@@ -4461,8 +4409,8 @@
         Enumerations
       </h2>
       <p>
-	      The attribute <code>type</code> in a <a>TVChannel</a> is of type 
-	      <dfn>TVChannelType</dfn>, which can have the following values:
+	      The attribute <a data-link-for="TVChannel">type</a> in a <a>TVChannel</a>
+        can have one of the following values of <dfn>TVChannelType</dfn>:
       </p>
       <div>
         <pre class="idl">enum TVChannelType {
@@ -4480,7 +4428,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVChannelType.tv">tv</code></dfn>
+                <dfn>tv</dfn>
               </td>
               <td>
                 The channel is broadcast as a regular TV type.
@@ -4488,7 +4436,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVChannelType.radio">radio</code></dfn>
+                <dfn>radio</dfn>
               </td>
               <td>
                 The channel is broadcast as a radio type.
@@ -4496,7 +4444,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVChannelType.data">data</code></dfn>
+                <dfn>data</dfn>
               </td>
               <td>
                 The channel is broadcast as a data type.
@@ -4506,8 +4454,8 @@
         </table>
       </div>
       <p>
-        The attribute <code>type</code> in a <a>TVApplication</a> is of type 
-	<dfn>TVApplicationType</dfn>, which can have the following values:
+        The attribute <a data-link-for="TVApplication">type</a> in a <a>TVApplication</a>
+        can have one of the following values of <dfn>TVApplicationType</dfn>:
       </p>
       <div>
         <pre class="idl">enum TVApplicationType {
@@ -4527,8 +4475,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVApplicationType.hbbtv">hbbtv</code></dfn>
+                <dfn>hbbtv</dfn>
               </td>
               <td>
                 The application is a tv hbbtv application
@@ -4536,8 +4483,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVApplicationType.mheg">mheg</code></dfn>
+                <dfn>mheg</dfn>
               </td>
               <td>
                 The application is a tv mheg application
@@ -4545,7 +4491,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVApplicationType.sls">sls</code></dfn>
+                <dfn>sls</dfn>
               </td>
               <td>
                 The application radio slideshow application
@@ -4553,7 +4499,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVApplicationType.dl">dl</code></dfn>
+                <dfn>dl</dfn>
               </td>
               <td>
                 The application radio dynamic label application
@@ -4561,7 +4507,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVApplicationType.jl">jl</code></dfn>
+                <dfn>jl</dfn>
               </td>
               <td>
                 The application radio journaline application
@@ -4571,11 +4517,11 @@
         </table>
       </div>
       <p>
-        The attribute <code>operation</code> in the <a>TVTunerChangeEvent</a>
-        can have the following values:
+        The attribute <a data-link-for="TVTunerChangeEvent">operation</a> in the <a>TVTunerChangeEvent</a>
+        which can have one of the following values of <dfn>TVTunerChangeEventOperation</dfn>:
       </p>
       <div>
-        <pre class="idl">enum <dfn>TVTunerChangeEventOperation</dfn> {
+        <pre class="idl">enum TVTunerChangeEventOperation {
     "added",
     "removed"
 };</pre>
@@ -4589,8 +4535,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVTunerChangeEventOperation.added">added</code></dfn>
+                <dfn>added</dfn>
               </td>
               <td>
                 A tuner is added.
@@ -4598,8 +4543,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVTunerChangeEventOperation.removed">removed</code></dfn>
+                <dfn>removed</dfn>
               </td>
               <td>
                 A tuner is removed.
@@ -4609,11 +4553,12 @@
         </table>
       </div>
       <p>
-        The attribute <code>state</code> in the
-        <a>TVScanningStateChangeEvent</a> can have the following values:
+        The attribute <a data-link-for="TVScanningStateChangeEvent">state</a> in the
+        <a>TVScanningStateChangeEvent</a> can have one the following values of
+        <dfn>TVScanningState</dfn>:
       </p>
       <div>
-        <pre class="idl">enum <dfn>TVScanningState</dfn> {
+        <pre class="idl">enum TVScanningState {
     "cleared",
     "scanned",
     "completed",
@@ -4639,20 +4584,18 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVScanningState.scanned">scanned</code></dfn>
+                <dfn>scanned</dfn>
               </td>
               <td>
                 A TV/Radio channel has been found by the source during the
-                channel scan. The <code>channel</code> attribute in the
-                <code>TVScanningStateChangeEvent</code> object references the
+                channel scan. The <a>channel</a> attribute in the
+                <a>TVScanningStateChangeEvent</a> object references the
                 channel found.
               </td>
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVScanningState.completed">completed</code></dfn>
+                <dfn>completed</dfn>
               </td>
               <td>
                 The channel scan has completed.
@@ -4660,8 +4603,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVScanningState.stopped">stopped</code></dfn>
+                <dfn>stopped</dfn>
               </td>
               <td>
                 The channel scan has been stopped.
@@ -4671,11 +4613,11 @@
         </table>
       </div>
       <p>
-        The attribute <code>type</code> in the <a>TVTriggerCue</a> can have the
-        following values:
+        The attribute <a data-link-for="TVTriggerCue">type</a> in <a>TVTriggerCue</a>
+        can have one of the following values of <dfn>TVTriggerType</dfn>:
       </p>
       <div>
-        <pre class="idl">enum <dfn>TVTriggerType</dfn> {
+        <pre class="idl">enum TVTriggerType {
     "channel-change",
     "time",
     "content-boundary",
@@ -4695,8 +4637,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVTriggerType.channel-change">channel-change</code></dfn>
+                <dfn>channel-change</dfn>
               </td>
               <td>
                 Triggers when channel is switched.
@@ -4704,7 +4645,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id="idl-def-TVTriggerType.time">time</code></dfn>
+                <dfn>time</dfn>
               </td>
               <td>
                 Triggers based on date and time.
@@ -4712,8 +4653,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVTriggerType.content-boundary">content-boundary</code></dfn>
+                <dfn>content-boundary</dfn>
               </td>
               <td>
                 Triggers based on content boundary.
@@ -4721,8 +4661,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVTriggerType.fingerprint">fingerprint</code></dfn>
+                <dfn>fingerprint</dfn>
               </td>
               <td>
                 Triggers based on content fingerprints.
@@ -4730,8 +4669,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVTriggerType.watermark">watermark</code></dfn>
+                <dfn>watermark</dfn>
               </td>
               <td>
                 Triggers based on content watermarks.
@@ -4739,8 +4677,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVTriggerType.context">context</code></dfn>
+                <dfn>context</dfn>
               </td>
               <td>
                 Triggers based on contextual information in content.
@@ -4748,8 +4685,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVTriggerType.segment">segment</code></dfn>
+                <dfn>segment</dfn>
               </td>
               <td>
                 Triggers based on program chapters or other segments within the
@@ -4758,8 +4694,7 @@
             </tr>
             <tr>
               <td>
-                <dfn><code id=
-                "idl-def-TVTriggerType.caption">caption</code></dfn>
+                <dfn>caption</dfn>
               </td>
               <td>
                 Triggers based on subtitle captions.
@@ -4770,11 +4705,11 @@
       </div>
     </section>
     <p>
-      The attribute <code>state</code> in <a>TVRecording</a> can have the
-      following values:
+      The attribute <a data-link-for="TVRecording">state</a> in <a>TVRecording</a>
+      if of type <dfn>TVRecordingState</dfn>, which can have the following values:
     </p>
     <div>
-      <pre class="idl">enum <dfn>TVRecordingState</dfn> {
+      <pre class="idl">enum TVRecordingState {
     "scheduled",
     "recording",
     "stopped"
@@ -4789,8 +4724,7 @@
           </tr>
           <tr>
             <td>
-              <dfn><code id=
-              "idl-def-TVRecordingState.scheduled">scheduled</code></dfn>
+              <dfn>scheduled</dfn>
             </td>
             <td>
               The state of recording is scheduled.
@@ -4798,8 +4732,7 @@
           </tr>
           <tr>
             <td>
-              <dfn><code id=
-              "idl-def-TVRecordingState.recording">recording</code></dfn>
+              <dfn>recording</dfn>
             </td>
             <td>
               The state of recording is currently on.
@@ -4807,23 +4740,22 @@
           </tr>
           <tr>
             <td>
-              <dfn><code id=
-              "idl-def-TVRecordingState.stopped">stopped</code></dfn>
+              <dfn>stopped</dfn>
             </td>
             <td>
-              The state of recording is stopped from <code>scheduled</code> or
-              canceled from <code>recording</code>.
+              The state of recording is stopped from <a>scheduled</a> or
+              canceled from <a>recording</a>.
             </td>
           </tr>
         </tbody>
       </table>
     </div>
     <p>
-      The attribute <code>state</code> in <a>TVCICard</a> can have the
-      following values:
+      The attribute <a data-link-for="TVCICard">state</a> in <a>TVCICard</a>
+      can have one of the following values of <dfn>TVCICardState</dfn>:
     </p>
     <div>
-      <pre class="idl">enum <dfn>TVCICardState</dfn> {
+      <pre class="idl">enum TVCICardState {
     "inserted",
     "accepted",
     "removed",
@@ -4839,8 +4771,7 @@
           </tr>
           <tr>
             <td>
-              <dfn><code id=
-              "idl-def-TVCICardState.inserted">inserted</code></dfn>
+              <dfn>inserted</dfn>
             </td>
             <td>
               The CI card is inserted.
@@ -4848,8 +4779,7 @@
           </tr>
           <tr>
             <td>
-              <dfn><code id=
-              "idl-def-TVCICardState.accepted">accepted</code></dfn>
+              <dfn>accepted</dfn>
             </td>
             <td>
               The CI card is accepted.
@@ -4857,8 +4787,7 @@
           </tr>
           <tr>
             <td>
-              <dfn><code id=
-              "idl-def-TVCICardState.removed">removed</code></dfn>
+              <dfn>removed</dfn>
             </td>
             <td>
               The CI card is removed.
@@ -4866,7 +4795,7 @@
           </tr>
           <tr>
             <td>
-              <dfn><code id="idl-def-TVCICardState.error">error</code></dfn>
+              <dfn>error</dfn>
             </td>
             <td>
               The CI Card has encountered an error.
@@ -4875,19 +4804,14 @@
         </tbody>
       </table>
     </div>
-    <!-- - - - - - - - Privacy and security considerations - - - - - - - - - - - -->
-    <section id="privacy-and-security-considerations">
+    <!-- - - - - - - - Security and Privacy considerations - - - - - - - - - - - -->
+    <section class="informative">
       <h2>
-        Privacy and Security Considerations
+        Security and Privacy Considerations
       </h2>
-      <p>
-        This section is non-normative; it specifies no new behavior, but instead
-		summarizes information already present in other parts of the
-		specification.
-      </p>
       <p class="ednote">
-        This section will be completed in a future draft of the specification.  See 
-		<a href="https://github.com/w3c/tvcontrol-api/issues/8">this issue</a> for
+        This section will be completed in a future draft of the specification. See 
+        <a href="https://github.com/w3c/tvcontrol-api/issues/8">this issue</a> for
         details.
       </p>
     </section>

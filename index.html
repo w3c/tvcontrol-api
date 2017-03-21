@@ -305,11 +305,12 @@
 	  <a>TVSource</a> interfaces.  It is highly likely that one of these 
 	  will be removed in a future draft.</p>
 	  <pre class="idl">interface TVManager : EventTarget {
-    TVSourceCapabilities getCapabilities();
-    Promise&lt;TVSource&gt; getSource(TVSourceConstraints constraints);
-    boolean isSourceAvailable(TVSourceConstraints constraints);
+    TVSourceCapabilities         getCapabilities();
+    TVSourceSupportedConstraints getSupportedConstraints();
+    Promise&lt;TVSource&gt;      getSource(TVSourceConstraints constraints);
+    boolean                      isSourceAvailable(TVSourceConstraints constraints);
 
-	Promise&lt;sequence&lt;TVChannel&gt;&gt; getChannelList(TVSourceConstraints constraints);
+    Promise&lt;sequence&lt;TVChannel&gt;&gt; getChannelList(TVSourceConstraints constraints);
     
     Promise&lt;TVRecording&gt;           addRecording (TVAddRecordingOptions option);
     Promise&lt;void&gt;                  removeRecording (DOMString id);
@@ -409,6 +410,22 @@
             <div>
               <em>Return type:</em>
               <a>TVSourceCapabilities</a>
+            </div>
+          </dd>
+          <dt>
+            <dfn><code>getSupportedConstraints</code></dfn>
+          </dt>
+          <dd>
+            This method makes a request to retrieve the set of constraints supported by the 
+			device. It returns a new <code><a>TVSourceSupportedConstraints</a></code> 
+			object that describes the set of constraints that may be specified when 
+		        requesting a TVSource object.
+            <div>
+              <em>No parameters.</em>
+            </div>
+            <div>
+              <em>Return type:</em>
+              <a>TVSourceSupportedConstraints</a>
             </div>
           </dd>
           <dt>
@@ -1805,28 +1822,32 @@
             "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
           </dt>
           <dd>
-            See <a href="#def-constraint-deliverySystem">deliverySystem</a> for details.
+            Indicates whether the <a href="#def-constraint-deliverySystem">deliverySystem</a> 
+            constraint is supported.
           </dd>
           <dt>
             <dfn><code>height</code></dfn> of type <span class=
             "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
           </dt>
           <dd>
-            See <a href="#def-constraint-height">height</a> for details.
+            Indicates whether the <a href="#def-constraint-height">height</a> constraint is
+            supported.
           </dd>
           <dt>
             <dfn><code>channel</code></dfn> of type <span class=
             "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
           </dt>
           <dd>
-            See <a href="#def-constraint-channel">channel</a> for details.
+            Indicates whether the <a href="#def-constraint-channel">channel</a> constraint is
+            supported.
           </dd>
           <dt>
             <dfn><code>tuningStep</code></dfn> of type <span class=
             "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
           </dt>
           <dd>
-            See <a href="#def-constraint-tuningStep">tuningStep</a> for details.
+            Indicates whether the <a href="#def-constraint-tuningStep">tuningStep</a> 
+            constraint is supported.
           </dd>
 
         </dl>
@@ -1884,8 +1905,7 @@
       <p>
         <a>TVSourceConstraints</a> represents the list of constraints 
 		recognized by a User Agent for controlling the Capabilities of a 
-		<a>TVSource</a> object. This dictionary is used as a function return 
-		value, and never as an operation argument.
+		<a>TVSource</a> object.
 		
 
       </p>

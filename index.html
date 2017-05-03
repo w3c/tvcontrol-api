@@ -13,15 +13,18 @@
       specStatus:          "ED",
       shortName:           "tvcontrol-api", // needed for generated URLs
       editors: [{
+        w3cid: 62014,
         name: "Steven Morris",
         company: "Espial",
         mailto: "smorris@espial.com"
       }, {
+        w3cid: 56362,
         name: "Sung Hei Kim",
         company: "ETRI",
         mailto: "shkim@etri.re.kr",
         note: "until February 2016"
       }, {
+        w3cid: 70370,
         name: "Alexander Futász",
         company: "Fraunhofer Gesellschaft",
         mailto: "alexander.futasz@fokus.fraunhofer.de",
@@ -108,7 +111,9 @@
         title="First Public Working Draft of the TV Control API">15
         September 2016</a>. The <code>TVTuner</code> class has been removed
         in particular, and the API follows a more flexible source-centric
-        design.
+        design based on the capabilities and constraints model from
+        the <a href="http://www.w3.org/TR/mediacapture-streams/">Media Capture
+        and Streams specification</a> [[MediaCapture-Streams]].
       </p>
       <p>
         An important issue for the Working Group to address is which functions
@@ -300,11 +305,12 @@
 	  <a>TVSource</a> interfaces.  It is highly likely that one of these 
 	  will be removed in a future draft.</p>
 	  <pre class="idl">interface TVManager : EventTarget {
-    TVSourceCapabilities getCapabilities();
-    Promise&lt;TVSource&gt; getSource(TVSourceConstraints constraints);
-    boolean isSourceAvailable(TVSourceConstraints constraints);
+    TVSourceCapabilities         getCapabilities();
+    TVSourceSupportedConstraints getSupportedConstraints();
+    Promise&lt;TVSource&gt;      getSource(TVSourceConstraints constraints);
+    boolean                      isSourceAvailable(TVSourceConstraints constraints);
 
-	Promise&lt;sequence&lt;TVChannel&gt;&gt; getChannelList(TVSourceConstraints constraints);
+    Promise&lt;sequence&lt;TVChannel&gt;&gt; getChannelList(TVSourceConstraints constraints);
     
     Promise&lt;TVRecording&gt;           addRecording (TVAddRecordingOptions option);
     Promise&lt;void&gt;                  removeRecording (DOMString id);
@@ -404,6 +410,22 @@
             <div>
               <em>Return type:</em>
               <a>TVSourceCapabilities</a>
+            </div>
+          </dd>
+          <dt>
+            <dfn><code>getSupportedConstraints</code></dfn>
+          </dt>
+          <dd>
+            This method makes a request to retrieve the set of constraints supported by the 
+			device. It returns a new <code><a>TVSourceSupportedConstraints</a></code> 
+			object that describes the set of constraints that may be specified when 
+		        requesting a TVSource object.
+            <div>
+              <em>No parameters.</em>
+            </div>
+            <div>
+              <em>Return type:</em>
+              <a>TVSourceSupportedConstraints</a>
             </div>
           </dd>
           <dt>
@@ -1800,28 +1822,32 @@
             "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
           </dt>
           <dd>
-            See <a href="#def-constraint-deliverySystem">deliverySystem</a> for details.
+            Indicates whether the <a href="#def-constraint-deliverySystem">deliverySystem</a> 
+            constraint is supported.
           </dd>
           <dt>
             <dfn><code>height</code></dfn> of type <span class=
             "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
           </dt>
           <dd>
-            See <a href="#def-constraint-height">height</a> for details.
+            Indicates whether the <a href="#def-constraint-height">height</a> constraint is
+            supported.
           </dd>
           <dt>
             <dfn><code>channel</code></dfn> of type <span class=
             "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
           </dt>
           <dd>
-            See <a href="#def-constraint-channel">channel</a> for details.
+            Indicates whether the <a href="#def-constraint-channel">channel</a> constraint is
+            supported.
           </dd>
           <dt>
             <dfn><code>tuningStep</code></dfn> of type <span class=
             "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
           </dt>
           <dd>
-            See <a href="#def-constraint-tuningStep">tuningStep</a> for details.
+            Indicates whether the <a href="#def-constraint-tuningStep">tuningStep</a> 
+            constraint is supported.
           </dd>
 
         </dl>
@@ -1851,7 +1877,7 @@
             "idlAttrType">sequence &lt;<a>TVSourceType</a>&gt;</span>
           </dt>
           <dd>
-            See <a href="def-constraint-deliverySystem">deliverySystem</a> for details. If the device supports multiple delivery systems then the capabilities will consist of a sequence of entries. The order of entries in the sequence is implementation-dependent.
+            See <a href="#def-constraint-deliverySystem">deliverySystem</a> for details. If the device supports multiple delivery systems then the capabilities will consist of a sequence of entries. The order of entries in the sequence is implementation-dependent.
           </dd>
           <dt>
             <dfn><code>height</code></dfn> of type <span class=
@@ -1879,8 +1905,7 @@
       <p>
         <a>TVSourceConstraints</a> represents the list of constraints 
 		recognized by a User Agent for controlling the Capabilities of a 
-		<a>TVSource</a> object. This dictionary is used as a function return 
-		value, and never as an operation argument.
+		<a>TVSource</a> object.
 		
 
       </p>
@@ -1902,25 +1927,25 @@
             "idlAttrType"><a>sequence &lt;TVSourceType&gt;</a></span>
           </dt>
           <dd>
-            See <a href="def-constraint-deliverySystem">deliverySystem</a> for details.
+            See <a href="#def-constraint-deliverySystem">deliverySystem</a> for details.
           </dd>
           <dt>
             <dfn><code>height</code></dfn> of type <span class=
-            "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
+            "idlAttrType"><a>ConstrainLong</a></span>
           </dt>
           <dd>
             See <a href="#def-constraint-height">height</a> for details.
           </dd>
           <dt>
             <dfn><code>channel</code></dfn> of type <span class=
-            "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
+            "idlAttrType"><a>TVChannel</a></span>
           </dt>
           <dd>
             See <a href="#def-constraint-channel">channel</a> for details.
           </dd>
           <dt>
             <dfn><code>tuningStep</code></dfn> of type <span class=
-            "idlAttrType"><a>boolean</a></span>  defaulting to <code>true</code>
+            "idlAttrType"><a>ConstrainLong</a></span>
           </dt>
           <dd>
             See <a href="#def-constraint-tuningStep">tuningStep</a> for details.
@@ -1957,7 +1982,7 @@
             "idlAttrType"><a>sequence &lt;TVSourceType&gt;</a></span>
           </dt>
           <dd>
-            See <a href="def-constraint-deliverySystem">deliverySystem</a> for details.
+            See <a href="#def-constraint-deliverySystem">deliverySystem</a> for details.
           </dd>
           <dt>
             <dfn><code>height</code></dfn> of type <span class=
